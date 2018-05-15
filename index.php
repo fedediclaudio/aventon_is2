@@ -68,6 +68,7 @@
 					<div class="modal-body" style="background-color:#FAFAFA">
 						<div class="container-fluid">
 							<form action="crearviaje.php" method="post">
+								
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 											<span class="input-group-text">Origen</span>
