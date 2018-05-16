@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap 4 Example</title>
+  <title>AventonBeta</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+	<script>
+		function cargardatos(){
+			//document.getElementById("viajes").innerHTML = "Hello JavaScript"
+			$("#loader").html("<img src='loader2.gif'/>");
+			$.get("cargarviajes.php?pagina=" + pagina,
+			function(data){
+				if (data != "") {
+					$("#viajes:last").after(data); 
+				}
+				//$('#loader').empty();
+			});
+		}
+		var pagina=0;
+		$(document).ready(function() {
+				cargardatos();	
+		});
+		$(window).scroll(function(){
+ 			if ($(window).scrollTop() == $(document).height() - $(window).height()){
+				pagina++;
+				cargardatos()
+			}					
+		});
+	</script>
 	<style> 
 			span.input-group-text {
 					background-color:#e0f7fa;	
@@ -40,7 +64,11 @@
 		</nav>
 		
 		<!-- Cartas de viajes -->
-		<div class="row" style="margin:auto">
+		<div id="viajes" class="row" style="margin:auto">
+			
+			
+			
+			<!--
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearViajeModal" style="widht:25%; color:black; border-color:#FAFAFA; background-color:#FAFAFA">
 								<div class="card " style="width: 18rem; margin:10px;">
 									<div class="card-header">
@@ -53,8 +81,9 @@
 									</ul>
 								</div>
 					</button>
+		-->
 		</div>
-
+	
 		<!-- Modal crear viaje -->
 		<div class="modal fade" id="crearViajeModal" tabindex="-1" role="dialog" aria-labelledby="crarViajeModal" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">

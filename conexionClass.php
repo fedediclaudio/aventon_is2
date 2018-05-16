@@ -29,6 +29,17 @@ class conexion {
 			else { echo "no";}
 		}
 	}
+	
+	function ultimosViajes($pagina) {
+	$conn = $this->establecerConexion();
+	if($conn) {
+		$result = $conn->query("SELECT MAX(idviaje) FROM viaje");
+		$row = mysqli_fetch_assoc($result);
+		$ultimoCargado = $row["MAX(idviaje)"] - ( 20 * $pagina);
+		$ultimoACargar = $ultimoCargado - 20;
+		$result = $conn->query("SELECT * FROM viaje WHERE (idviaje < " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ")");
+		return $result;
+	}
+	}
 }
-
 ?>
