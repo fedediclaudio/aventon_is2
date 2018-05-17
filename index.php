@@ -16,7 +16,7 @@
 			$.get("cargarviajes.php?pagina=" + pagina,
 			function(data){
 				if (data != "") {
-					$("#viajes:last").before(data); 
+					$("#viajes").append(data); 
 				}
 				//$('#loader').empty();
 			});
@@ -49,39 +49,23 @@
 		<!-- Barra navegacion-->
 		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b2ebf2;">
 			<a class="navbar-brand" href="#"><!--<img src="logo.png"/>-->AVENTON</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
-			</button>
+			</button>-->
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-						<!--<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>-->
-						<!-- Button Crear viaje -->
+						<!--<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+						 Button Crear viaje-->
 				</div>
-			</div>
+			</div> 
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearViajeModal" style="float:right; color:black; border-color:#FAFAFA; background-color:#FAFAFA">
 							CREAR VIAJE
 					</button>
 		</nav>
 		
 		<!-- Cartas de viajes -->
-		<div id="viajes" class="row" style="margin:auto">
-			
-			
-			
-			<!--
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearViajeModal" style="widht:25%; color:black; border-color:#FAFAFA; background-color:#FAFAFA">
-								<div class="card " style="width: 18rem; margin:10px;">
-									<div class="card-header">
-										La Plata - Chivilcoy
-									</div>
-									<ul class="list-group list-group-flush">
-										<li class="list-group-item">24/12/2200</li>
-										<li class="list-group-item">$21000000</li>
-										<li class="list-group-item">Vestibulum at eros</li>
-									</ul>
-								</div>
-					</button>
-		-->
+		<div id="viajes" class="row" style="justify-content:center; aling-items:center; display: flex">
+				<!-- Aca se cargan las cartas-->
 		</div>
 	
 		<!-- Modal crear viaje -->
