@@ -16,8 +16,7 @@
 				echo $row["origen"] . ' - ' .	$row["destino"];
 				echo '</div>';
 				echo '<ul class="list-group list-group-flush">';
-				$fecha = (string)$row["fecha"];
-				echo '<li class="list-group-item"' . $fecha . '</li>';
+				echo '<li class="list-group-item">' . $row["fecha"] . '</li>';
 				echo '<li class="list-group-item">' . $row["precio"] . '</li>';
 				echo '</ul>';
 				echo '</div>';
