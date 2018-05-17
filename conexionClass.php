@@ -37,7 +37,7 @@ class conexion {
 		$row = mysqli_fetch_assoc($result);
 		$ultimoCargado = $row["MAX(idviaje)"] - ( 20 * $pagina);
 		$ultimoACargar = $ultimoCargado - 20;
-		$result = $conn->query("SELECT * FROM viaje WHERE (idviaje <= " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ")");
+		$result = $conn->query("SELECT * FROM viaje WHERE (idviaje <= " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ") ORDER BY idviaje DESC");
 		return $result;
 	}
 	}

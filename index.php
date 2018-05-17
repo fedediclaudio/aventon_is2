@@ -16,7 +16,7 @@
 			$.get("cargarviajes.php?pagina=" + pagina,
 			function(data){
 				if (data != "") {
-					$("#viajes:last").after(data); 
+					$("#viajes:last").before(data); 
 				}
 				//$('#loader').empty();
 			});
