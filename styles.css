@@ -1,0 +1,36 @@
+body{
+	background-color: #FAFAFA
+}
+.navbar{
+	background-color: #b2ebf2
+}
+span.input-group-text {
+	background-color:#e0f7fa;	
+}
+#buttonCrear{
+	float: right;
+	margin-top: 17px;
+}
+div.card-header{
+	background-color:#e3f2fd;
+}
+#boton-crearViaje{
+	float:right;
+	color:black; 
+	border-color:#FAFAFA; 
+	background-color:#FAFAFA
+}
+#viajes{
+	justify-content:center;
+	display: flex
+}
+#botonCartaViaje{
+	margin:auto; 
+	color:black; 
+	border-color:#FAFAFA; 
+	background-color:#FAFAFA
+}
+.card{
+	width:18rem; 
+	margin:10px;
+}

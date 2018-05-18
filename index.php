@@ -33,39 +33,25 @@
 			}					
 		});
 	</script>
-	<style> 
-			span.input-group-text {
-					background-color:#e0f7fa;	
-			}
-			#buttonCrear{
-					float: right;
-					margin-top: 17px;
-			}
-			div.card-header{
-					background-color:#e3f2fd;
-			}
-		</style>
 </head>
 <body>
 		<!-- Barra navegacion-->
-		<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b2ebf2;">
+		<nav class="navbar navbar-expand-lg navbar-light">
 			<a class="navbar-brand" href="#"><!--<img src="logo.png"/>-->AVENTON</a>
 			<!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>-->
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-						<!--<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-						 Button Crear viaje-->
 				</div>
 			</div> 
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearViajeModal" style="float:right; color:black; border-color:#FAFAFA; background-color:#FAFAFA">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje">
 							CREAR VIAJE
 					</button>
 		</nav>
 		
 		<!-- Cartas de viajes -->
-		<div id="viajes" class="row" style="justify-content:center; aling-items:center; display: flex">
+		<div id="viajes" class="row">
 				<!-- Aca se cargan las cartas-->
 		</div>
 	
