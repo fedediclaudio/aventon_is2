@@ -21,16 +21,17 @@ div.card-header{
 	background-color:#FAFAFA
 }
 #viajes{
-	justify-content:center;
+	/*justify-content:center;*/
+	margin-top: 20px;
 	display: flex
 }
 #botonCartaViaje{
+	justify-content:center;
 	margin:auto; 
 	color:black; 
 	border-color:#FAFAFA; 
 	background-color:#FAFAFA
 }
 .card{
-	width:18rem; 
-	margin:10px;
+	width:18rem;
 }
