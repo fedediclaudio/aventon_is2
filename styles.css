@@ -26,7 +26,6 @@ div.card-header{
 	display: flex
 }
 #botonCartaViaje{
-	justify-content:center;
 	margin:auto; 
 	color:black; 
 	border-color:#FAFAFA; 
