@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>AventonBeta</title>
+  <title>Aventon</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -13,20 +13,25 @@
   <script src="scripts.js/cargadeviajes.js"></script>
 </head>
 <body>
-		<!-- Navbar -->
-		<?php
-			include "navbar.html"
-		?>
-		
-		<!-- Cartas de viajes -->
-		<div id="viajes" class="row">
-				<!-- Aca se cargan las cartas-->
-		</div>
-		
+	<!-- Navbar -->
+	<?php
+		include "navbar.html"
+	?>
+	
+	<!-- Cartas de viajes -->
+	<div id="viajes" class="row">
+		<!-- Aca se cargan las cartas-->
+	</div>
 
-		<!-- Modal crear viaje -->
-		<?php
-			include "modalCrearViaje.html"
-		?>
+	<div>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje">
+			CREAR VIAJE
+		</button>
+	</div>
+
+	<!-- Modal crear viaje -->
+	<?php
+		include "modalCrearViaje.html"
+	?>
 </body>
 </html>

@@ -15,10 +15,9 @@ div.card-header{
 	background-color:#e3f2fd;
 }
 #boton-crearViaje{
-	float:right;
-	color:black; 
-	border-color:#FAFAFA; 
-	background-color:#FAFAFA
+	color:black;
+	background-color: #b2ebf2;
+	border-color: #b2ebf2
 }
 #viajes{
 	/*justify-content:center;*/
