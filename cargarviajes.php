@@ -10,7 +10,7 @@
     	// output data of each row
 	    while($row = mysqli_fetch_assoc($result)) {
 					//echo $row["idviaje"] . "<br>";
-	    	echo '<div class="col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex; margin-bottom:10px">';
+	    	echo '<div class="col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex; margin-bottom:10px; padding:0px">';
 	        echo '<button type="button" class="btn btn-light" id="botonCartaViaje" onclick="location=\'informacionViaje.php?id=' . $row["idviaje"] . '\'">';
 					echo '<div class="card">';
 					echo '<div class="card-header">';
