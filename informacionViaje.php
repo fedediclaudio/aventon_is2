@@ -24,12 +24,12 @@
     <div  style="margin:5%">
         <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
             <div class="row">
-                <div class="col col-12 col-md-4 px-0">
+                <div class="col col-12 col-lg-4 px-0">
                     <div style="margin: 5px">
                         <h1 class="display-4"><?php echo 'Viaje desde ' . $viaje["origen"] . ' hasta ' . $viaje["destino"] . ' el dia ' . $viaje["fecha"] ?></h1>
                     </div>
                 </div>
-                <div class="col col-12 col-md-8 px-0 align-middle">
+                <div class="col col-12 col-lg-8 px-0"  >
                     <div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Inicio del viaje</h6>
