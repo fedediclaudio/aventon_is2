@@ -41,5 +41,16 @@ class conexion {
 		return $result;
 	}
 	}
+    
+    function informacionDeUnViaje($id) {
+        $conn = $this->establecerConexion();
+        if($conn) {
+            $result = $conn->query("SELECT * FROM aventon.viaje WHERE idviaje = " . $id );
+            return $result;
+        }
+        else {
+            return nil;
+        }
+    }
 }
 ?>
