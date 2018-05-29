@@ -1,7 +1,7 @@
 <?php
 
 	session_start();
-	if(isset($_SESSION["id_usuario"])){
+	if(isset($_SESSION["mail"])){
 		header("location:pantallaPrincipal.php");
 	}
 

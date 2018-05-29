@@ -21,7 +21,7 @@
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">
         <div class="col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
-            <button type="button" class="btn btn-light " id="botonNuevoViaje" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje; widght:100%; height: 100%">
+            <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje; widght:100%; height: 100%">
                     <div class="card" style="background-color: lightblue;" >
                         <div style="  ">
                             <h1 class="display-3">+</h1>
