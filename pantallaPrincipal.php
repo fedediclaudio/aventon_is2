@@ -15,7 +15,7 @@
 <body>
 	<!-- Navbar -->
 	<?php
-		include "navbar.html"
+		include "vistas/navbar.html"
 	?>
 	
 	<!-- Cartas de viajes -->
@@ -24,7 +24,7 @@
             <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje; widght:100%; height: 100%">
                     <div style="background-color: #FAFAFA;" >
                         <div style="  ">
-                            <h1 class="display-3"><img src="boton_mas.png"></h1>
+                            <h1 class="display-3"><img src="img/boton_mas.png"></h1>
                         </div>
                     </div>
             </button>
@@ -34,7 +34,7 @@
 
 	<!-- Modal crear viaje -->
 	<?php
-		include "modalCrearViaje.html"
+		include "vistas/modalCrearViaje.html"
 	?>
 </body>
 </html>

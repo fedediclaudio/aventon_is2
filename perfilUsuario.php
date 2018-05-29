@@ -21,14 +21,14 @@
     ?>
     <!-- Navbar -->
     <?php
-        include "navbar.html"
+        include "vistas/navbar.html"
     ?>
     <div  style="margin:5%">
         <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
             <div class="row">
                 <div class="col col-12 col-lg-4 px-0">
                     <div>
-                        <p class="text-center"><img src="profile-pic.png"></p>
+                        <p class="text-center"><img src="img/profile-pic.png"></p>
                         <h1 class="display-4 text-center"><?php echo $user['nombre'] . ' ' . $user['apellido']; ?></h1>
                     </div>
                 </div>

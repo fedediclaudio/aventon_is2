@@ -22,7 +22,7 @@
     ?>
     <!-- Navbar -->
     <?php
-        include "navbar.html"
+        include "vistas/navbar.html"
     ?>
     <div  style="margin:5%">
         <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">

@@ -26,9 +26,9 @@
 			} else { $error = 'El mail o contraseña ingresados no son correctos';}
 	}
 
-	include "login.html";
+	include "vistas/login.html";
+	
 	if($error){
-		//echo $error;
 		echo "<script type='text/javascript'>alert('$error');</script>";
 	}
 ?>
