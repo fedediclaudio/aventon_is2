@@ -59,11 +59,20 @@ class conexion {
 		}
 	}
 
-	function getUsuario($mail, $password){
+	function getUsuarioLogin($mail, $password){
 		$conn = $this->establecerConexion();
 		if($conn) {
 			$sha1_pass = sha1($password);
-			$sql = "SELECT id FROM usuario WHERE email = '$mail' AND password = '$sha1_pass'";
+			$sql = "SELECT * FROM usuario WHERE email = '$mail' AND password = '$sha1_pass'";
+			$result=$conn->query($sql);
+			return $result;
+		}
+	}
+
+	function getUsuario($mail){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$sql = "SELECT * FROM usuario WHERE email = '$mail'";
 			$result=$conn->query($sql);
 			return $result;
 		}
