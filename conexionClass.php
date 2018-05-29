@@ -14,11 +14,16 @@ class conexion {
 	
 	function crearViaje() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			session_start();
+			$username = $_SESSION['mail'];
+			$conn = new conexion();
+			$user =  $conn->getUsuario($username);
+			$row = mysqli_fetch_assoc($user);
 			$conn = $this->establecerConexion();
 			if($conn) {
-				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion)
+				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion,idusuario)
 				VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', STR_TO_DATE('" . $_POST["fecha"] . "','%Y-%m-%d'), '" .
-					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "')";
+					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] ."')";
 				 if (mysqli_query($conn, $sql)) {
 				echo "New record created successfully";
 				} else {
