@@ -1,3 +1,6 @@
+<?php
+  include "chequeoSesion.php"
+?>
 <html>
 <head>
     <title>Informacion de viaje</title>
@@ -13,7 +16,6 @@
 <body>
     <?php
         include 'conexionClass.php';
-        session_start();
         $username = $_GET["id"];
         $conn = new conexion();
         $userTable =  $conn->getUsuarioPorId($username);

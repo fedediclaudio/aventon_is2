@@ -1,3 +1,6 @@
+<?php
+  include "chequeoSesion.php"
+?>
 <html>
 <head>
     <title>Informacion de viaje</title>
