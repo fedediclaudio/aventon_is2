@@ -15,7 +15,10 @@
         include 'conexionClass.php';
         $conn = new Conexion();
         $result = $conn->informacionDeUnViaje($_GET["id"]); 
-        $viaje = mysqli_fetch_assoc($result)
+        $viaje = mysqli_fetch_assoc($result);
+		$iduser = $viaje["idusuario"];
+		$result2 = $conn->getUsuarioPorId($iduser);
+		$user = mysqli_fetch_assoc($result2);
     ?>
     <!-- Navbar -->
     <?php
@@ -57,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <!--
-        <div class="row mb-6">
+        
+        <div class="row mb-6"><!--
             <div class="col-md-6">
                 <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
                     <div class="col-md-6 px-0">
@@ -68,17 +71,49 @@
                     </div>
                 </div>
             </div>
+		-->
             <div class="col-md-6">
                 <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
-                    <div class="col-md-6 px-0">
-                        <h1 class="display-4">Informacion sobre el viaje</h1>
-                        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
-                        <p class="lead mb-0"></p>
+                    <div class="row">
+						<div class="col col-12 px-0">
+							<div style="margin: 5px">
+								<h3 class="display-4">Conductor</h3>
+							</div>
+						</div>
+						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                        	<div class="card-body" style="margin: -1%">
+								<h6 class="card-subtitle mb-2 text-muted">Nombre y apellido</h6>
+                            	<p class="card-text"><?php echo $user["nombre"] . ' ' . $user["apellido"]; ?></p>
+                        	</div>
+						</div>
+						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                        	<div class="card-body" style="margin: -1%">
+								<h6 class="card-subtitle mb-2 text-muted">E-Mail</h6>
+                            	<p class="card-text"><?php echo $user["email"]; ?></p>
+                        	</div>
+						</div>
+						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                        	<div class="card-body" style="margin: -1%">
+								<h6 class="card-subtitle mb-2 text-muted">Fecha de Nacimiento</h6>
+                            	<p class="card-text"><?php echo $user["fecha_nacimiento"]; ?></p>
+                        	</div>
+						</div>
+						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                        	<div class="card-body" style="margin: -1%">
+								<h6 class="card-subtitle mb-2 text-muted">Nacionalidad</h6>
+                            	<p class="card-text"><?php echo $user["nacionalidad"]; ?></p>
+                        	</div>
+						</div>
+						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                        	<div class="card-body" style="margin: -1%">
+								<h6 class="card-subtitle mb-2 text-muted">Descripcion</h6>
+                            	<p class="card-text"><?php echo $user["descripcion"]; ?></p>
+                        	</div>
+						</div>
                     </div>
                 </div>
-            </div> 
-        </div>
-        -->
-    </div>
+            </div>
+		</div> 
+	</div>
 </body>
 </html>

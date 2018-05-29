@@ -18,7 +18,7 @@
 					echo '</div>';
 					echo '<ul class="list-group list-group-flush">';
 					echo '<li class="list-group-item">' . $row["fecha"] . '</li>';
-					echo '<li class="list-group-item">' . $row["precio"] . '</li>';
+					echo '<li class="list-group-item">$' . $row["precio"] . '</li>';
 					echo '</ul>';
 					echo '</div>';
 					echo '</button>';

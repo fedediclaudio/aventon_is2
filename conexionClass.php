@@ -72,6 +72,7 @@ class conexion {
 			$result=$conn->query($sql);
 			return $result;
 		}
+		else {return nil;}
 	}
 
 	function getUsuario($mail){
@@ -81,6 +82,17 @@ class conexion {
 			$result=$conn->query($sql);
 			return $result;
 		}
+		else {return nil;}
+	}
+	
+	function getUsuarioPorId($id){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$sql = "SELECT * FROM usuario WHERE id = '$id'";
+			$result=$conn->query($sql);
+			return $result;
+		}
+		else {return nil;}
 	}
     
     function informacionDeUnViaje($id) {
