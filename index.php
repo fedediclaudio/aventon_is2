@@ -20,6 +20,7 @@
 		if($rows > 0) {
 			$row = mysqli_fetch_assoc($result);
 			$_SESSION['mail'] = $row['email'];
+			$_SESSION['id'] = $row['id'];
 			$_SESSION['password'] = $row['password'];
 			
 			header("location: pantallaPrincipal.php");

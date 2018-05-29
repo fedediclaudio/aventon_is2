@@ -14,9 +14,9 @@
     <?php
         include 'conexionClass.php';
         session_start();
-        $username = $_SESSION['mail'];
+        $username = $_GET["id"];
         $conn = new conexion();
-        $userTable =  $conn->getUsuario($username);
+        $userTable =  $conn->getUsuarioPorId($username);
         $user = mysqli_fetch_assoc($userTable);
     ?>
     <!-- Navbar -->
