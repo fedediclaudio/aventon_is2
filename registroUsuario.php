@@ -8,10 +8,6 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	<!-- Navbar -->
-	<?php
-		include "navbar.html"
-	?>
 	<div class="row">
 		<div class="col-6" style="margin-top: 20px">
 			<img src="logoNue.png" class="col-12" >
