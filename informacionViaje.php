@@ -13,7 +13,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 </head>
-<body>
+<body class="body-general">
     <?php
         include 'conexionClass.php';
         $conn = new Conexion();
@@ -28,38 +28,39 @@
         include "vistas/navbar.html"
     ?>
     <div  style="margin:5%">
-        <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
+        <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
             <div class="row">
                 <div class="col col-12 col-lg-4 px-0">
                     <div style="margin: 5px">
-                        <h1 class="display-4"><?php echo 'Viaje desde ' . $viaje["origen"] . ' hasta ' . $viaje["destino"] . ' el dia ' . $viaje["fecha"] ?></h1>
+                        <h1 class="display-4"><?php $date = new DateTime($viaje["fecha"]); echo 'Viaje desde <font color="#0D47A1">' . $viaje["origen"] . '</font> hasta <font color="#0D47A1">' . $viaje["destino"] . '</font> el dia <font color="#0D47A1">' . $date->format('d-m-Y') . '</font>' ?></h1>
                     </div>
                 </div>
                 <div class="col col-12 col-lg-8 px-0"  >
-                    <div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Inicio del viaje</h6>
-                            <p class="card-text"><?php echo 'El viaje comienza el dia ' . $viaje["fecha"] . ' a las ' . $viaje["horainicio"] ?></p>
+                            <p class="card-text"><?php $horainicio = new DateTime($viaje["horainicio"]); echo 'El viaje comienza el dia ' . $date->format('d-m-Y') . ' a las ' . $horainicio->format('H:m') . ' hs' ?></p>
                         </div>
                     </div>
-                    <div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                    <div class="card card-infoviaje" style="width:100%;  margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Fin del viaje</h6>
-                            <p class="card-text"><?php echo 'Se estima que termine a las ' . $viaje["horafin"] ?></p>
+                            <p class="card-text"><?php $horafin = new DateTime($viaje["horafin"]); echo 'Se estima que termine a las ' . $horafin->format('H:m') . ' hs' ?></p>
                         </div>
                     </div>
-                    <div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Precio</h6>
                             <p class="card-text"><?php echo '$' . $viaje["precio"] ?></p>
                         </div>
                     </div>
-                    <div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+					<?php if($viaje["descripcion"]) { echo '
+                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Descripcion del contacto</h6>
-                            <p class="card-text"><?php echo $viaje["descripcion"] ?></p>
+                            <p class="card-text">' . $viaje["descripcion"] . '</p>
                         </div>
-                    </div>
+                    </div>';} ?>
                 </div>
             </div>
         </div>
@@ -76,43 +77,44 @@
             </div>
 		-->
             <div class="col-md-6">
-                <div class="jumbotron p-3 p-md-5 text-black rounded bg-light">
+                <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
                     <div class="row">
 						<div class="col col-12 px-0">
 							<div style="margin: 5px">
 								<h3 class="display-4">Conductor</h3>
 							</div>
 						</div>
-						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+						<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         	<div class="card-body" style="margin: -1%">
 								<h6 class="card-subtitle mb-2 text-muted">Nombre y apellido</h6>
                             	<p class="card-text"><?php echo $user["nombre"] . ' ' . $user["apellido"]; ?></p>
                         	</div>
 						</div>
-						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+						<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         	<div class="card-body" style="margin: -1%">
 								<h6 class="card-subtitle mb-2 text-muted">E-Mail</h6>
                             	<p class="card-text"><?php echo $user["email"]; ?></p>
                         	</div>
 						</div>
-						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+						<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         	<div class="card-body" style="margin: -1%">
 								<h6 class="card-subtitle mb-2 text-muted">Fecha de Nacimiento</h6>
-                            	<p class="card-text"><?php echo $user["fecha_nacimiento"]; ?></p>
+                            	<p class="card-text"><?php $fechanacimiento = new DateTime($user["fecha_nacimiento"]); echo $fechanacimiento->format('d-m-Y'); ?></p>
                         	</div>
 						</div>
-						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+						<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         	<div class="card-body" style="margin: -1%">
 								<h6 class="card-subtitle mb-2 text-muted">Nacionalidad</h6>
                             	<p class="card-text"><?php echo $user["nacionalidad"]; ?></p>
                         	</div>
 						</div>
-						<div class="card" style="width:100%; background-color: #FAFAFA; margin-top: 4px;">
+						<?php if($user["descripcion"]) { echo '
+						<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         	<div class="card-body" style="margin: -1%">
 								<h6 class="card-subtitle mb-2 text-muted">Descripcion</h6>
-                            	<p class="card-text"><?php echo $user["descripcion"]; ?></p>
+                            	<p class="card-text">' . $user["descripcion"] . '</p>
                         	</div>
-						</div>
+						</div>';} ?>
                     </div>
                 </div>
             </div>

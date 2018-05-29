@@ -1,23 +1,25 @@
-body{
-	background-color: #FAFAFA
+.body-general{
+	background-color: #FAFAFA;
+	overflow-x: hidden;
 }
 .navbar{
-	background-color: #b2ebf2
+	background-color: #212121
 }
 span.input-group-text {
-	background-color:#e0f7fa;	
+	background-color:#E8EAF6;	
 }
 #buttonCrear{
+	color: #495057;
 	float: right;
 	margin-top: 17px;
+	background-color:#C5CAE9;
+	border-color:#C5CAE9;
 }
 div.card-header{
-	background-color:#e3f2fd;
+	background-color:#C5CAE9;
 }
 #boton-crearViaje{
 	color:black;
-	background-color: #b2ebf2;
-	border-color: #b2ebf2
 }
 #viajes{
 	/*justify-content:center;*/
@@ -27,14 +29,25 @@ div.card-header{
 #botonCartaViaje{
 	margin:auto; 
 	color:black; 
-	border-color:#FAFAFA; 
-	background-color:#FAFAFA
+	border-color:transparent; 
+	background-color: transparent;
 }
 .card{
 	width:18rem;
+	border-color: #9FA8DA;
 }
 #cuenta{
 	background-color: #FAFAFA;
 	border-color: #FAFAFA;
 	color: #000
+}
+.card-infoviaje {
+	background-color:#EEEEEE;
+	border-color:#BDBDBD;
+}
+.jumbo-infoviaje {
+	background-color:#EEEEEE;
+}
+.item-cardviaje {
+	border-color: #9FA8DA;
 }
