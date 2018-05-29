@@ -13,17 +13,18 @@
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
+	  <link href="styles.css" rel="stylesheet">
   </head>
 
-  <body class="text-center">
+  <body class=" body-general text-center">
     <form class="form-signin" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
       <h1 class="h3 mb-3 font-weight-normal">Acceder a Aventón®</h1>
       <label for="inputEmail" class="sr-only">E-mail</label>
       <input name="mail" type="email" id="inputEmail" class="form-control" placeholder="Direccion e-mail" required autofocus>
       <label for="inputPassword" class="sr-only">Contraseña</label>
       <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
-      <button class="btn btn-lg btn-primary btn-block" type="submit" id="botonInicio">Iniciar sesión</button>
-      <p class="mt-5 mb-3 text-muted">No tienes una cuenta? <a href="registroUsuario.php">Registrarse</a></p>
+      <button class="btn btn-lg btn-block buttonCrear" type="submit" style="background-color: #C5CAE9">Iniciar sesión</button>
+      <p class="mt-5 mb-3 text-muted">No tienes una cuenta? <a href="registroUsuario.php" style="color: #3949AB">Registrarse</a></p>
     </form>
   </body>
 </html>

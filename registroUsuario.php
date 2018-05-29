@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
-<body>
+<body class="body-general">
 	<div class="row">
 		<div class="col-6" style="margin-top: 20px">
 			<img src="logoNue.png" class="col-12" >
@@ -62,7 +62,7 @@
 					</div>
 					<textarea class="form-control" maxlength=240 placeholder="Ingrese descripcion" name="descripcion"></textarea>
 				</div>
-				<input type="submit" class="btn btn-primary" id="buttonCrear" style="background-color:#00bcd4; border-color:#00bcd4;" value="Crear">
+				<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
 			</form>
 		</div>
 	</div>

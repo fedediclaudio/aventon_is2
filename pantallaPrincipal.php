@@ -12,7 +12,7 @@
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
   <script src="scripts.js/cargadeviajes.js"></script>
 </head>
-<body>
+<body class="body-general">
 	<!-- Navbar -->
 	<?php
 		include "navbar.html"
@@ -20,7 +20,7 @@
 	
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">
-        <div class="col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
             <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje; widght:100%; height: 100%">
                     <div style="background-color: #FAFAFA;" >
                         <div style="  ">
