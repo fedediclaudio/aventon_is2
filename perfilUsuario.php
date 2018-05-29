@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col col-12 col-lg-4 px-0">
                     <div>
-                        <p class="text-center"><img src="profile-pic2.png"></p>
+                        <p class="text-center"><img src="profile-pic.png"></p>
                         <h1 class="display-4 text-center"><?php echo $user['nombre'] . ' ' . $user['apellido']; ?></h1>
                     </div>
                 </div>
