@@ -1,4 +1,4 @@
-<?php
+ <?php
 	include 'conexionClass.php';
 	// Recibe el parametro con la pagina a cargar 
 	$pagina = $_GET['pagina'];
@@ -17,7 +17,8 @@
 					echo $row["origen"] . ' - ' .	$row["destino"];
 					echo '</div>';
 					echo '<ul class="list-group list-group-flush">';
-					echo '<li class="list-group-item item-cardviaje" >' . $row["fecha"] . '</li>';
+          $f = new DateTime($row["fecha"]);
+					echo '<li class="list-group-item item-cardviaje" >' . $f->format('d-m-Y') . '</li>';
 					echo '<li class="list-group-item item-cardviaje" >$' . $row["precio"] . '</li>';
 					echo '</ul>';
 					echo '</div>';
