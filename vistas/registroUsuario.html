@@ -9,62 +9,68 @@
 </head>
 <body class="body-general">
 	<div class="row">
-		<div class="col-6" style="margin-top: 20px">
-			<img src="../img/logoNue.png" class="col-12" >
+		<div class="col" style="margin-top: 20px; margin:auto;">
+			<img src="../img/logoNue.png" class="col-12" style="display:block; margin-left: auto; margin-right: auto; width: 190px; height: 180px" >
 		</div>
-		<div style="padding-right: 30px; padding-left: 30px; margin-top: 20px; " class="col-12 col-sm-6">
-			<form action="../crearUsuario.php" method="post">
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputNombre">Nombre</span>
-					</div>
-					<input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre" maxlength=40>
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputApellido">Apellido</span>
-					</div>
-					<input type="text" class="form-control" name="apellido" placeholder="Ingrese apellido" maxlength=40>
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text"  id="inputFechaNacimiento">Fecha nacimiento</span>
-					</div>
-					<input type="date" class="form-control" name="fecha_nacimiento">
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputMail">Mail</span>
-					</div>
-					<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" maxlength=40>
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputPasswd">Contraseña</span>
-					</div>
-					<input type="password" class="form-control" name="passwd" placeholder="Ingrese contraseña" maxlength=40>
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputNacionalidad">Nacionalidad</span>
-					</div>
-					<input type="text" class="form-control" name="nacionalidad" placeholder="Ingrese nacionalidad" maxlength=280>
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputTarjeta">Tarjeta</span>
-					</div>
-					<input type="text" class="form-control" name="tarjeta" placeholder="Ingrese tarjeta" maxlength=40>
-				</div>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-							<span class="input-group-text" id="inputDescripcion">Descripcion</span>
-					</div>
-					<textarea class="form-control" maxlength=240 placeholder="Ingrese descripcion" name="descripcion"></textarea>
-				</div>
-				<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
-			</form>
+	</div>
+	<div class="row">
+		<div class="col col-0 col-md-2 col-lg-4">
 		</div>
+		<div  class="col col-12 col-md-8 col-lg-4" style="padding-right: 30px; padding-left: 30px; margin-top: 20px; margin:auto; ">
+		<form action="../crearUsuario.php" method="post">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputNombre">Nombre</span>
+				</div>
+				<input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre" maxlength=40>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputApellido">Apellido</span>
+				</div>
+				<input type="text" class="form-control" name="apellido" placeholder="Ingrese apellido" maxlength=40>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text"  id="inputFechaNacimiento">Fecha nacimiento</span>
+				</div>
+				<input type="date" class="form-control" name="fecha_nacimiento">
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputMail">Mail</span>
+				</div>
+				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" maxlength=40>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputPasswd">Contraseña</span>
+				</div>
+				<input type="password" class="form-control" name="passwd" placeholder="Ingrese contraseña" maxlength=40>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputNacionalidad">Nacionalidad</span>
+				</div>
+				<input type="text" class="form-control" name="nacionalidad" placeholder="Ingrese nacionalidad" maxlength=280>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputTarjeta">Tarjeta</span>
+				</div>
+				<input type="text" class="form-control" name="tarjeta" placeholder="Ingrese tarjeta" maxlength=40>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<span class="input-group-text" id="inputDescripcion">Descripcion</span>
+				</div>
+				<textarea class="form-control" maxlength=240 placeholder="Ingrese descripción" name="descripcion"></textarea>
+			</div>
+			<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
+		</form>
+	</div>
+	<div class="col col-0 col-md-2 col-lg-4">
+	</div>
 	</div>
 </body>
 </html>
