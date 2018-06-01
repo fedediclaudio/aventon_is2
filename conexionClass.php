@@ -52,7 +52,7 @@ class conexion {
 			$conn = $this->establecerConexion();
 			if($conn) {
 				$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, descripcion, tarjeta, email, nacionalidad, fecha_nacimiento)
-				VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]) . "', '" . $_POST["descripcion"] . "', '
+				VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]) . "', '" . $_POST["descripcion"] . "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" .")";
 				 if (mysqli_query($conn, $sql)) {
 				echo "New record created successfully";
 				} else {
