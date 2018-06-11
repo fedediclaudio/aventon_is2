@@ -9,6 +9,7 @@
   <script src="../bootstrap/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../styles.css">
+  <script src="../scripts.js/validaciones.js"></script>
 </head>
 <body class="body-general">
 	<div class="row">
@@ -20,42 +21,42 @@
 		<div class="col col-0 col-md-2 col-lg-4">
 		</div>
 		<div  class="col col-12 col-md-8 col-lg-4" style="padding-right: 30px; padding-left: 30px; margin-top: 20px; margin:auto; ">
-		<form action="../crearUsuario.php" method="post">
+		<form id="formularioViaje" method="post" onsubmit="validarMail()">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputNombre">Nombre</span>
 				</div>
-				<input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre" maxlength=40>
+				<input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre" maxlength=40 required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputApellido">Apellido</span>
 				</div>
-				<input type="text" class="form-control" name="apellido" placeholder="Ingrese apellido" maxlength=40>
+				<input type="text" class="form-control" name="apellido" placeholder="Ingrese apellido" maxlength=40 required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text"  id="inputFechaNacimiento">Fecha nacimiento</span>
 				</div>
-				<input type="date" class="form-control" name="fecha_nacimiento">
+				<input type="date" class="form-control" name="fecha_nacimiento" required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputMail">Mail</span>
 				</div>
-				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" maxlength=40>
+				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" maxlength=40 required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputPasswd">Contraseña</span>
 				</div>
-				<input type="password" class="form-control" name="passwd" placeholder="Ingrese contraseña" maxlength=40>
+				<input type="password" class="form-control" name="passwd" placeholder="Ingrese contraseña" maxlength=40 required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputNacionalidad">Nacionalidad</span>
 				</div>
-				<input type="text" class="form-control" name="nacionalidad" placeholder="Ingrese nacionalidad" maxlength=280>
+				<input type="text" class="form-control" name="nacionalidad" placeholder="Ingrese nacionalidad" maxlength=280 required>
 			</div>
 			<!--<div class="input-group mb-3">
 				<div class="input-group-prepend">
