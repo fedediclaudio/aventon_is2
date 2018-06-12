@@ -9,22 +9,21 @@ function validarMail(){
 }
 
 function validarFechaNacimiento(){
-  var fecha = document.getElementById('inputFechaNacimiento').value;
-  console.log($("#inputFechaNacimiento"));
-  var anio = parseInt(fecha[2],10);
-  var mes = parseInt(fecha[1],10);
-  var dia = parseInt(fecha[0],10);
-  return isDate18orMoreYearsOld(dia,mes,anio);
+  var fecha = (document.getElementById('fechaInput').value).split("-")
+  console.log(fecha[0]);
+  console.log(fecha[1]);
+  console.log(fecha[2]);
+  return isDate18orMoreYearsOld(parseInt(fecha[2]),parseInt(fecha[1]),parseInt(fecha[0]))
 }
 
 function isDate18orMoreYearsOld(day, month, year){
-  return new Date(year+18, month-1, day) <= new Date();
+  return new Date(year+18, month-1, day) <= new Date()
 }
 
 function validarRegistro(){
   if(validarMail() && validarFechaNacimiento()){
-    document.getElementById('buttonCrear').disabled = false;
+    document.getElementById('buttonCrear').disabled = false
   } else {
-    document.getElementById('buttonCrear').disabled = true;
+    document.getElementById('buttonCrear').disabled = true
   }
 }
