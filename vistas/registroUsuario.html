@@ -38,13 +38,13 @@
 				<div class="input-group-prepend">
 						<span class="input-group-text"  id="inputFechaNacimiento">Fecha nacimiento</span>
 				</div>
-				<input type="date" class="form-control" name="fecha_nacimiento" required>
+				<input type="date" class="form-control" name="fecha_nacimiento" id="inputFechaNacimiento" oninput="validarRegistro()" required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputMail">Mail</span>
 				</div>
-				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" maxlength=40 required>
+				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" oninput="validarRegistro()" maxlength=40 required>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -71,7 +71,7 @@
 				</div>
 				<textarea class="form-control" maxlength=240 placeholder="Ingrese descripción" name="descripcion"></textarea>
 			</div>
-			<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
+			<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Crear">
 		</form>
 	</div>
 	<div class="col col-0 col-md-2 col-lg-4">
