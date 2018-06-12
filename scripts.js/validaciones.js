@@ -1,19 +1,32 @@
+var isMailValid = false;
+var isDateValid = false;
+
 function validarMail(){
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById('mailInput').value))
   {
-    document.getElementById('formularioViaje').setAttribute('action',"../crearUsuario.php")
-    return (true)
+    document.getElementById('mailInput').classList.remove("is-invalid")
+    document.getElementById('mailInput').classList.add("is-valid")
+    isMailValid = true;
   } else {
-    return (false)
+    document.getElementById('mailInput').classList.remove("is-valid")
+    document.getElementById('mailInput').classList.add("is-invalid")
+    isMailValid = false;
   }
+  validarRegistro()
 }
 
 function validarFechaNacimiento(){
   var fecha = (document.getElementById('fechaInput').value).split("-")
-  console.log(fecha[0]);
-  console.log(fecha[1]);
-  console.log(fecha[2]);
-  return isDate18orMoreYearsOld(parseInt(fecha[2]),parseInt(fecha[1]),parseInt(fecha[0]))
+  if(isDate18orMoreYearsOld(parseInt(fecha[2]),parseInt(fecha[1]),parseInt(fecha[0]))){
+    document.getElementById('fechaInput').classList.remove("is-invalid")
+    document.getElementById('fechaInput').classList.add("is-valid")
+    isDateValid = true;
+  } else {
+    document.getElementById('fechaInput').classList.remove("is-valid")
+    document.getElementById('fechaInput').classList.add("is-invalid")
+    isDateValid = false;
+  }
+  validarRegistro()
 }
 
 function isDate18orMoreYearsOld(day, month, year){
@@ -21,7 +34,7 @@ function isDate18orMoreYearsOld(day, month, year){
 }
 
 function validarRegistro(){
-  if(validarMail() && validarFechaNacimiento()){
+  if(isDateValid && isMailValid){
     document.getElementById('buttonCrear').disabled = false
   } else {
     document.getElementById('buttonCrear').disabled = true

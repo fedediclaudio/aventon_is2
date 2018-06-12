@@ -21,7 +21,7 @@
 		<div class="col col-0 col-md-2 col-lg-4">
 		</div>
 		<div  class="col col-12 col-md-8 col-lg-4" style="padding-right: 30px; padding-left: 30px; margin-top: 20px; margin:auto; ">
-		<form id="formularioViaje" method="post" onsubmit="validarMail()">
+		<form id="formularioViaje" action="../crearUsuario.php" method="post" onsubmit="validarRegistro()">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputNombre">Nombre</span>
@@ -38,13 +38,19 @@
 				<div class="input-group-prepend">
 						<span class="input-group-text"  id="inputFechaNacimiento">Fecha nacimiento</span>
 				</div>
-				<input type="date" class="form-control" name="fecha_nacimiento" id="fechaInput" oninput="validarRegistro()" required>
+				<input type="date" class="form-control" name="fecha_nacimiento" id="fechaInput" oninput="validarFechaNacimiento()" required>
+        <div class="invalid-feedback">
+          Debe ser mayor de 18 para poder registrarse
+        </div>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputMail">Mail</span>
 				</div>
-				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" oninput="validarRegistro()" maxlength=40 required>
+				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" oninput="validarMail()" maxlength=40 required>
+        <div class="invalid-feedback">
+          Formato invalido de e-mail
+        </div>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
