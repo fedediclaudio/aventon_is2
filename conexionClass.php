@@ -1,17 +1,17 @@
 <?php
 
 class conexion {
-	
+
 	function establecerConexion() {
 		$conn = new mysqli("localhost", "root", "", "aventon");
 		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error); 
+			die("Connection failed: " . $conn->connect_error);
 			return null;
-		} 
+		}
 		else { return $conn; }
 	}
-	
-	
+
+
 	function crearViaje() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			session_start();
@@ -28,13 +28,13 @@ class conexion {
 				echo "New record created successfully";
 				} else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				} 
+				}
 				$conn->close();
-			} 	
+			}
 			else { echo "no";}
 		}
 	}
-  
+
   function obtenerIdVehiculo($nombre , $conn) {
     if($conn) {
       $result = $conn->query("SELECT idtipoVehiculo FROM tipoVehiculo WHERE nombreTipo = " . $nombre);
@@ -51,18 +51,18 @@ class conexion {
 				echo "New record created successfully";
 		  } else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		  } 
+		  }
 		  $conn->close();
     }
   }
-    
+
   function getIdUsuario($conn) {
     session_start();
     $username = $_SESSION['mail'];
 		$user =  $conn->getUsuario($username);
     return $user["id"];
   }
-	
+
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -85,9 +85,9 @@ class conexion {
 				echo "New record created successfully";
 				} else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				} 
+				}
 				$conn->close();
-			} 	
+			}
 			else { echo "no";}
 		}
 	}
@@ -103,6 +103,14 @@ class conexion {
 		else {return nil;}
 	}
 
+	function getVehiculos($idUsuario) {
+    $conn = $this->establecerConexion();
+    if($conn) {
+      $result = $conn->query("SELECT * FROM vehiculo WHERE idusuario = " . $idUsuario);
+      return $result;
+    }
+  }
+
 	function getUsuario($mail){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -112,7 +120,7 @@ class conexion {
 		}
 		else {return nil;}
 	}
-	
+
 	function getUsuarioPorId($id){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -122,7 +130,7 @@ class conexion {
 		}
 		else {return nil;}
 	}
-    
+
     function informacionDeUnViaje($id) {
         $conn = $this->establecerConexion();
         if($conn) {
