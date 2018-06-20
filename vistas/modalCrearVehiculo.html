@@ -26,13 +26,13 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDestino">Patente</span>
 							</div>
-							<input type="text" class="form-control" name="patente" placeholder="Ingrese modelo del vehículo" maxlength=45 required>
+							<input type="text" class="form-control" name="patente" placeholder="Ingrese patente" maxlength=45 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDestino">Cantidad de asientos</span>
 							</div>
-							<input type="number" class="form-control" name="catidadAsientos" placeholder="Ingrese modelo del vehículo" maxlength=45 required>
+							<input type="number" class="form-control" name="catidadAsientos" placeholder="Ingrese la cantidad de asientos" maxlength=45 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
