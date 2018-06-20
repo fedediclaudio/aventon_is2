@@ -39,7 +39,7 @@ class conexion {
     if($conn) {
       $result = $conn->query("SELECT idtipoVehiculo FROM tipoVehiculo WHERE nombreTipo = " . $nombre);
       $row = mysqli_fetch_assoc($result);
-      ^$["idtipoVehiculo"];
+      return $row["idtipoVehiculo"];
     }
   }
 
@@ -53,13 +53,14 @@ class conexion {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		  } 
 		  $conn->close();
+    }
   }
     
   function getIdUsuario($conn) {
     session_start();
     $username = $_SESSION['mail'];
 		$user =  $conn->getUsuario($username);
-    ^$user["id"];
+    return $user["id"];
   }
 	
 	function ultimosViajes($pagina) {
