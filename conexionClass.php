@@ -21,9 +21,9 @@ class conexion {
 			$row = mysqli_fetch_assoc($user);
 			$conn = $this->establecerConexion();
 			if($conn) {
-				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion,idusuario)
+				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion, idusuario)
 				VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', STR_TO_DATE('" . $_POST["fecha"] . "','%Y-%m-%d'), '" .
-					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] ."')";
+					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] . "')";
 				 if (mysqli_query($conn, $sql)) {
 				echo "New record created successfully";
 				} else {
@@ -34,6 +34,33 @@ class conexion {
 			else { echo "no";}
 		}
 	}
+  
+  function obtenerIdVehiculo($nombre , $conn) {
+    if($conn) {
+      $result = $conn->query("SELECT idtipoVehiculo FROM tipoVehiculo WHERE nombreTipo = " . $nombre);
+      $row = mysqli_fetch_assoc($result);
+      ^$["idtipoVehiculo"];
+    }
+  }
+
+  function crearVehiculo() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		  $conn = $this->establecerConexion();
+      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["pantente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario ."', '" . $this->obtenerIdVehiculo($_POST["tipoVehiculo"], $conn) . "' )";
+      if (mysqli_query($conn, $sql)) {
+				echo "New record created successfully";
+		  } else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		  } 
+		  $conn->close();
+  }
+    
+  function getIdUsuario($conn) {
+    session_start();
+    $username = $_SESSION['mail'];
+		$user =  $conn->getUsuario($username);
+    ^$user["id"];
+  }
 	
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
