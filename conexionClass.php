@@ -1,17 +1,17 @@
 <?php
 
 class conexion {
-
+	
 	function establecerConexion() {
 		$conn = new mysqli("localhost", "root", "", "aventon");
 		if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
+			die("Connection failed: " . $conn->connect_error); 
 			return null;
-		}
+		} 
 		else { return $conn; }
 	}
-
-
+	
+	
 	function crearViaje() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			session_start();
@@ -21,20 +21,48 @@ class conexion {
 			$row = mysqli_fetch_assoc($user);
 			$conn = $this->establecerConexion();
 			if($conn) {
-				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion,idusuario)
+				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion, idusuario)
 				VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', STR_TO_DATE('" . $_POST["fecha"] . "','%Y-%m-%d'), '" .
-					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] ."')";
+					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] . "')";
 				 if (mysqli_query($conn, $sql)) {
 				echo "New record created successfully";
 				} else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				}
+				} 
 				$conn->close();
-			}
+			} 	
 			else { echo "no";}
 		}
 	}
+  
+  function obtenerIdVehiculo($nombre , $conn) {
+    if($conn) {
+      $result = $conn->query("SELECT idtipoVehiculo FROM tipoVehiculo WHERE nombreTipo = " . $nombre);
+      $row = mysqli_fetch_assoc($result);
+      return $row["idtipoVehiculo"];
+    }
+  }
 
+  function crearVehiculo() {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		  $conn = $this->establecerConexion();
+      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["pantente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario ."', '" . $this->obtenerIdVehiculo($_POST["tipoVehiculo"], $conn) . "' )";
+      if (mysqli_query($conn, $sql)) {
+				echo "New record created successfully";
+		  } else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+		  } 
+		  $conn->close();
+    }
+  }
+    
+  function getIdUsuario($conn) {
+    session_start();
+    $username = $_SESSION['mail'];
+		$user =  $conn->getUsuario($username);
+    return $user["id"];
+  }
+	
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -43,14 +71,6 @@ class conexion {
 			$ultimoCargado = $row["MAX(idviaje)"] - ( 20 * $pagina);
 			$ultimoACargar = $ultimoCargado - 20;
 			$result = $conn->query("SELECT * FROM viaje WHERE (idviaje <= " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ") ORDER BY idviaje DESC");
-			return $result;
-		}
-	}
-
-	function getVehiculos($idUsuario) {
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$result = $conn->query("SELECT * FROM vehiculo WHERE idusuario = " . $idUsuario);
 			return $result;
 		}
 	}
@@ -65,9 +85,9 @@ class conexion {
 				echo "New record created successfully";
 				} else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				}
+				} 
 				$conn->close();
-			}
+			} 	
 			else { echo "no";}
 		}
 	}
@@ -92,7 +112,7 @@ class conexion {
 		}
 		else {return nil;}
 	}
-
+	
 	function getUsuarioPorId($id){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -102,7 +122,7 @@ class conexion {
 		}
 		else {return nil;}
 	}
-
+    
     function informacionDeUnViaje($id) {
         $conn = $this->establecerConexion();
         if($conn) {
