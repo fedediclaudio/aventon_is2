@@ -53,7 +53,7 @@
                             <p class="card-text"><?php echo $user['nacionalidad']?></p>
                         </div>
                     </div>
-					<?php if($user['descripcion'] != ''){ echo '
+					          <?php if($user['descripcion'] != ''){ echo '
                     <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Descripcion</h6>
@@ -63,8 +63,14 @@
                   <button class="btn btn-light" style="float:right; margin:10px" onclick="location='vistas/editarUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
                 </div>
             </div>
-              
+        </div>
+        <div class="jumbotron">
+          <h1>Vehiculos</h1>
+          <button type="button" class="btn btn-light " data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo">Crear vehículo</button>
         </div>
     </div>
+    <?php
+  		include "vistas/modalCrearVehiculo.html"
+  	?>
 </body>
 </html>
