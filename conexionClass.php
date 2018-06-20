@@ -117,7 +117,7 @@ class conexion {
 	function getVehiculos($idUsuario) {
     $conn = $this->establecerConexion();
     if($conn) {
-      $result = $conn->query("SELECT * FROM vehiculo WHERE idusuario = " . $idUsuario);
+      $result = $conn->query("SELECT * FROM vehiculo v INNER JOIN tipoVehiculo t ON (v.idtipoVehiculo = t.idtipoVehiculo) WHERE v.idusuario = " . $idUsuario);
       return $result;
     }
   }

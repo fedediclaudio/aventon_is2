@@ -102,6 +102,13 @@ CREATE TABLE IF NOT EXISTS `aventon`.`vehiculo` (
 ENGINE = InnoDB;
 
 
+INSERT INTO tipoVehiculo (nombreTipo) VALUES ('Auto');
+INSERT INTO tipoVehiculo (nombreTipo) VALUES ('Moto');
+INSERT INTO tipoVehiculo (nombreTipo) VALUES ('Camion Volcado');
+INSERT INTO tipoVehiculo (nombreTipo) VALUES ('Avion a chorro');
+INSERT INTO tipoVehiculo (nombreTipo) VALUES ('Tatucarreta');
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
