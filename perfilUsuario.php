@@ -60,8 +60,10 @@
                             <p class="card-text">' . $user['descripcion'] . '</p>
                         </div>
                     </div>';} ?>
+                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='vistas/editarUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
                 </div>
             </div>
+              
         </div>
     </div>
 </body>
