@@ -39,8 +39,16 @@
 									<span class="input-group-text" id="inputDestino">Tipo</span>
 							</div>
 							<select class="form-control" name="tipo">
-							  <option>Default select</option>
-								<option>Default select</option>
+							  <?php 
+                    include 'conexionClass.php';	
+	                  $c = new conexion();
+                    $tipos = $c->getTiposVehiculos();
+                    if (mysqli_num_rows($tipos) > 0) {
+                      while($row = mysqli_fetch_assoc($result)) {
+                        echo '<option value="' . $row["idtipoVehiculo"] . '">' . $row["nombreTipo"] . '</option';
+                      }
+                    }
+                ?>
 							</select>
 						</div>
 						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Agregar vehículo">
