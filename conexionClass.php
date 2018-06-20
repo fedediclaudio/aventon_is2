@@ -38,7 +38,7 @@ class conexion {
   function crearVehiculo() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		  $conn = $this->establecerConexion();
-      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["pantente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario ."', '" . $_POST["tipoVehiculo"] . "' )";
+      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["patente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario() ."', '" . $_POST["tipo"] . "' )";
       if (mysqli_query($conn, $sql)) {
 				echo "New record created successfully";
 		  } else {
@@ -48,11 +48,12 @@ class conexion {
     }
   }
 
-  function getIdUsuario($conn) {
+  function getIdUsuario() {
     session_start();
     $username = $_SESSION['mail'];
-		$user =  $conn->getUsuario($username);
-    return $user["id"];
+		$user =  $this->getUsuario($username);
+    $row = mysqli_fetch_assoc($user);
+    return $row["id"];
   }
 
 	function ultimosViajes($pagina) {
@@ -106,7 +107,7 @@ class conexion {
 	function getUsuario($mail){
 		$conn = $this->establecerConexion();
 		if($conn) {
-			$sql = "SELECT * FROM usuario WHERE email = '$mail'";
+			$sql = "SELECT * FROM usuario WHERE email = '" . $mail . "'";
 			$result=$conn->query($sql);
 			return $result;
 		}
@@ -130,14 +131,18 @@ class conexion {
             return $result;
         }
         else {
-            return nil;
+            return null;
         }
     }
   
   function getTiposVehiculos() {
     $conn = $this->establecerConexion();
     if($conn) {
-      return $conn->query("SELECT * FROM aventon.tipoVehiculo");
+      $result = $conn->query("SELECT * FROM aventon.tipoVehiculo");
+      return $result;
+    }
+    else {
+      return null;
     }
   }
 }

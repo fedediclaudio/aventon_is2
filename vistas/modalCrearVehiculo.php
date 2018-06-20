@@ -32,22 +32,15 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDestino">Cantidad de asientos</span>
 							</div>
-							<input type="number" class="form-control" name="catidadAsientos" placeholder="Ingrese la cantidad de asientos" maxlength=45 required>
+							<input type="number" class="form-control" name="cantidadAsientos" placeholder="Ingrese la cantidad de asientos" maxlength=45 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDestino">Tipo</span>
 							</div>
-							<select class="form-control" name="tipo">
-							  <?php 
-                    include 'conexionClass.php';	
-	                  $c = new conexion();
-                    $tipos = $c->getTiposVehiculos();
-                    if (mysqli_num_rows($tipos) > 0) {
-                      while($row = mysqli_fetch_assoc($result)) {
-                        echo '<option value="' . $row["idtipoVehiculo"] . '">' . $row["nombreTipo"] . '</option';
-                      }
-                    }
+							<select class="form-control" name="tipo">               
+                <?php 	
+	                  include 'cargarTiposVehiculos.php';
                 ?>
 							</select>
 						</div>
