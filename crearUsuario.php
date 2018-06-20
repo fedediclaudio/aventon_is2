@@ -1,6 +1,9 @@
 <?php
-include 'conexionClass.php';	
+include 'conexionClass.php';
 $c = new conexion();
-$c->crearUsuario();
-header("location:index.php");
+if($c->crearUsuario()){
+  header("location:index.php");
+} else {
+  header("location:registroUsuario.php?error=1");
+}
 ?>
