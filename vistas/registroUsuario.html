@@ -4,24 +4,26 @@
   <title>Registrarse</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="../bootstrap/jquery.min.js"></script>
-  <script src="../bootstrap/popper.min.js"></script>
-  <script src="../bootstrap/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../styles.css">
-  <script src="../scripts.js/validaciones.js"></script>
+  <script src="bootstrap/jquery.min.js"></script>
+  <script src="bootstrap/popper.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="scripts.js/validaciones.js"></script>
 </head>
 <body class="body-general">
 	<div class="row">
 		<div class="col" style="margin-top: 20px; margin:auto;">
-			<img src="../img/logoNue.png" class="col-12" style="display:block; margin-left: auto; margin-right: auto; width: 190px; height: 180px" >
-		</div>
+      <a href="index.php">
+			     <img onclick="index.php" src="img/logoNue.png" class="col-12" style="display:block; margin-left: auto; margin-right: auto; width: 190px; height: 180px" >
+      </a>
+    </div>
 	</div>
 	<div class="row">
 		<div class="col col-0 col-md-2 col-lg-4">
 		</div>
 		<div  class="col col-12 col-md-8 col-lg-4" style="padding-right: 30px; padding-left: 30px; margin-top: 20px; margin:auto; ">
-		<form id="formularioViaje" action="../crearUsuario.php" method="post" onsubmit="validarRegistro()">
+		<form id="formularioViaje" action="crearUsuario.php" method="post" onsubmit="validarRegistro()">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputNombre">Nombre</span>

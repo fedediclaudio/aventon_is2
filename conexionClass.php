@@ -72,16 +72,34 @@ class conexion {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn = $this->establecerConexion();
 			if($conn) {
-				$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, descripcion, tarjeta, email, nacionalidad, fecha_nacimiento)
-				VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]) . "', '" . $_POST["descripcion"] . "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" .")";
-				 if (mysqli_query($conn, $sql)) {
-				echo "New record created successfully";
+				if($this->validarMailUnico($conn)){
+					$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, descripcion, tarjeta, email, nacionalidad, fecha_nacimiento)
+					VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]) . "', '" . $_POST["descripcion"] . "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" .")";
+					if (mysqli_query($conn, $sql)) {
+						echo "New record created successfully";
+					} else {
+						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					}
+					$conn->close();
+					return True;
 				} else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					$conn->close();
+					return False;
 				}
-				$conn->close();
 			}
-			else { echo "no";}
+			else {
+				echo "Error de conexion";
+			}
+		}
+	}
+
+	function validarMailUnico($conn){
+		$sql = "SELECT * FROM usuario WHERE email = '" . $_POST["mail"] . "'";
+		$result=$conn->query($sql);
+		if (mysqli_num_rows($result) == 0) {
+   		return true;
+		} else {
+				return False;
 		}
 	}
 
