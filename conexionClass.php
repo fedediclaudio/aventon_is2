@@ -35,18 +35,10 @@ class conexion {
 		}
 	}
 
-  function obtenerIdVehiculo($nombre , $conn) {
-    if($conn) {
-      $result = $conn->query("SELECT idtipoVehiculo FROM tipoVehiculo WHERE nombreTipo = " . $nombre);
-      $row = mysqli_fetch_assoc($result);
-      return $row["idtipoVehiculo"];
-    }
-  }
-
   function crearVehiculo() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		  $conn = $this->establecerConexion();
-      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["pantente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario ."', '" . $this->obtenerIdVehiculo($_POST["tipoVehiculo"], $conn) . "' )";
+      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["pantente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario ."', '" . $_POST["tipoVehiculo"] . "' )";
       if (mysqli_query($conn, $sql)) {
 				echo "New record created successfully";
 		  } else {
@@ -159,5 +151,12 @@ class conexion {
             return nil;
         }
     }
+  
+  function getTiposVehiculos() {
+    $conn = $this->establecerConexion();
+    if($conn) {
+      return $conn->query("SELECT * FROM aventon.tipoVehiculo");
+    }
+  }
 }
 ?>
