@@ -73,7 +73,7 @@
         </div>
     </div>
     <?php
-  		include "vistas/modalCrearVehiculo.html"
+  		include "vistas/modalCrearVehiculo.php"
   	?>
 </body>
 </html>
