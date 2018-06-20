@@ -1,6 +1,4 @@
 <?php
-include 'chequeoSesion.php';
-include 'conexionClass.php';
 $conn = new conexion();
 $result = $conn->getVehiculos($_SESSION['id']);
 if (mysqli_num_rows($result) > 0) {

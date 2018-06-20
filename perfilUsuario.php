@@ -66,6 +66,9 @@
         </div>
         <div class="jumbotron">
           <h1>Vehiculos</h1>
+          <?php
+        		include "cargarVehiculos.php"
+        	?>
           <button type="button" class="btn btn-light " data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo">Crear vehículo</button>
         </div>
     </div>
