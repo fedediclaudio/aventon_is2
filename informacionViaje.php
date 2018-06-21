@@ -33,20 +33,20 @@
             <div class="row">
                 <div class="col col-12 col-lg-4 px-0">
                     <div style="margin: 5px">
-                        <h1 class="display-4"><?php $date = new DateTime($viaje["fecha"]); echo 'Viaje desde <font color="#0D47A1">' . $viaje["origen"] . '</font> hasta <font color="#0D47A1">' . $viaje["destino"] . '</font> el dia <font color="#0D47A1">' . $date->format('d-m-Y') . '</font>' ?></h1>
+                        <h1 class="display-4"><?php $date = new DateTime($viaje["fechaInicio"]); echo 'Viaje desde <font color="#0D47A1">' . $viaje["origen"] . '</font> hasta <font color="#0D47A1">' . $viaje["destino"] . '</font> el dia <font color="#0D47A1">' . $date->format('d-m-Y') . '</font>' ?></h1>
                     </div>
                 </div>
                 <div class="col col-12 col-lg-8 px-0"  >
                     <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Inicio del viaje</h6>
-                            <p class="card-text"><?php $horainicio = new DateTime($viaje["horainicio"]); echo 'El viaje comienza el dia ' . $date->format('d-m-Y') . ' a las ' . $horainicio->format('H:m') . ' hs' ?></p>
+                            <p class="card-text"><?php echo 'El viaje comienza el dia ' . $date->format('d-m-Y') . ' a las ' . $date->format('H:i') . ' hs' ?></p>
                         </div>
                     </div>
                     <div class="card card-infoviaje" style="width:100%;  margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                             <h6 class="card-subtitle mb-2 text-muted">Fin del viaje</h6>
-                            <p class="card-text"><?php $horafin = new DateTime($viaje["horafin"]); echo 'Se estima que termine a las ' . $horafin->format('H:m') . ' hs' ?></p>
+                            <p class="card-text"><?php $fechafin = new DateTime($viaje["fechaFin"]); echo 'Se estima que termina el día ' . $fechafin->format('d-m-Y') . ' a las ' . $fechafin->format('H:i') . ' hs' ?></p>
                         </div>
                     </div>
                     <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">

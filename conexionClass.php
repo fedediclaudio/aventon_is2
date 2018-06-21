@@ -21,17 +21,34 @@ class conexion {
 			$row = mysqli_fetch_assoc($user);
 			$conn = $this->establecerConexion();
 			if($conn) {
-				$sql = "INSERT INTO aventon.viaje (origen, destino, fecha, horainicio, horafin, precio, descripcion, idusuario)
-				VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', STR_TO_DATE('" . $_POST["fecha"] . "','%Y-%m-%d'), '" .
-					$_POST["horainicio"] . "', '" . $_POST["horafin"] . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] . "')";
-				 if (mysqli_query($conn, $sql)) {
-				echo "New record created successfully";
-				} else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-				}
+				$fechaInicio = date("Y-m-d H:i:s", strtotime($_POST["fechaInicio"]));
+				$fechaFin = date("Y-m-d H:i:s", strtotime($_POST["fechaFin"]));
+				if($this->fechaValida($conn, $fechaInicio, $fechaFin, $row["id"])){
+					$sql = "INSERT INTO aventon.viaje (origen, destino, fechaInicio, fechaFin, precio, descripcion, idusuario)
+					VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', '" . $fechaInicio .
+						"', '" . $fechaFin . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] . "')";
+					 if (mysqli_query($conn, $sql)) {
+					echo "New record created successfully";
+					} else {
+					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					}
+				} else {echo "fecha inválida";}
 				$conn->close();
 			}
 			else { echo "no";}
+		}
+	}
+
+	function fechaValida($conn, $fechaInicio, $fechaFin, $idUsuario){
+		if($conn){
+			$sql = "SELECT * FROM aventon.viaje WHERE (idusuario = " . $idUsuario .") AND (('$fechaInicio' > fechaInicio AND '$fechaInicio' < fechaFin) OR ('$fechaInicio' < fechaInicio AND '$fechaFin' > fechaFin) OR ('$fechaFin' > fechaInicio AND '$fechaFin' < fechaFin) OR ('$fechaInicio' = fechaInicio) OR ('$fechaFin' = fechaFin))";
+			$viajes = $conn->query($sql);
+			if(mysqli_num_rows($viajes) == 0){
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 	}
 

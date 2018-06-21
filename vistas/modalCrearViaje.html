@@ -9,8 +9,7 @@
 			</div>
 			<div class="modal-body" style="background-color:#FAFAFA">
 				<div class="container-fluid">
-					<form action="crearViaje.php" method="post">
-
+					<form action="crearViaje.php" method="post" onsubmit="return validarFechas()">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Origen</span>
@@ -19,27 +18,21 @@
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text" id="inputDestino">Destino</span>
+									<span class="input-group-text">Destino</span>
 							</div>
-							<input type="text" class="form-control" name="destino" placeholder="Ingrese destino" maxlength=40 required>
+							<input type="text" class="form-control" name="destino" id="inputDestino" placeholder="Ingrese destino" maxlength=40 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text"  id="inputFecha">Fecha</span>
+									<span class="input-group-text">Fecha de inicio</span>
 							</div>
-							<input type="date" class="form-control" name="fecha" required>
+							<input type="datetime-local" class="form-control" id="inputFechaInicio" name="fechaInicio" oninput="validarFechas()" required>
 						</div>
-						<div class="input-group mb-3">
+							<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text"  id="inputHoraInicio">Hora Inicio</span>
+									<span class="input-group-text" >Fecha fin</span>
 							</div>
-							<input type="time" name="horainicio" class="form-control" required>
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-									<span class="input-group-text"  id="inputHoraFin">Hora Fin</span>
-							</div>
-							<input type="time" name="horafin" class="form-control" required>
+							<input type="datetime-local" class="form-control" name="fechaFin" id="inputFechaFin" oninput="validarFechas()" required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -51,9 +44,9 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text">Contacto</span>
 							</div>
-							<textarea class="form-control" maxlength=240 placeholder="Ingrese infromación de contacto" name="contacto"></textarea>
+							<textarea class="form-control" maxlength=240 placeholder="Ingrese información de contacto" name="contacto"></textarea>
 						</div>
-						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
+						<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Crear">
 					</form>
 				</div>
 			</div>
