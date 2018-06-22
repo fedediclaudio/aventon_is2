@@ -64,13 +64,22 @@
                 </div>
             </div>
         </div>
-        <div class="jumbotron">
-          <h1>Vehiculos</h1>
+        <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviajee col col-lg-6">
+          <div class="row">
+            <div class="col col-8">
+              <h2 >Vehiculos</h2>
+            </div>
+            <div class="col col-4">
+              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo" style="float:right">Crear vehículo</button>
+            </div>
+            
+          </div>
+          
           <?php
         		include "cargarVehiculos.php"
         	?>
-          <button type="button" class="btn btn-light " data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo">Crear vehículo</button>
         </div>
+      
     </div>
     <?php
   		include "vistas/modalCrearVehiculo.php";
