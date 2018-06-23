@@ -115,7 +115,7 @@
                     </div>
                     <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                                   <div class="card-body" style="margin: -1%">
-                        <h6 class="card-subtitle mb-2 text-muted">Marca y modelo del <?php echo $viaje["nombreTipo"]; ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Marca y modelo de <?php echo $viaje["nombreTipo"]; ?></h6>
                                       <p class="card-text"><?php echo $viaje["marca"] . ' ' . $viaje["modelo"]; ?></p>
                                   </div>
                     </div>
