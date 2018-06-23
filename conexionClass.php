@@ -170,7 +170,7 @@ class conexion {
 	function fullInfoDeViaje($id) {
         $conn = $this->establecerConexion();
         if($conn) {
-            $result = $conn->query("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN usuario u ON (ve.idusuario = u.id) WHERE idviaje = " . $id );
+            $result = $conn->query("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN usuario u ON (ve.idusuario = u.id) INNER JOIN tipoVehiculo tV ON (ve.idtipoVehiculo = tV.idtipoVehiculo) WHERE idviaje = " . $id );
             return $result;
         }
         else {

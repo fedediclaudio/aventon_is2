@@ -26,7 +26,7 @@
         include "vistas/navbar.html"
     ?>
     <div  style="margin:5%">
-        <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
+        <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoViaje">
             <div class="row">
                 <div class="col col-12 col-lg-4 px-0">
                     <div style="margin: 5px">
@@ -64,7 +64,7 @@
         </div>
         <div class="row mb-6">
             <div class="col-md-6">
-                <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
+                <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoConductor">
                     <div class="row">
             						<div class="col col-12 px-0">
             							<div style="margin: 5px">
@@ -106,34 +106,34 @@
                 </div>
             </div>
             <div class="col-md-6">
-                  <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
-                    <div class="row">
-                        <div class="col col-12 px-0">
-                          <div style="margin: 5px">
-                            <h3 class="display-4">Vehículo</h3>
-                          </div>
-                        </div>
-                        <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
-                                      <div class="card-body" style="margin: -1%">
-                            <h6 class="card-subtitle mb-2 text-muted">Marca y modelo</h6>
-                                          <p class="card-text"><?php echo $viaje["marca"] . ' ' . $viaje["modelo"]; ?></p>
-                                      </div>
-                        </div>
-                        <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
-                                      <div class="card-body" style="margin: -1%">
-                            <h6 class="card-subtitle mb-2 text-muted">Patente</h6>
-                                          <p class="card-text"><?php echo $viaje["patente"]; ?></p>
-                                      </div>
-                        </div>
-                        <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
-                                      <div class="card-body" style="margin: -1%">
-                            <h6 class="card-subtitle mb-2 text-muted">Asientos</h6>
-                                          <p class="card-text"><?php echo $viaje["cantidadAsientos"]; ?></p>
-                                      </div>
-                        </div>
+              <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoVehiculo">
+                <div class="row">
+                    <div class="col col-12 px-0">
+                      <div style="margin: 5px">
+                        <h3 class="display-4">Vehículo</h3>
+                      </div>
                     </div>
-                  </div>
+                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                                  <div class="card-body" style="margin: -1%">
+                        <h6 class="card-subtitle mb-2 text-muted">Marca y modelo del <?php echo $viaje["nombreTipo"]; ?></h6>
+                                      <p class="card-text"><?php echo $viaje["marca"] . ' ' . $viaje["modelo"]; ?></p>
+                                  </div>
+                    </div>
+                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                                  <div class="card-body" style="margin: -1%">
+                        <h6 class="card-subtitle mb-2 text-muted">Patente</h6>
+                                      <p class="card-text"><?php echo $viaje["patente"]; ?></p>
+                                  </div>
+                    </div>
+                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                                  <div class="card-body" style="margin: -1%">
+                        <h6 class="card-subtitle mb-2 text-muted">Asientos</h6>
+                                      <p class="card-text"><?php echo $viaje["cantidadAsientos"]; ?></p>
+                                  </div>
+                    </div>
+                </div>
               </div>
+            </div>
 		</div>
 	</div>
 </body>
