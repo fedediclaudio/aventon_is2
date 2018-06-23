@@ -15,27 +15,24 @@ class conexion {
 	function crearViaje() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			session_start();
-			$username = $_SESSION['mail'];
 			$conn = new conexion();
-			$user =  $conn->getUsuario($username);
-			$row = mysqli_fetch_assoc($user);
 			$conn = $this->establecerConexion();
 			if($conn) {
 				$fechaInicio = date("Y-m-d H:i:s", strtotime($_POST["fechaInicio"]));
 				$fechaFin = date("Y-m-d H:i:s", strtotime($_POST["fechaFin"]));
-				if($this->fechaValida($conn, $fechaInicio, $fechaFin, $row["id"])){
-					$sql = "INSERT INTO aventon.viaje (origen, destino, fechaInicio, fechaFin, precio, descripcion, idusuario)
+				if($this->fechaValida($conn, $fechaInicio, $fechaFin, $_SESSION["id"])){
+					$sql = "INSERT INTO aventon.viaje (origen, destino, fechaInicio, fechaFin, precio, descripcion, idvehiculo)
 					VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', '" . $fechaInicio .
-						"', '" . $fechaFin . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $row["id"] . "')";
+						"', '" . $fechaFin . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $_POST["vehiculo"] . "')";
 					 if (mysqli_query($conn, $sql)) {
-					echo "New record created successfully";
-					} else {
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-					}
+						 echo "New record created successfully";
+						} else {
+							echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+						}
 				} else {echo "fecha inválida";}
 				$conn->close();
 			}
-			else { echo "no";}
+			else { echo "No se pudo establecer la conexion";}
 		}
 	}
 
@@ -149,6 +146,17 @@ class conexion {
 		else {return nil;}
 	}
 
+	function getVehiculo($id){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$sql = "SELECT * FROM vehiculo WHERE idvehiculo = '$id'";
+			$result=$conn->query($sql);
+			var_dump($result);
+			return $result;
+		}
+		else {return nil;}
+	}
+
 	function getUsuarioPorId($id){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -159,7 +167,7 @@ class conexion {
 		else {return nil;}
 	}
 
-    function informacionDeUnViaje($id) {
+  function informacionDeUnViaje($id) {
         $conn = $this->establecerConexion();
         if($conn) {
             $result = $conn->query("SELECT * FROM aventon.viaje WHERE idviaje = " . $id );
@@ -168,8 +176,19 @@ class conexion {
         else {
             return null;
         }
-    }
-  
+  }
+
+	function fullInfoDeViaje($id) {
+        $conn = $this->establecerConexion();
+        if($conn) {
+            $result = $conn->query("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN usuario u ON (ve.idusuario = u.id) WHERE idviaje = " . $id );
+            return $result;
+        }
+        else {
+            return null;
+        }
+  }
+
   function getTiposVehiculos() {
     $conn = $this->establecerConexion();
     if($conn) {

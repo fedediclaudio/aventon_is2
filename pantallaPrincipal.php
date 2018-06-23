@@ -12,18 +12,18 @@
   <script src="bootstrap/bootstrap.min.js"></script>
   <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
   <script src="scripts.js/validacionesAltaDeViaje.js"></script>
-	
+
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
   <script src="scripts.js/cargadeviajes.js"></script>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body class="body-general">
-  	
+
 	<!-- Navbar -->
 	<?php
 		include "vistas/navbar.html";
 	?>
-	
+
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">
         <div class="col col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
@@ -40,7 +40,7 @@
 
 	<!-- Modal crear viaje -->
 	<?php
-		include "vistas/modalCrearViaje.html"
+		include "vistas/modalCrearViaje.php"
 	?>
 
 </body>

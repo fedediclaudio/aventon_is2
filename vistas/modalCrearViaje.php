@@ -40,6 +40,16 @@
 							</div>
 							<input type="number" class="form-control" name="precio" placeholder="Precio" step="0.50" required>
 						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+									<span class="input-group-text" id="inputVehiculo">Vehiculo</span>
+							</div>
+							<select class="form-control" name="vehiculo">
+                <?php
+	                  include 'cargarOpcionesVehiculos.php';
+                ?>
+							</select>
+						</div>
 						<div class="input-group">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Contacto</span>

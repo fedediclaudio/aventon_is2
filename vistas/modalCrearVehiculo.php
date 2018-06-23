@@ -36,10 +36,10 @@
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text" id="inputDestino">Tipo</span>
+									<span class="input-group-text" id="inputTipo">Tipo</span>
 							</div>
-							<select class="form-control" name="tipo">               
-                <?php 	
+							<select class="form-control" name="tipo">
+                <?php
 	                  include 'cargarTiposVehiculos.php';
                 ?>
 							</select>
