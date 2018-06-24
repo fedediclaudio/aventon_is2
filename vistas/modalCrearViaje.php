@@ -1,3 +1,8 @@
+<script type="text/javascript">
+	function vistaRecurrente(){
+		$(".frecuenciasDeViaje").toggle();
+	}
+</script>
 <div class="modal fade" id="crearViajeModal" tabindex="-1" role="dialog" aria-labelledby="crarViajeModal" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
@@ -24,18 +29,6 @@
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text">Fecha de inicio</span>
-							</div>
-							<input type="datetime-local" class="form-control" id="inputFechaInicio" name="fechaInicio" oninput="validarFechas()" required>
-						</div>
-							<div class="input-group mb-3">
-							<div class="input-group-prepend">
-									<span class="input-group-text" >Fecha fin</span>
-							</div>
-							<input type="datetime-local" class="form-control" name="fechaFin" id="inputFechaFin" oninput="validarFechas()" required>
-						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
 							</div>
 							<input type="number" class="form-control" name="precio" placeholder="Precio" step="0.50" required>
@@ -44,19 +37,81 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputVehiculo">Vehiculo</span>
 							</div>
-							<select class="form-control" name="vehiculo">
+							<select class="form-control" name="vehiculo" required>
                 <?php
 	                  include 'cargarOpcionesVehiculos.php';
                 ?>
 							</select>
 						</div>
-						<div class="input-group">
+						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text">Contacto</span>
+									<span class="input-group-text" >Duración</span>
 							</div>
-							<textarea class="form-control" maxlength=240 placeholder="Ingrese información de contacto" name="contacto"></textarea>
+							<div class="row">
+								<div class="col">
+									<input type="number" min="0" class="form-control" placeholder="hh" required>
+								</div>
+								<div class="col">
+									<input type="number" min="0" max="60" class="form-control" placeholder="mm" required>
+								</div>
+							</div>
 						</div>
-						<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Crear">
+						<div class="frecuenciasDeViaje">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+										<span class="input-group-text">Fecha</span>
+								</div>
+								<input type="date" class="form-control" id="inputFechaInicio" name="fechaInicio" required>
+							</div>
+						</div>
+						<div class="form-check">
+					    <input type="checkbox" class="form-check-input" id="frecuente" onclick="vistaRecurrente()">
+					    <label class="form-check-label" for="frecuente">Viaje frecuente</label>
+					  </div>
+						<div class="frecuenciasDeViaje" style="display:none">
+							<hr>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+										<span class="input-group-text">Desde</span>
+								</div>
+								<input type="date" class="form-control" id="inputComienzoRepeticion" name="comienzoFrecuencia" required>
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Duración en semanas</span>
+								</div>
+								<input type="number" class="form-control" name="duracionFrecuencia" placeholder="Ingrese cantidad de semanas" required>
+							</div>
+							<div class="form-check-inline">
+						    <input type="checkbox" class="form-check-input" id="lunes">
+						    <label class="form-check-label" for="frecuente">Lunes</label>
+							</div>
+							<div class="form-check-inline">
+								<input type="checkbox" class="form-check-input" id="martes">
+						    <label class="form-check-label" for="frecuente">Martes</label>
+							</div>
+							<div class="form-check-inline">
+								<input type="checkbox" class="form-check-input" id="miercoles">
+						    <label class="form-check-label" for="frecuente">Miercoles</label>
+							</div>
+							<div class="form-check-inline">
+								<input type="checkbox" class="form-check-input" id="jueves">
+						    <label class="form-check-label" for="frecuente">Jueves</label>
+							</div>
+							<div class="form-check-inline">
+								<input type="checkbox" class="form-check-input" id="viernes">
+						    <label class="form-check-label" for="frecuente">Viernes</label>
+							</div>
+							<div class="form-check-inline">
+								<input type="checkbox" class="form-check-input" id="sabado">
+						    <label class="form-check-label" for="frecuente">Sabado</label>
+							</div>
+							<div class="form-check-inline">
+								<input type="checkbox" class="form-check-input" id="domingo">
+						    <label class="form-check-label" for="frecuente">Domingo</label>
+						  </div>
+						</div>
+						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
 					</form>
 				</div>
 			</div>
