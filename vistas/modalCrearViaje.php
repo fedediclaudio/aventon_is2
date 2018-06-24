@@ -1,5 +1,8 @@
 <script type="text/javascript">
 	function vistaRecurrente(){
+		$('.required').prop('required', function(){
+			return  $(this).is(':visible');
+		});
 		$(".frecuenciasDeViaje").toggle();
 	}
 </script>
@@ -19,25 +22,25 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text">Origen</span>
 							</div>
-							<input type="text" class="form-control" name="origen" placeholder="Ingrese origen" maxlength=40 required>
+							<input type="text" class="form-control required" name="origen" placeholder="Ingrese origen" maxlength=40 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Destino</span>
 							</div>
-							<input type="text" class="form-control" name="destino" id="inputDestino" placeholder="Ingrese destino" maxlength=40 required>
+							<input type="text" class="form-control required" name="destino" id="inputDestino" placeholder="Ingrese destino" maxlength=40 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">$</span>
 							</div>
-							<input type="number" class="form-control" name="precio" placeholder="Precio" step="0.50" required>
+							<input type="number" min="0" class="form-control required" name="precio" placeholder="Precio" step="0.50" required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputVehiculo">Vehiculo</span>
 							</div>
-							<select class="form-control" name="vehiculo" required>
+							<select class="form-control required" name="vehiculo" required>
                 <?php
 	                  include 'cargarOpcionesVehiculos.php';
                 ?>
@@ -49,10 +52,10 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<input type="number" min="0" class="form-control" placeholder="hh" required>
+									<input type="number" min="0" class="form-control required" placeholder="hh" required>
 								</div>
 								<div class="col">
-									<input type="number" min="0" max="60" class="form-control" placeholder="mm" required>
+									<input type="number" min="0" max="60" class="form-control required" placeholder="mm" required>
 								</div>
 							</div>
 						</div>
@@ -61,7 +64,7 @@
 								<div class="input-group-prepend">
 										<span class="input-group-text">Fecha</span>
 								</div>
-								<input type="date" class="form-control" id="inputFechaInicio" name="fechaInicio" required>
+								<input type="date" class="form-control required" id="inputFechaInicio" name="fechaInicio" required>
 							</div>
 						</div>
 						<div class="form-check">
@@ -74,13 +77,13 @@
 								<div class="input-group-prepend">
 										<span class="input-group-text">Desde</span>
 								</div>
-								<input type="date" class="form-control" id="inputComienzoRepeticion" name="comienzoFrecuencia" required>
+								<input type="date" class="form-control required" id="inputComienzoRepeticion" name="comienzoFrecuencia" required>
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Duración en semanas</span>
 								</div>
-								<input type="number" class="form-control" name="duracionFrecuencia" placeholder="Ingrese cantidad de semanas" required>
+								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" placeholder="Ingrese cantidad de semanas" required>
 							</div>
 							<div class="form-check-inline">
 						    <input type="checkbox" class="form-check-input" id="lunes">
