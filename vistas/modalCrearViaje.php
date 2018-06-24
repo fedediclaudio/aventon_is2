@@ -59,6 +59,12 @@
 								</div>
 							</div>
 						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Hora de inicio</span>
+							</div>
+							<input type="time" min="0" class="form-control required" name="precio"required>
+						</div>
 						<div class="frecuenciasDeViaje">
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
