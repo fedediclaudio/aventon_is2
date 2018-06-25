@@ -91,34 +91,36 @@
 								</div>
 								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" id="duracionFrecuencia" placeholder="Ingrese cantidad de semanas">
 							</div>
-							<div class="form-check-inline">
-						    <input type="checkbox" class="form-check-input day" id="lunes">
-						    <label class="form-check-label" for="frecuente">Lunes</label>
+							<div id="daysContainer">
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="lunes">
+									<label class="form-check-label" for="lunes">Lunes</label>
+								</div>
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="martes">
+									<label class="form-check-label" for="martes">Martes</label>
+								</div>
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="miercoles">
+									<label class="form-check-label" for="miercoles">Miercoles</label>
+								</div>
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="jueves">
+									<label class="form-check-label" for="jueves">Jueves</label>
+								</div>
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="viernes">
+									<label class="form-check-label" for="viernes">Viernes</label>
+								</div>
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="sabado">
+									<label class="form-check-label" for="sabado">Sabado</label>
+								</div>
+								<div class="form-check-inline">
+									<input type="checkbox" class="form-check-input day" id="domingo">
+									<label class="form-check-label" for="domingo">Domingo</label>
+								</div>
 							</div>
-							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input day" id="martes">
-						    <label class="form-check-label" for="frecuente">Martes</label>
-							</div>
-							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input day" id="miercoles">
-						    <label class="form-check-label" for="frecuente">Miercoles</label>
-							</div>
-							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input day" id="jueves">
-						    <label class="form-check-label" for="frecuente">Jueves</label>
-							</div>
-							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input day" id="viernes">
-						    <label class="form-check-label" for="frecuente">Viernes</label>
-							</div>
-							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input day" id="sabado">
-						    <label class="form-check-label" for="frecuente">Sabado</label>
-							</div>
-							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input day" id="domingo">
-						    <label class="form-check-label" for="frecuente">Domingo</label>
-						  </div>
 						</div>
 						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
 					</form>
