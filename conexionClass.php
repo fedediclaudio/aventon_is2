@@ -13,10 +13,6 @@ class conexion {
 
 
 	function crearViajes() {
-		var_dump($_POST["fechasFin"]);
-		var_dump($_POST["fechasInicio"]);
-		var_dump(json_decode($_POST["fechasFin"]));
-		var_dump(json_decode($_POST["fechasInicio"]));
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn = new conexion();
 			$conn = $this->establecerConexion();
