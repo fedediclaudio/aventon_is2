@@ -3,7 +3,7 @@
 		$('.required').prop('required', function(){
 			return  !$(this).is(':visible');
 		});
-		$(".frecuenciasDeViaje").toggle();
+		$(".frecuenciasDeViaje").slideToggle(200);
 	}
 </script>
 <div class="modal fade" id="crearViajeModal" tabindex="-1" role="dialog" aria-labelledby="crarViajeModal" aria-hidden="true">
