@@ -1,22 +1,30 @@
 function arrayInicio(){
-  var days = [];
-  Array.from($('.day')).forEach(function(each){
-    days.push(each.checked);
-  });
-  var fechaInicio = new Date(document.getElementById("inputComienzoRepeticion").value);
-  var fechaFin = new Date;
-  fechaFin.setDate(fechaInicio.getDate() + (document.getElementById("duracionFrecuencia").value*7)-1);
   var validDates = [];
-  for (var d = fechaInicio; d <= fechaFin; d.setDate(d.getDate() + 1)) {
-    if(days[d.getDay()]){
-      var aux = new Date(d);
-      var hours = ((document.getElementById("horaInicio").value).split(":")[0]);
-      var minutes = ((document.getElementById("horaInicio").value).split(":")[1]);
-      aux.setHours(hours,minutes,0,0);
-      validDates.push(aux);
+  if(!($('#frecuente').checked)){
+    validDates.push(setHoraInicio(new Date(document.getElementById("inputFechaInicio").value)));
+  } else {
+    var days = [];
+    Array.from($('.day')).forEach(function(each){
+      days.push(each.checked);
+    });
+    var fechaInicio = new Date(document.getElementById("inputComienzoRepeticion").value);
+    var fechaFin = new Date;
+    fechaFin.setDate(fechaInicio.getDate() + (document.getElementById("duracionFrecuencia").value*7)-1);
+    for (var d = fechaInicio; d <= fechaFin; d.setDate(d.getDate() + 1)) {
+      if(days[d.getDay()]){
+        var aux = new Date(d);
+        setHoraInicio(aux);
+        validDates.push(aux);
+      }
     }
   }
   return validDates;
+}
+
+function setHoraInicio(date){
+  horaInicio = document.getElementById("horaInicio").value;
+  date.setHours(horaInicio.split(":")[0],horaInicio.split(":")[1]);
+  return date;
 }
 
 function arrayFin(){
