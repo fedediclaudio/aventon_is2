@@ -31,5 +31,7 @@ function arrayFin(){
 }
 
 function postArrays(){
+  var arrayInicio = arrayInicio();
+  var arrayFin = arrayFin();
   
 }

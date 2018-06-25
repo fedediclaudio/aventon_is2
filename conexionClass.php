@@ -18,11 +18,13 @@ class conexion {
 			$conn = $this->establecerConexion();
 			if($conn) {
 				$fechasInicio = json_decode($_POST["fechasInicio"]);
-        $fechasInicio = json_decode($_POST["fechasInicio"]);
-        $idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $_POST["horaInicio"], $_POST["horaFin"], $_POST["precio"], $_POST["descripcion"], $_POST["idVehiculo"]);
-        for ($i = 1; $i <= count($fechaInicio); $i++) {
-          $this->crearViajeConcreto($conn, $fechaInicio[$i], $fechaFin[$i], $idViaje).
-        }
+        $fechasFin = json_decode($_POST["fechasFin"]);
+        var_dump($fechasInicio);
+        var_dump($fechasFin);
+        /*$idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $_POST["horaInicio"], $fechaFin , $_POST["precio"], $_POST["descripcion"], $_POST["idVehiculo"]);
+        for ($i = 1; $i <= count($fechasInicio); $i++) {
+          $this->crearViajeConcreto($conn, $fechasInicio[$i], $fechasFin[$i], $idViaje);
+        }*/
 			}
 			else { echo "No se pudo establecer la conexion";}
 		}

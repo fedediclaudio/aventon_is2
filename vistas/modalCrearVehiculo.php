@@ -38,7 +38,7 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputTipo">Tipo</span>
 							</div>
-							<select class="form-control" name="tipo">
+							<select class="form-control" name="tipo" required>
                 <?php
 	                  include 'cargarTiposVehiculos.php';
                 ?>
