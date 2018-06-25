@@ -12,7 +12,8 @@
   <script src="bootstrap/bootstrap.min.js"></script>
   <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
   <script src="scripts.js/validacionesAltaDeViaje.js"></script>
-
+  <script src="scripts.js/generadorDeArrays.js"></script>
+  <script src="scripts.js/moment.js"></script>
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
   <script src="scripts.js/cargadeviajes.js"></script>
   <link rel="stylesheet" type="text/css" href="styles.css">

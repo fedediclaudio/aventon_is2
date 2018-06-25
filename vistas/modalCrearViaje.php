@@ -17,7 +17,7 @@
 			</div>
 			<div class="modal-body" style="background-color:#FAFAFA">
 				<div class="container-fluid">
-					<form action="crearViaje.php" method="post" onsubmit="return validarFechas()">
+					<form action="crearViaje.php" method="post" onsubmit="postArrays()">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Origen</span>
@@ -52,10 +52,10 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<input type="number" min="0" class="form-control required" placeholder="hh" required>
+									<input type="number" min="0" class="form-control required" placeholder="hh" id="duracionHoras" required>
 								</div>
 								<div class="col">
-									<input type="number" min="0" max="60" class="form-control required" placeholder="mm" required>
+									<input type="number" min="0" max="60" class="form-control required" placeholder="mm" id="duracionMinutos" required>
 								</div>
 							</div>
 						</div>
@@ -63,7 +63,7 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Hora de inicio</span>
 							</div>
-							<input type="time" min="0" class="form-control required" name="precio"required>
+							<input type="time" min="0" class="form-control required" name="horaInicio" id="horaInicio" required>
 						</div>
 						<div class="frecuenciasDeViaje">
 							<div class="input-group mb-3">
@@ -89,34 +89,34 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">Duración en semanas</span>
 								</div>
-								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" placeholder="Ingrese cantidad de semanas" required>
+								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" id="duracionFrecuencia" placeholder="Ingrese cantidad de semanas" required>
 							</div>
 							<div class="form-check-inline">
-						    <input type="checkbox" class="form-check-input" id="lunes">
+						    <input type="checkbox" class="form-check-input day" id="lunes">
 						    <label class="form-check-label" for="frecuente">Lunes</label>
 							</div>
 							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input" id="martes">
+								<input type="checkbox" class="form-check-input day" id="martes">
 						    <label class="form-check-label" for="frecuente">Martes</label>
 							</div>
 							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input" id="miercoles">
+								<input type="checkbox" class="form-check-input day" id="miercoles">
 						    <label class="form-check-label" for="frecuente">Miercoles</label>
 							</div>
 							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input" id="jueves">
+								<input type="checkbox" class="form-check-input day" id="jueves">
 						    <label class="form-check-label" for="frecuente">Jueves</label>
 							</div>
 							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input" id="viernes">
+								<input type="checkbox" class="form-check-input day" id="viernes">
 						    <label class="form-check-label" for="frecuente">Viernes</label>
 							</div>
 							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input" id="sabado">
+								<input type="checkbox" class="form-check-input day" id="sabado">
 						    <label class="form-check-label" for="frecuente">Sabado</label>
 							</div>
 							<div class="form-check-inline">
-								<input type="checkbox" class="form-check-input" id="domingo">
+								<input type="checkbox" class="form-check-input day" id="domingo">
 						    <label class="form-check-label" for="frecuente">Domingo</label>
 						  </div>
 						</div>
