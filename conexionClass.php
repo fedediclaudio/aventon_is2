@@ -12,29 +12,40 @@ class conexion {
 	}
 
 
-	function crearViaje() {
+	function crearViajes() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			session_start();
 			$conn = new conexion();
 			$conn = $this->establecerConexion();
 			if($conn) {
-				$fechaInicio = date("Y-m-d H:i:s", strtotime($_POST["fechaInicio"]));
-				$fechaFin = date("Y-m-d H:i:s", strtotime($_POST["fechaFin"]));
-				if($this->fechaValida($conn, $fechaInicio, $fechaFin, $_SESSION["id"])){
-					$sql = "INSERT INTO aventon.viaje (origen, destino, fechaInicio, fechaFin, precio, descripcion, idvehiculo)
-					VALUES ( '" . $_POST["origen"] . "', '" . $_POST["destino"] . "', '" . $fechaInicio .
-						"', '" . $fechaFin . "', '" . $_POST["precio"] . "', '" . $_POST["contacto"] . "', '" . $_POST["vehiculo"] . "')";
-					 if (mysqli_query($conn, $sql)) {
-						 echo "New record created successfully";
-						} else {
-							echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-						}
-				} else {echo "fecha inválida";}
-				$conn->close();
+				$fechasInicio = json_decode($_POST["fechasInicio"]);
+        $fechasInicio = json_decode($_POST["fechasInicio"]);
+        $idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $_POST["horaInicio"], $_POST["horaFin"], $_POST["precio"], $_POST["descripcion"], $_POST["idVehiculo"]);
+        for ($i = 1; $i <= count($fechaInicio); $i++) {
+          $this->crearViajeConcreto($conn, $fechaInicio[$i], $fechaFin[$i], $idViaje).
+        }
 			}
 			else { echo "No se pudo establecer la conexion";}
 		}
 	}
+  
+  function crearViajeAbstracto($conn, $origen, $destino, $horaInicio, $horaFin, $precio, $descripcion, $idVehiculo) {
+    $sql = "INSERT INTO aventon.viaje (origen, destino, horaInicio, horaFin, precio, descripcion, idvehiculo) VALUES ( $origen , $destino , $horaInicio , $horaFin , $precio , $descripcion , $idVehiculo )";
+    $this->ejecutarInsert($conn, $sql);
+    return $this->ultimoViajeSegunID($conn);
+  }
+  
+  function crearViajeConcreto($conn, $fechaInicio, $fechaFin, $idViaje) {
+    $sql = "INSERT INTO aventon.viajeConcreto (fechaInicio, fechaFin, idViaje) VALUES ( $fechaInicio , $fechaFin , $idViaje)";
+    $this->ejecutarInsert($conn, $sql);
+  }
+  
+  function ejecutarInsert($conn , $sql ){
+    if (mysqli_query($conn, $sql)) {
+        echo "New record created successfully";
+		} else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+  }
 
 	function fechaValida($conn, $fechaInicio, $fechaFin, $idUsuario){
 		if($conn){
@@ -70,12 +81,16 @@ class conexion {
     return $row["id"];
   }
 
+  function ultimoViajeSegunID($conn){
+    $result = $conn->query("SELECT MAX(idviaje) FROM viaje");
+		$row = mysqli_fetch_assoc($result);
+    return $row["MAX(idviaje)"];
+  }
+  
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
-		if($conn) {
-			$result = $conn->query("SELECT MAX(idviaje) FROM viaje");
-			$row = mysqli_fetch_assoc($result);
-			$ultimoCargado = $row["MAX(idviaje)"] - ( 20 * $pagina);
+		if($conn) {		
+			$ultimoCargado = ($this->ultimoViajeSegunID($conn)) - ( 20 * $pagina);
 			$ultimoACargar = $ultimoCargado - 20;
 			$result = $conn->query("SELECT * FROM viaje WHERE (idviaje <= " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ") ORDER BY idviaje DESC");
 			return $result;
@@ -87,8 +102,8 @@ class conexion {
 			$conn = $this->establecerConexion();
 			if($conn) {
 				if($this->validarMailUnico($conn)){
-					$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, descripcion, tarjeta, email, nacionalidad, fecha_nacimiento)
-					VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]) . "', '" . $_POST["descripcion"] . "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" .")";
+					$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, tarjeta, email, nacionalidad, fecha_nacimiento)
+					VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]). "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" .")";
 					if (mysqli_query($conn, $sql)) {
 						echo "New record created successfully";
 					} else {
