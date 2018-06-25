@@ -1,6 +1,6 @@
 function arrayInicio(){
   var validDates = [];
-  if(!($('#frecuente').checked)){
+  if(!($('#frecuente').is(':checked'))){
     validDates.push(setHoraInicio(new Date(document.getElementById("inputFechaInicio").value)));
   } else {
     var days = [];
