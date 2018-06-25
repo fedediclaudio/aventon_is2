@@ -1,6 +1,6 @@
 <?php
 	include 'conexionClass.php';
 	$c = new conexion();
-	$c->crearViaje();
+	$c->crearViajes();
 	header("location:pantallaPrincipal.php");
 ?>

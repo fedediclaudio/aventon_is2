@@ -13,32 +13,36 @@ class conexion {
 
 
 	function crearViajes() {
+		var_dump($_POST["fechasFin"]);
+		var_dump($_POST["fechasInicio"]);
+		var_dump(json_decode($_POST["fechasFin"]));
+		var_dump(json_decode($_POST["fechasInicio"]));
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn = new conexion();
 			$conn = $this->establecerConexion();
 			if($conn) {
 				$fechasInicio = json_decode($_POST["fechasInicio"]);
-        $fechasInicio = json_decode($_POST["fechasInicio"]);
+        $fechasfin = json_decode($_POST["fechasFin"]);
         $idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $_POST["horaInicio"], $_POST["horaFin"], $_POST["precio"], $_POST["descripcion"], $_POST["idVehiculo"]);
         for ($i = 1; $i <= count($fechaInicio); $i++) {
-          $this->crearViajeConcreto($conn, $fechaInicio[$i], $fechaFin[$i], $idViaje).
+          $this->crearViajeConcreto($conn, $fechaInicio[$i], $fechaFin[$i], $idViaje);
         }
 			}
 			else { echo "No se pudo establecer la conexion";}
 		}
 	}
-  
+
   function crearViajeAbstracto($conn, $origen, $destino, $horaInicio, $horaFin, $precio, $descripcion, $idVehiculo) {
     $sql = "INSERT INTO aventon.viaje (origen, destino, horaInicio, horaFin, precio, descripcion, idvehiculo) VALUES ( $origen , $destino , $horaInicio , $horaFin , $precio , $descripcion , $idVehiculo )";
     $this->ejecutarInsert($conn, $sql);
     return $this->ultimoViajeSegunID($conn);
   }
-  
+
   function crearViajeConcreto($conn, $fechaInicio, $fechaFin, $idViaje) {
     $sql = "INSERT INTO aventon.viajeConcreto (fechaInicio, fechaFin, idViaje) VALUES ( $fechaInicio , $fechaFin , $idViaje)";
     $this->ejecutarInsert($conn, $sql);
   }
-  
+
   function ejecutarInsert($conn , $sql ){
     if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
@@ -86,10 +90,10 @@ class conexion {
 		$row = mysqli_fetch_assoc($result);
     return $row["MAX(idviaje)"];
   }
-  
+
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
-		if($conn) {		
+		if($conn) {
 			$ultimoCargado = ($this->ultimoViajeSegunID($conn)) - ( 20 * $pagina);
 			$ultimoACargar = $ultimoCargado - 20;
 			$result = $conn->query("SELECT * FROM viaje WHERE (idviaje <= " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ") ORDER BY idviaje DESC");

@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	function vistaRecurrente(){
 		$('.required').prop('required', function(){
-			return  $(this).is(':visible');
+			return  !$(this).is(':visible');
 		});
 		$(".frecuenciasDeViaje").toggle();
 	}
@@ -17,7 +17,7 @@
 			</div>
 			<div class="modal-body" style="background-color:#FAFAFA">
 				<div class="container-fluid">
-					<form action="crearViaje.php" method="post" onsubmit="postArrays()">
+					<form action="crearviaje.php" method="post" onsubmit="postArrays()" id="formCrearViaje">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Origen</span>
@@ -48,22 +48,27 @@
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
+								<span class="input-group-text">Hora de inicio</span>
+							</div>
+							<input type="time" min="0" class="form-control required" name="horaInicio" id="horaInicio" required>
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
 									<span class="input-group-text" >Duración</span>
 							</div>
 							<div class="row">
 								<div class="col">
-									<input type="number" min="0" class="form-control required" placeholder="hh" id="duracionHoras" required>
+									<input type="number" min="0" max="23" class="form-control required" placeholder="hh" id="duracionHoras" required>
 								</div>
 								<div class="col">
-									<input type="number" min="0" max="60" class="form-control required" placeholder="mm" id="duracionMinutos" required>
+									<input type="number" min="0" max="59" class="form-control required" placeholder="mm" id="duracionMinutos" required>
 								</div>
 							</div>
 						</div>
-						<div class="input-group mb-3">
-							<div class="input-group-prepend">
-								<span class="input-group-text">Hora de inicio</span>
-							</div>
-							<input type="time" min="0" class="form-control required" name="horaInicio" id="horaInicio" required>
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="frecuente" onclick="vistaRecurrente()">
+							<label class="form-check-label" for="frecuente">Viaje frecuente</label>
+							<hr>
 						</div>
 						<div class="frecuenciasDeViaje">
 							<div class="input-group mb-3">
@@ -73,23 +78,18 @@
 								<input type="date" class="form-control required" id="inputFechaInicio" name="fechaInicio" required>
 							</div>
 						</div>
-						<div class="form-check">
-					    <input type="checkbox" class="form-check-input" id="frecuente" onclick="vistaRecurrente()">
-					    <label class="form-check-label" for="frecuente">Viaje frecuente</label>
-					  </div>
 						<div class="frecuenciasDeViaje" style="display:none">
-							<hr>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 										<span class="input-group-text">Desde</span>
 								</div>
-								<input type="date" class="form-control required" id="inputComienzoRepeticion" name="comienzoFrecuencia" required>
+								<input type="date" class="form-control required" id="inputComienzoRepeticion" name="comienzoFrecuencia">
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Duración en semanas</span>
 								</div>
-								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" id="duracionFrecuencia" placeholder="Ingrese cantidad de semanas" required>
+								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" id="duracionFrecuencia" placeholder="Ingrese cantidad de semanas">
 							</div>
 							<div class="form-check-inline">
 						    <input type="checkbox" class="form-check-input day" id="lunes">

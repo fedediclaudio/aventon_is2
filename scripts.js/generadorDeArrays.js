@@ -25,11 +25,13 @@ function arrayFin(){
     var auxDate = new Date(each);
     auxDate=moment(auxDate).add((document.getElementById("duracionMinutos").value),'m').toDate();
     auxDate=moment(auxDate).add((document.getElementById("duracionHoras").value),'hours').toDate();
+    console.log('a');
     endDates.push(auxDate);
   });
   return endDates;
 }
 
 function postArrays(){
-  
+  $('<input>').attr('type','hidden').attr('value',JSON.stringify(arrayInicio())).attr('name','fechasInicio').appendTo('#formCrearViaje');
+  $('<input>').attr('type','hidden').attr('value',JSON.stringify(arrayFin())).attr('name','fechasFin').appendTo('#formCrearViaje');
 }
