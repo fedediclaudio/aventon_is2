@@ -49,10 +49,8 @@
 				<div class="input-group-prepend">
 						<span class="input-group-text" id="inputMail">Mail</span>
 				</div>
-				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" oninput="validarMail()" maxlength=40 required>
-        <div class="invalid-feedback">
-          Formato invalido de e-mail
-        </div>
+				<input type="text" class="form-control" name="mail" placeholder="Ingrese e-mail" id="mailInput" oninput="validarMail()" maxlength=40 required onblur="validarMailExist()">
+        <div id="invalidFeedbackMail" class="invalid-feedback"></div>
 			</div>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">

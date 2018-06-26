@@ -147,6 +147,19 @@ class conexion {
 		}
 	}
 
+	//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar
+	function existeMail($mail){
+		$sql = "SELECT * FROM usuario WHERE email = '$mail'";
+		$conn = $this->establecerConexion();
+		$result = $conn->query($sql);
+		$conn->close();
+		if (mysqli_num_rows($result) == 0) {
+   		return false;
+		} else {
+				return true;
+		}
+	}
+
 	function getUsuarioLogin($mail, $password){
 		$conn = $this->establecerConexion();
 		if($conn) {
