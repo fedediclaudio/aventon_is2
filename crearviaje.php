@@ -2,5 +2,5 @@
 	include 'conexionClass.php';
 	$c = new conexion();
 	$c->crearViajes();
-	header("location:pantallaPrincipal.php");
+	/*header("location:pantallaPrincipal.php");*/
 ?>

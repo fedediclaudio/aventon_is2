@@ -17,25 +17,40 @@ class conexion {
 			$conn = new conexion();
 			$conn = $this->establecerConexion();
 			if($conn) {
+        //Arreglos de Fechas
 				$fechasInicio = json_decode($_POST["fechasInicio"]);
-        $fechasfin = json_decode($_POST["fechasFin"]);
-        $idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $_POST["horaInicio"], $_POST["horaFin"], $_POST["precio"], $_POST["descripcion"], $_POST["idVehiculo"]);
-        for ($i = 1; $i <= count($fechaInicio); $i++) {
-          $this->crearViajeConcreto($conn, $fechaInicio[$i], $fechaFin[$i], $idViaje);
+        $fechasFin = json_decode($_POST["fechasFin"]);
+            //$f = explode('T', $fechasInicio[0]);
+            //$f[0]
+        //Se obtiene la hora inicio.
+        list($dia, $horaCompleta) = explode('T', $fechasInicio[0]);
+        list($horaInicio, $minutoInicio) = explode( ':',$horaCompleta);
+        $hora = $horaInicio . ':' . $minutoInicio;
+        //Se Obtiene la hora fin
+        list($diaFin, $horaCompletaFin) = explode('T', $fechasFin[0]);
+        list($horaFin, $minutoFin) = explode( ':',$horaCompletaFin);
+        $horaF = $horaFin . ':' . $minutoFin;
+        // Creacion del viaje abstracto
+        $idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $hora, $horaF, $_POST["precio"], $_POST["vehiculo"]);
+        // Creacion de los viajes concretos
+        for ($i = 0; $i < count($fechasInicio); $i++) {
+          $fechaI = explode('T', $fechasInicio[$i]);
+          $fechaF = explode('T', $fechasFin[$i]);
+          $this->crearViajeConcreto($conn, $fechaI[0], $fechaF[0], $idViaje);
         }
 			}
 			else { echo "No se pudo establecer la conexion";}
 		}
 	}
 
-  function crearViajeAbstracto($conn, $origen, $destino, $horaInicio, $horaFin, $precio, $descripcion, $idVehiculo) {
-    $sql = "INSERT INTO aventon.viaje (origen, destino, horaInicio, horaFin, precio, descripcion, idvehiculo) VALUES ( $origen , $destino , $horaInicio , $horaFin , $precio , $descripcion , $idVehiculo )";
+  function crearViajeAbstracto($conn, $origen, $destino, $horaInicio, $horaFin, $precio, $idVehiculo) {
+    $sql = "INSERT INTO aventon.viaje (origen, destino, horaInicio, horaFin, precio, idvehiculo) VALUES ( '$origen' , '$destino' , STR_TO_DATE( '$horaInicio' , '%H:%i') , STR_TO_DATE( '$horaFin' , '%H:%i') , '$precio'  , '$idVehiculo' )";
     $this->ejecutarInsert($conn, $sql);
     return $this->ultimoViajeSegunID($conn);
   }
 
   function crearViajeConcreto($conn, $fechaInicio, $fechaFin, $idViaje) {
-    $sql = "INSERT INTO aventon.viajeConcreto (fechaInicio, fechaFin, idViaje) VALUES ( $fechaInicio , $fechaFin , $idViaje)";
+    $sql = "INSERT INTO aventon.viajeConcreto (fechaInicio, fechaFin, idViaje) VALUES ( STR_TO_DATE('$fechaInicio','%Y-%m-%d') , STR_TO_DATE('$fechaFin', '%Y-%m-%d') , '$idViaje')";
     $this->ejecutarInsert($conn, $sql);
   }
 
