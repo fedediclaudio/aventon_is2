@@ -14,20 +14,15 @@ class conexion {
 
 	function crearViajes() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$conn = new conexion();
 			$conn = $this->establecerConexion();
 			if($conn) {
         //Arreglos de Fechas
 				$fechasInicio = json_decode($_POST["fechasInicio"]);
         $fechasFin = json_decode($_POST["fechasFin"]);
         //Se obtiene la hora inicio.
-        list($dia, $horaCompleta) = explode('T', $fechasInicio[0]);
-        list($horaInicio, $minutoInicio) = explode( ':',$horaCompleta);
-        $hora = $horaInicio . ':' . $minutoInicio;
+        $hora = $this->obtenerHoraEnFormatoDesdeFecha($fechasInicio[0]);
         //Se Obtiene la hora fin
-        list($diaFin, $horaCompletaFin) = explode('T', $fechasFin[0]);
-        list($horaFin, $minutoFin) = explode( ':',$horaCompletaFin);
-        $horaF = $horaFin . ':' . $minutoFin;
+        $horaF = $this->obtenerHoraEnFormatoDesdeFecha($fechasFin[0]);
         // Creacion del viaje abstracto
         $idViaje = $this->crearViajeAbstracto($conn, $_POST["origen"], $_POST["destino"], $hora, $horaF, $_POST["precio"], $_POST["vehiculo"]);
         // Creacion de los viajes concretos
@@ -40,6 +35,39 @@ class conexion {
 			else { echo "No se pudo establecer la conexion";}
 		}
 	}
+  
+  function obtenerHoraEnFormatoDesdeFecha($fecha) {
+    list($dia, $horaCompleta) = explode('T', $fecha);
+    list($hora, $minuto) = explode( ':',$horaCompleta);
+    return $hora . ':' . $minuto;
+  }
+  
+  function validarFechasDeViaje($arrayInicio, $arrayFin) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$conn = $this->establecerConexion();
+			if($conn) {
+        //Arreglos de Fechas
+				$fechasInicio = json_decode($arrayInicio);
+        $fechasFin = json_decode($arrayFin);
+        //Se obtiene la hora inicio.
+        $hora = $this->obtenerHoraEnFormatoDesdeFecha($fechasInicio[0]);
+        //Se Obtiene la hora fin
+        $horaF = $this->obtenerHoraEnFormatoDesdeFecha($fechasFin[0]);
+        session_start();
+        $mail = $_SESSION["email"];
+        for ($i = 0; $i < count($fechasInicio); $i++) {
+          $fechaI = explode('T', $fechasInicio[$i]);
+          $fechaF = explode('T', $fechasFin[$i]);
+          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario)) WHERE ( u.email = $mail ) AND ( ( STR_TO_DATE( $fechaF[0] ,'%Y-%m-%d') < vc.fechaInicio ) OR ( $fechaI[0] ,'%Y-%m-%d') > vc.fechaFin ) ) ";
+          $result = $conn->query($sql);
+          if (mysqli_num_rows($result) > 0) {
+   		       return false;
+		      }
+        }
+        return true;
+      }
+    }
+  }
 
   function crearViajeAbstracto($conn, $origen, $destino, $horaInicio, $horaFin, $precio, $idVehiculo) {
     $sql = "INSERT INTO aventon.viaje (origen, destino, horaInicio, horaFin, precio, idvehiculo) VALUES ( '$origen' , '$destino' , STR_TO_DATE( '$horaInicio' , '%H:%i') , STR_TO_DATE( '$horaFin' , '%H:%i') , '$precio'  , '$idVehiculo' )";
