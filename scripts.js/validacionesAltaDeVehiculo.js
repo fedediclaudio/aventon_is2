@@ -1,7 +1,10 @@
 var patenteNoExiste = false;
 
 function isPatenteValid() {
-  return true; // Se tendria que verificar que la patente sea valida
+  // Se tendria que verificar que la patente sea valida
+  document.getElementById('patenteInput').classList.remove("is-invalid")
+  document.getElementById('patenteInput').classList.add("is-valid")
+  return true;
 }
 
 function alertPatenteExiste(){
@@ -11,14 +14,14 @@ function alertPatenteExiste(){
 }
 
 function validarPatenteExistente(){
-  if(isPatenteValid){
+  if(isPatenteValid()) {
     var parametros = {
         "patenteIngresada" : document.getElementById('patenteInput').value
       };
       //Peticion AJAX
       $.ajax({
         data: parametros,
-        url: 'scripts.js/validarPatenteBD.php',
+        url: 'validarPatenteBD.php',
         type: 'post',
         success: function(resultado){
           resultado = JSON.parse(resultado)
