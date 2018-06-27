@@ -27,14 +27,14 @@ function estadoDePatente(invalida,texto){
 }
 
 function validarPatenteExistente(){
-  if(isPatenteValid){
+  if(isPatenteValid()) {
     var parametros = {
         "patenteIngresada" : document.getElementById('patenteInput').value
       };
       //Peticion AJAX
       $.ajax({
         data: parametros,
-        url: 'scripts.js/validarPatenteBD.php',
+        url: 'validarPatenteBD.php',
         type: 'post',
         success: function(resultado){
           resultado = JSON.parse(resultado)
