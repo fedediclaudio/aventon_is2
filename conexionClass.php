@@ -42,7 +42,7 @@ class conexion {
     return $hora . ':' . $minuto;
   }
   
-  function validarFechasDeViaje($arrayInicio, $arrayFin, $idVehiculo) {
+  function validarFechasDeViaje($arrayInicio, $arrayFin) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn = $this->establecerConexion();
 			if($conn) {
@@ -54,10 +54,11 @@ class conexion {
         //Se Obtiene la hora fin
         $horaF = $this->obtenerHoraEnFormatoDesdeFecha($fechasFin[0]);
         session_start();
+        $mail = $_SESSION["email"];
         for ($i = 0; $i < count($fechasInicio); $i++) {
           $fechaI = explode('T', $fechasInicio[$i]);
           $fechaF = explode('T', $fechasFin[$i]);
-          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE ( ve.idvehiculo = $idVehiculo ) AND ( ( STR_TO_DATE( $fechaF[0] ,'%Y-%m-%d') < vc.fechaInicio ) OR ( $fechaI[0] ,'%Y-%m-%d') > vc.fechaFin ) ) ";
+          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario)) WHERE ( u.email = $mail ) AND ( ( STR_TO_DATE( $fechaF[0] ,'%Y-%m-%d') < vc.fechaInicio ) OR ( $fechaI[0] ,'%Y-%m-%d') > vc.fechaFin ) ) ";
           $result = $conn->query($sql);
           if (mysqli_num_rows($result) > 0) {
    		       return false;
