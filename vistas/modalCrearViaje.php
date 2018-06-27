@@ -75,7 +75,7 @@
 								<div class="input-group-prepend">
 										<span class="input-group-text">Fecha</span>
 								</div>
-								<input type="date" class="form-control required" id="inputFechaInicio" name="fechaInicio" required>
+								<input type="date" class="form-control required" id="inputFechaInicio" name="fechaInicio" oninput="validarFechas()" required>
 							</div>
 						</div>
 						<div class="frecuenciasDeViaje" style="display:none">

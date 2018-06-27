@@ -7,12 +7,6 @@ function isPatenteValid() {
   return false
 }
 
-function alertPatenteExiste(){
-  document.getElementById('patenteInput').classList.remove("is-valid")
-  document.getElementById('patenteInput').classList.add("is-invalid")
-  document.getElementById("invalidFeedbackPatente").textContent="Esta patente ya se encuentra en uso."
-}
-
 function estadoDePatente(invalida,texto){
   if(invalida){
     document.getElementById('patenteInput').classList.remove("is-valid")

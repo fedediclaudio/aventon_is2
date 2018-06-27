@@ -1,17 +1,19 @@
 function validarFechas(){
-  var fechaI = document.getElementById('inputFechaInicio').value
-  var fechaF = document.getElementById('inputFechaFin').value
-  if(fechaI >= fechaF ){
-  	document.getElementById('inputFechaInicio').classList.remove("is-valid")
-    document.getElementById('inputFechaInicio').classList.add("is-invalid")
-    document.getElementById('inputFechaFin').classList.remove("is-valid")
-    document.getElementById('inputFechaFin').classList.add("is-invalid")
-    document.getElementById('buttonCrear').disabled = true;
+  var elemento
+  if(!($('#frecuente').is(':checked'))){
+    elemento = document.getElementById("inputFechaInicio")
   } else {
-    document.getElementById('buttonCrear').disabled = false
-    document.getElementById('inputFechaInicio').classList.remove("is-invalid")
-    document.getElementById('inputFechaInicio').classList.add("is-valid")
-    document.getElementById('inputFechaFin').classList.remove("is-invalid")
-    document.getElementById('inputFechaFin').classList.add("is-valid");
+    elemento = document.getElementById("inputComienzoRepeticion")
+  }
+  inicio = setHoraInicio(new Date(elemento.value));
+  inicio.setDate(inicio.getDate()+1)
+  now = new Date
+  now.setHours(now.getHours()-3)
+  if(inicio < now){
+    elemento.classList.remove("is-valid")
+    elemento.classList.add("is-invalid")
+  } else {
+    elemento.classList.remove("is-invalid")
+    elemento.classList.add("is-valid")
   }
 }
