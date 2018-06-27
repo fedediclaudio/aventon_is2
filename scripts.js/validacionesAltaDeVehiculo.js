@@ -1,13 +1,29 @@
 var patenteNoExiste = false;
 
 function isPatenteValid() {
-  return true; // Se tendria que verificar que la patente sea valida
+  if (/^[A-ZÑ]{3}\d{3}$/.test(document.getElementById('patenteInput').value) || /^[A-ZÑ]{2}\d{3}[A-ZÑ]{2}$/.test(document.getElementById('patenteInput').value)){
+    estadoDePatente(false,'')
+    return true
+  }
+  estadoDePatente(true,'Patente invalida')
+  return false
 }
 
 function alertPatenteExiste(){
   document.getElementById('patenteInput').classList.remove("is-valid")
   document.getElementById('patenteInput').classList.add("is-invalid")
   document.getElementById("invalidFeedbackPatente").textContent="Esta patente ya se encuentra en uso."
+}
+
+function estadoDePatente(invalida,texto){
+  if(invalida){
+    document.getElementById('patenteInput').classList.remove("is-valid")
+    document.getElementById('patenteInput').classList.add("is-invalid")
+    document.getElementById("invalidFeedbackPatente").textContent=texto
+  } else {
+    document.getElementById('patenteInput').classList.remove("is-invalid")
+    document.getElementById('patenteInput').classList.add("is-valid")
+  }
 }
 
 function validarPatenteExistente(){
