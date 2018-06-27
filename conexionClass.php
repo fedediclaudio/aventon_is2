@@ -20,8 +20,6 @@ class conexion {
         //Arreglos de Fechas
 				$fechasInicio = json_decode($_POST["fechasInicio"]);
         $fechasFin = json_decode($_POST["fechasFin"]);
-            //$f = explode('T', $fechasInicio[0]);
-            //$f[0]
         //Se obtiene la hora inicio.
         list($dia, $horaCompleta) = explode('T', $fechasInicio[0]);
         list($horaInicio, $minutoInicio) = explode( ':',$horaCompleta);
@@ -107,7 +105,7 @@ class conexion {
 		if($conn) {
 			$ultimoCargado = ($this->ultimoViajeSegunID($conn)) - ( 20 * $pagina);
 			$ultimoACargar = $ultimoCargado - 20;
-			$result = $conn->query("SELECT * FROM viaje WHERE (idviaje <= " . $ultimoCargado . ") AND (idviaje > " . $ultimoACargar . ") ORDER BY idviaje DESC");
+			$result = $conn->query("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE (vi.idviaje <= " . $ultimoCargado . ") AND (vi.idviaje > " . $ultimoACargar . ") ORDER BY vi.idviaje DESC");
 			return $result;
 		}
 	}
@@ -213,7 +211,7 @@ class conexion {
 	function fullInfoDeViaje($id) {
         $conn = $this->establecerConexion();
         if($conn) {
-            $result = $conn->query("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN usuario u ON (ve.idusuario = u.id) INNER JOIN tipoVehiculo tV ON (ve.idtipoVehiculo = tV.idtipoVehiculo) WHERE idviaje = " . $id );
+            $result = $conn->query("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON (ve.idusuario = u.id) INNER JOIN tipoVehiculo tV ON (ve.idtipoVehiculo = tV.idtipoVehiculo) WHERE vi.idviaje = '$id'" );
             return $result;
         }
         else {

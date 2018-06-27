@@ -17,8 +17,8 @@
 					echo $row["origen"] . ' - ' .	$row["destino"];
 					echo '</div>';
 					echo '<ul class="list-group list-group-flush">';
-          $f = new DateTime($row["fechaInicio"]);
-					echo '<li class="list-group-item item-cardviaje" >' . $f->format('d-m-Y') . '</li>';
+          //$f = new Date($row["vc.fechaInicio"]);
+					echo '<li class="list-group-item item-cardviaje" >' . $row["fechaInicio"]/*$f->format('d-m-Y')*/ . '</li>';
 					echo '<li class="list-group-item item-cardviaje" >$' . $row["precio"] . '</li>';
 					echo '</ul>';
 					echo '</div>';

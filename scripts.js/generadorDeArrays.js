@@ -27,6 +27,7 @@ function arrayInicio(){
 function setHoraInicio(date){
   horaInicio = document.getElementById("horaInicio").value;
   date.setHours(horaInicio.split(":")[0],horaInicio.split(":")[1]);
+  date.setHours(date.getHours() - 3);
   return date;
 }
 
