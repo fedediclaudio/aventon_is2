@@ -45,7 +45,7 @@
                 ?>
 							</select>
 						</div>
-						<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Agregar vehículo">
+						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Agregar vehículo">
 					</form>
 				</div>
 			</div>
