@@ -17,7 +17,7 @@
 			</div>
 			<div class="modal-body" style="background-color:#FAFAFA">
 				<div class="container-fluid">
-					<form action="crearviaje.php" method="post" onsubmit="postArrays()" id="formCrearViaje">
+					<form action="crearviaje.php" method="post" onsubmit="fechasValidas()" id="formCrearViaje">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Origen</span>
@@ -38,9 +38,9 @@
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text" id="inputVehiculo">Vehiculo</span>
+									<span class="input-group-text" >Vehiculo</span>
 							</div>
-							<select class="form-control required" name="vehiculo" required>
+							<select class="form-control required" id="inputVehiculo" name="vehiculo" required>
                 <?php
 	                  include 'cargarOpcionesVehiculos.php';
                 ?>
@@ -122,7 +122,8 @@
 								</div>
 							</div>
 						</div>
-						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
+						<div class="alert alert-danger" hidden id="alertaFechas" role="alert"></div>
+						<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Crear">
 					</form>
 				</div>
 			</div>
