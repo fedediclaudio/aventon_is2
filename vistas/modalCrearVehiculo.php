@@ -26,7 +26,8 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDestino">Patente</span>
 							</div>
-							<input type="text" class="form-control" name="patente" placeholder="Ingrese patente" maxlength=45 required>
+							<input type="text" class="form-control" name="patente" id="patenteInput" placeholder="Ingrese patente" maxlength=45 onblur="validarPatenteExistente()" required>
+              <div id="invalidFeedbackPatente" class="invalid-feedback"></div>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -44,7 +45,7 @@
                 ?>
 							</select>
 						</div>
-						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Agregar vehículo">
+						<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Agregar vehículo">
 					</form>
 				</div>
 			</div>

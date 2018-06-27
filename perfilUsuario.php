@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+  <script src="scripts.js/validacionesAltaDeVehiculo.js"></script>
 </head>
 <body>
     <?php

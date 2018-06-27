@@ -145,7 +145,8 @@ class conexion {
 		}
 	}
 
-	//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar
+	//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar. 
+  //SI SEGURO QUE LO VAMOS A HACER... (repondio alguien)
 	function existeMail($mail){
 		$sql = "SELECT * FROM usuario WHERE email = '$mail'";
 		$conn = $this->establecerConexion();
@@ -157,6 +158,18 @@ class conexion {
 				return true;
 		}
 	}
+  
+  //Valida si la patente existe
+  function existePatente($patente) {
+    $sql = "SELECT * FROM aventon.vehiculo WHERE patente = '$patente'";
+    $conn = $this->establecerConexion();
+    $result = $conn->query($sql);
+    $conn->close();
+    if(mysqli_num_rows($result) == 0) {
+      return false;
+    }
+    else { return true; }
+  }
 
 	function getUsuarioLogin($mail, $password){
 		$conn = $this->establecerConexion();
