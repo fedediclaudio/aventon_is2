@@ -270,5 +270,35 @@ class conexion {
       return null;
     }
   }
+  
+  
+  /* Postulaciones a viajes *****/
+  
+  function postularAViaje($iduser, $viaje) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$conn = $this->establecerConexion();
+			if($conn) { 
+        $sql = "INSERT INTO aventon.participacion (idviajeConcreto, idusuario) VALUES ('$iduser', '$viaje')";
+        if (mysqli_query($conn, $sql)) {
+				echo "New record created successfully";
+        } else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+      }
+    }
+  }
+  
+  function cambiarEstadoParticipacionEnViaje($iduser, $idviajeConcreto, $estado) {
+    $conn = $this->establecerConexion();
+    if($conn) {
+      $sql = "UPDATE participacion SET estado = '$estado' WHERE ((participacion.idusuario = '$iduser') AND (participacion.idviajeConcreto = '$idviajeConcreto'))";
+      if (mysqli_query($conn, $sql)) {
+				echo "Record update successfully";
+      } else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      }
+    }
+  }
+    
 }
 ?>

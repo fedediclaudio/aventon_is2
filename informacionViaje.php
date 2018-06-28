@@ -60,13 +60,6 @@
                             <p class="card-text"><?php echo '$' . $viaje["precio"] ?></p>
                         </div>
                     </div>
-					<?php if($viaje["descripcion"]) { echo '
-                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
-                        <div class="card-body" style="margin: -1%">
-                            <h6 class="card-subtitle mb-2 text-muted">Descripcion del contacto</h6>
-                            <p class="card-text">' . $viaje["descripcion"] . '</p>
-                        </div>
-                    </div>';} ?>
                 </div>
             </div>
         </div>
