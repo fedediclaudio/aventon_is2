@@ -17,7 +17,7 @@
 			</div>
 			<div class="modal-body" style="background-color:#FAFAFA">
 				<div class="container-fluid">
-					<form action="crearviaje.php" method="post" onsubmit="fechasValidas()" id="formCrearViaje">
+					<form action="" method="post" onsubmit="return fechasValidas()" id="formCrearViaje">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Origen</span>
@@ -75,7 +75,7 @@
 								<div class="input-group-prepend">
 										<span class="input-group-text">Fecha</span>
 								</div>
-								<input type="date" class="form-control required" id="inputFechaInicio" name="fechaInicio" oninput="validarFechas()" required>
+								<input type="date" class="form-control required" id="inputFechaInicio" name="fechaInicio" required>
 							</div>
 						</div>
 						<div class="frecuenciasDeViaje" style="display:none">
@@ -122,8 +122,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="alert alert-danger" hidden id="alertaFechas" role="alert"></div>
-						<input type="submit" disabled class="btn btn-primary" id="buttonCrear" value="Crear">
+						<div class="alert alert-danger" id="alertaFechas" role="alert" style="display:none"></div>
+						<input type="submit" class="btn btn-primary" id="buttonCrear" value="Crear">
 					</form>
 				</div>
 			</div>

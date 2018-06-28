@@ -10,8 +10,8 @@ function arrayInicio(){
       days.push(each.checked);
     });
     var fechaInicio = new Date(document.getElementById("inputComienzoRepeticion").value);
-    var fechaFin = new Date;
-    fechaFin.setDate(fechaInicio.getDate() + (document.getElementById("duracionFrecuencia").value*7) -1);
+    var fechaFin = new Date(fechaInicio);
+    fechaFin.setDate(fechaFin.getDate() + (document.getElementById("duracionFrecuencia").value*7)-1);
     for (var d = fechaInicio; d <= fechaFin; d.setDate(d.getDate() + 1)) {
       if(days[d.getDay()]){
         var aux = new Date(d);

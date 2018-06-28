@@ -35,13 +35,13 @@ class conexion {
 			else { echo "No se pudo establecer la conexion";}
 		}
 	}
-  
+
   function obtenerHoraEnFormatoDesdeFecha($fecha) {
     list($dia, $horaCompleta) = explode('T', $fecha);
     list($hora, $minuto) = explode( ':',$horaCompleta);
     return $hora . ':' . $minuto;
   }
-  
+
   function validarFechasDeViaje($arrayInicio, $arrayFin) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$conn = $this->establecerConexion();
@@ -54,12 +54,12 @@ class conexion {
         //Se Obtiene la hora fin
         $horaF = $this->obtenerHoraEnFormatoDesdeFecha($fechasFin[0]);
         session_start();
-        $mail = $_SESSION["email"];
+        $mail = $_SESSION["mail"];
         for ($i = 0; $i < count($fechasInicio); $i++) {
           $fechaI = explode('T', $fechasInicio[$i]);
           $fechaF = explode('T', $fechasFin[$i]);
-          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario)) WHERE ( u.email = $mail ) AND ( ( STR_TO_DATE( $fechaF[0] ,'%Y-%m-%d') < vc.fechaInicio ) OR ( $fechaI[0] ,'%Y-%m-%d') > vc.fechaFin ) ) ";
-          $result = $conn->query($sql);
+          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario) WHERE ( u.email = '$mail' ) AND ( ( STR_TO_DATE( '$fechaF[0]' ,'%Y-%m-%d') >= vc.fechaInicio ) AND ( ( STR_TO_DATE('$fechaI[0]' ,'%Y-%m-%d') <= vc.fechaFin ) ) )";
+					$result = $conn->query($sql);
           if (mysqli_num_rows($result) > 0) {
    		       return false;
 		      }
@@ -173,7 +173,7 @@ class conexion {
 		}
 	}
 
-	//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar. 
+	//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar.
   //SI SEGURO QUE LO VAMOS A HACER... (repondio alguien)
 	function existeMail($mail){
 		$sql = "SELECT * FROM usuario WHERE email = '$mail'";
@@ -186,7 +186,7 @@ class conexion {
 				return true;
 		}
 	}
-  
+
   //Valida si la patente existe
   function existePatente($patente) {
     $sql = "SELECT * FROM aventon.vehiculo WHERE patente = '$patente'";
