@@ -127,13 +127,19 @@ class conexion {
 		$row = mysqli_fetch_assoc($result);
     return $row["MAX(idviaje)"];
   }
+  
+  function ultimoViajeConcretoSegunID($conn){
+    $result = $conn->query("SELECT MAX(idviajeConcreto) FROM viajeConcreto");
+		$row = mysqli_fetch_assoc($result);
+    return $row["MAX(idviajeConcreto)"];
+  }
 
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
 		if($conn) {
-			$ultimoCargado = ($this->ultimoViajeSegunID($conn)) - ( 20 * $pagina);
+			$ultimoCargado = ($this->ultimoViajeConcretoSegunID($conn)) - ( 20 * $pagina);
 			$ultimoACargar = $ultimoCargado - 20;
-			$result = $conn->query("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE (vi.idviaje <= " . $ultimoCargado . ") AND (vi.idviaje > " . $ultimoACargar . ") ORDER BY vi.idviaje DESC");
+			$result = $conn->query("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE (vc.idviajeConcreto <= " . $ultimoCargado . ") AND (vc.idviajeConcreto > " . $ultimoACargar . ") ORDER BY vc.idviajeConcreto DESC");
 			return $result;
 		}
 	}
