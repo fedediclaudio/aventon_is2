@@ -302,7 +302,6 @@ class conexion {
 	}
 
 
-
   /* Postulaciones a viajes *****/
 
   function postularAViaje($iduser, $viaje) {
@@ -319,10 +318,10 @@ class conexion {
     }
   }
 
-  function cambiarEstadoParticipacionEnViaje($iduser, $idviajeConcreto, $estado) {
+  function cambiarEstadoParticipacionEnViaje($idparticipacion, $estado) {
     $conn = $this->establecerConexion();
     if($conn) {
-      $sql = "UPDATE participacion SET estado = '$estado' WHERE ((participacion.idusuario = '$iduser') AND (participacion.idviajeConcreto = '$idviajeConcreto'))";
+      $sql = "UPDATE participacion SET estado = '$estado' WHERE (participacion.idparticipacion = '$idparticipacion')";
       if (mysqli_query($conn, $sql)) {
 				echo "Record update successfully";
       } else {
