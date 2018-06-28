@@ -127,7 +127,7 @@ class conexion {
 		$row = mysqli_fetch_assoc($result);
     return $row["MAX(idviaje)"];
   }
-  
+
   function ultimoViajeConcretoSegunID($conn){
     $result = $conn->query("SELECT MAX(idviajeConcreto) FROM viajeConcreto");
 		$row = mysqli_fetch_assoc($result);
@@ -333,12 +333,12 @@ class conexion {
       }
     }
   }
-  
+
   function updateDatosDeUsuario($iduser) {
     $conn = $this->establecerConexion();
     if($conn) {
-      $sql = "UPDATE usuario SET nombre ='". $_POST["nombre"] ."', apellido ='". $_POST["apellido"] ."', fecha_nacimiento = STR_TO_DATE('". $_POST["fecha_nacimiento"] . "', '%Y-%m-%d'), descripcion = '". $_POST["descripcion"] . "' WHERE usuario.id = $iduser";
-      if (mysqli_query($conn, $sql)) {
+      $sql = "UPDATE usuario SET nombre ='". $_POST["nombre"] ."', apellido ='". $_POST["apellido"] ."', nacionalidad = '" . $_POST["nacionalidad"] . "', fecha_nacimiento = STR_TO_DATE('". $_POST["fecha_nacimiento"] . "', '%Y-%m-%d'), descripcion = '". $_POST["descripcion"] . "' WHERE usuario.id = $iduser";
+			if (mysqli_query($conn, $sql)) {
 				echo "Record update successfully";
       } else {
 				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
