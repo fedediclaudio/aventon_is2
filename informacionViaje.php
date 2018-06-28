@@ -4,15 +4,14 @@
 <html>
 <head>
     <title>Informacion de viaje</title>
-      <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="bootstrap/jquery.min.js"></script>
-  <script src="bootstrap/popper.min.js"></script>
-  <script src="bootstrap/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="styles.css">
-
-  <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="bootstrap/jquery.min.js"></script>
+    <script src="bootstrap/popper.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 </head>
 <body class="body-general">
     <?php
@@ -24,10 +23,6 @@
         $fechaFin = new DateTime($viaje["fechaFin"]);
         $horaInicio = new DateTime ($viaje["horaInicio"]);
         $horaFin = new DateTime ($viaje["horaFin"]);
-        /*var_dump($fechaInicio);
-        var_dump($fechaFin);
-        var_dump($horaInicio);
-        var_dump($horaFin);*/
     ?>
     <!-- Navbar -->
     <?php
@@ -60,13 +55,67 @@
                             <p class="card-text"><?php echo '$' . $viaje["precio"] ?></p>
                         </div>
                     </div>
-					<?php if($viaje["descripcion"]) { echo '
-                    <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
-                        <div class="card-body" style="margin: -1%">
-                            <h6 class="card-subtitle mb-2 text-muted">Descripcion del contacto</h6>
-                            <p class="card-text">' . $viaje["descripcion"] . '</p>
-                        </div>
-                    </div>';} ?>
+					          <?php if($viaje["descripcion"]) { echo '
+                      <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                          <div class="card-body" style="margin: -1%">
+                              <h6 class="card-subtitle mb-2 text-muted">Descripcion del contacto</h6>
+                              <p class="card-text">' . $viaje["descripcion"] . '</p>
+                          </div>
+                      </div>';} ?>
+                </div>
+                <div class="col-12" style="margin-top:20px">
+                  <?php
+                  if($_SESSION['id']==$viaje["id"]){
+                    echo '<div class="jumbotron" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)">
+                      <h4>Postulaciones pendientes</h4>';
+                      $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'pendiente');
+                      if (mysqli_num_rows($result) == 0) {
+               		       echo "Aún no hay postulaciones pendientes en este viaje";
+            		      } else {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                          <div class="card-body" style="margin: -1%">
+                          <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
+                          <p class="card-text">' . $conn->getUsuarioPorId($row["idusuario"]) . '</p>
+                          </div>
+                          </div>';
+                        }
+                      }
+                      $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
+                      if (!(mysqli_num_rows($result) == 0)) {
+                        echo '<h4>Postulaciones aceptadas</h4>';
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                          <div class="card-body" style="margin: -1%">
+                          <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
+                          <p class="card-text">' . $conn->getUsuarioPorId($row["idusuario"]) . '</p>
+                          </div>
+                          </div>';
+                        }
+                      }
+                      $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'rechazado');
+                      if (!(mysqli_num_rows($result) == 0)) {
+                        echo '<h4>Postulaciones rechazadas</h4>';
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                          <div class="card-body" style="margin: -1%">
+                          <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
+                          <p class="card-text">' . $conn->getUsuarioPorId($row["idusuario"]) . '</p>
+                          </div>
+                          </div>';
+                        }
+                      }
+                    echo '</div>';
+                  } else {
+                    if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
+                      echo '<button type="button" class="btn" style="border-color:rgb(13, 71, 161); float:right">Postularse</button>';
+                    } else {
+                      echo '<div class="alert alert-danger" role="alert">
+                      El viaje esta completo
+                      </div>';
+                    }
+                  }
+                  ?>
                 </div>
             </div>
         </div>

@@ -270,5 +270,36 @@ class conexion {
       return null;
     }
   }
+
+	function participacionesEnViaje($idViaje){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje");
+			return $result;
+		} else {
+			return null;
+		}
+	}
+
+	function participacionesAceptadasEnViaje($idViaje){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.estado = 'aceptado'");
+			return $result;
+		} else {
+			return null;
+		}
+	}
+
+	function participacionesEnViajeConEstado($idViaje, $estado){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.estado = '$estado'");
+			return $result;
+		} else {
+			return null;
+		}
+	}
+
 }
 ?>
