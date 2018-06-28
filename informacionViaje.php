@@ -73,10 +73,12 @@
                		       echo "Aún no hay postulaciones pendientes en este viaje";
             		      } else {
                         while ($row = mysqli_fetch_assoc($result)) {
+                          $user = mysqli_fetch_assoc($conn->getUsuarioPorId($row["idusuario"]));
                           echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                           <div class="card-body" style="margin: -1%">
                           <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
-                          <p class="card-text">' . $conn->getUsuarioPorId($row["idusuario"]) . '</p>
+                          <p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>
+                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviaje"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptado\'"class="btn" style="border-color:rgb(13, 71, 161)">Aceptar postulacion</button>
                           </div>
                           </div>';
                         }
@@ -85,10 +87,11 @@
                       if (!(mysqli_num_rows($result) == 0)) {
                         echo '<h4>Postulaciones aceptadas</h4>';
                         while ($row = mysqli_fetch_assoc($result)) {
+                          $user = mysqli_fetch_assoc($conn->getUsuarioPorId($row["idusuario"]));
                           echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                           <div class="card-body" style="margin: -1%">
                           <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
-                          <p class="card-text">' . $conn->getUsuarioPorId($row["idusuario"]) . '</p>
+                          <p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>
                           </div>
                           </div>';
                         }
@@ -97,10 +100,11 @@
                       if (!(mysqli_num_rows($result) == 0)) {
                         echo '<h4>Postulaciones rechazadas</h4>';
                         while ($row = mysqli_fetch_assoc($result)) {
+                          $user = mysqli_fetch_assoc($conn->getUsuarioPorId($row["idusuario"]));
                           echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                           <div class="card-body" style="margin: -1%">
                           <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
-                          <p class="card-text">' . $conn->getUsuarioPorId($row["idusuario"]) . '</p>
+                          <p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>
                           </div>
                           </div>';
                         }
@@ -108,7 +112,7 @@
                     echo '</div>';
                   } else {
                     if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
-                      echo '<button type="button" class="btn" style="border-color:rgb(13, 71, 161); float:right">Postularse</button>';
+                      echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."&idviaje=".$viaje["idviaje"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
                     } else {
                       echo '<div class="alert alert-danger" role="alert">
                       El viaje esta completo
