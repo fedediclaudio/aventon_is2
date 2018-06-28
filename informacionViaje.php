@@ -78,8 +78,8 @@
                           <div class="card-body" style="margin: -1%">
                           <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
                           <p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>
-                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviaje"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptado\'"class="btn" style="border-color:rgb(13, 71, 161)">Aceptar postulación</button>
-                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviaje"].'&idpostulacion='.$row["idparticipacion"].'&estado=rechazado\'"class="btn" style="border-color:rgb(13, 71, 161)">Rechazar postulación</button>
+                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptado\'"class="btn" style="border-color:rgb(13, 71, 161)">Aceptar postulación</button>
+                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=rechazado\'"class="btn" style="border-color:rgb(13, 71, 161)">Rechazar postulación</button>
                           </div>
                           </div>';
                         }
@@ -113,7 +113,7 @@
                     echo '</div>';
                   } else {
                     if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
-                      echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."&idviaje=".$viaje["idviaje"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
+                      echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
                     } else {
                       echo '<div class="alert alert-danger" role="alert">
                       El viaje esta completo

@@ -3,6 +3,6 @@
   $c = new conexion();
   session_start();
   $c->postularAViaje($_SESSION["id"], $_GET["idviajeConcreto"]);
-  $idViaje = $_GET["idviaje"];
+  $idViaje = $_GET["idviajeConcreto"];
   header("location:informacionViaje.php?id=$idViaje");
 ?>
