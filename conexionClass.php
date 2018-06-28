@@ -327,7 +327,7 @@ class conexion {
   function updateDatosDeUsuario($iduser) {
     $conn = $this->establecerConexion();
     if($conn) {
-      $sql = "UPDATE usuario SET nombre =". $_POST["nombre"] .", apellido =". $_POST["apellido"] .", fecha_nacimiento = STR_TO_DATE(". $_POST["fecha_nacimiento"] . ", '%d-%m-%Y'), descripcion = ". $_POST["descripcion"] " WHERE usuario.id = $iduser";
+      $sql = "UPDATE usuario SET nombre ='". $_POST["nombre"] ."', apellido ='". $_POST["apellido"] ."', fecha_nacimiento = STR_TO_DATE('". $_POST["fecha_nacimiento"] . "', '%Y-%m-%d'), descripcion = '". $_POST["descripcion"] . "' WHERE usuario.id = $iduser";
       if (mysqli_query($conn, $sql)) {
 				echo "Record update successfully";
       } else {

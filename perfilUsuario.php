@@ -3,7 +3,7 @@
 ?>
 <html>
 <head>
-    <title>Informacion de viaje</title>
+    <title>Mi Perfil</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="bootstrap/jquery.min.js"></script>
@@ -61,7 +61,7 @@
                             <p class="card-text">' . $user['descripcion'] . '</p>
                         </div>
                     </div>';} ?>
-                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='vistas/editarUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
+                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='edicionPerfilUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
                 </div>
             </div>
         </div>
