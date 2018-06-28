@@ -281,16 +281,6 @@ class conexion {
 		}
 	}
 
-	function participacionesAceptadasEnViaje($idViaje){
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.estado = 'aceptado'");
-			return $result;
-		} else {
-			return null;
-		}
-	}
-
 	function participacionesEnViajeConEstado($idViaje, $estado){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -305,15 +295,13 @@ class conexion {
   /* Postulaciones a viajes *****/
 
   function postularAViaje($iduser, $viaje) {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$conn = $this->establecerConexion();
-			if($conn) {
-        $sql = "INSERT INTO aventon.participacion (idviajeConcreto, idusuario) VALUES ('$iduser', '$viaje')";
-        if (mysqli_query($conn, $sql)) {
-				echo "New record created successfully";
-        } else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
+		$conn = $this->establecerConexion();
+		if($conn) {
+      $sql = "INSERT INTO aventon.participacion (idviajeConcreto, idusuario) VALUES ('$viaje', '$iduser')";
+      if (mysqli_query($conn, $sql)) {
+			echo "New record created successfully";
+      } else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
       }
     }
   }
