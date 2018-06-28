@@ -77,10 +77,16 @@
                           echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                           <div class="card-body" style="margin: -1%">
                           <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
-                          <p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>
-                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptado\'"class="btn" style="border-color:rgb(13, 71, 161)">Aceptar postulación</button>
-                          <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=rechazado\'"class="btn" style="border-color:rgb(13, 71, 161)">Rechazar postulación</button>
-                          </div>
+                          <p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>';
+                          if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) >= $viaje["cantidadAsientos"]){
+                              echo '<div class="alert alert-danger" role="alert">
+                              El viaje esta completo, no puedes aceptar mas postulaciones
+                              </div>';
+                          } else {
+                            echo '<button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptado\'"class="btn" style="border-color:rgb(13, 71, 161)">Aceptar postulación</button>
+                            <button type="button"onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=rechazado\'"class="btn" style="border-color:rgb(13, 71, 161)">Rechazar postulación</button>';
+                          }
+                          echo '</div>
                           </div>';
                         }
                       }
@@ -112,12 +118,19 @@
                       }
                     echo '</div>';
                   } else {
-                    if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
-                      echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
+                    $result = $conn->participacionesEnViajeDeUsuario($viaje["idviajeConcreto"],$_SESSION["id"]);
+                    if(mysqli_num_rows($result) > 0){
+                      $postulacion = mysqli_fetch_assoc($result);
+                      echo "<div class=\"alert alert-danger\" role=\"alert\">
+                      Tu postulación para este viaje se encuentra " . $postulacion["estado"] . "</div>";
                     } else {
-                      echo '<div class="alert alert-danger" role="alert">
-                      El viaje esta completo
-                      </div>';
+                      if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
+                        echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
+                      } else {
+                        echo '<div class="alert alert-danger" role="alert">
+                        El viaje esta completo
+                        </div>';
+                      }
                     }
                   }
                   ?>

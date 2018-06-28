@@ -281,6 +281,16 @@ class conexion {
 		}
 	}
 
+	function participacionesEnViajeDeUsuario($idViaje,$idUsuario){
+		$conn = $this->establecerConexion();
+		if($conn) {
+			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario");
+			return $result;
+		} else {
+			return null;
+		}
+	}
+
 	function participacionesEnViajeConEstado($idViaje, $estado){
 		$conn = $this->establecerConexion();
 		if($conn) {
