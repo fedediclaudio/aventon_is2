@@ -127,13 +127,19 @@ class conexion {
 		$row = mysqli_fetch_assoc($result);
     return $row["MAX(idviaje)"];
   }
+  
+  function ultimoViajeConcretoSegunID($conn){
+    $result = $conn->query("SELECT MAX(idviajeConcreto) FROM viajeConcreto");
+		$row = mysqli_fetch_assoc($result);
+    return $row["MAX(idviajeConcreto)"];
+  }
 
 	function ultimosViajes($pagina) {
 		$conn = $this->establecerConexion();
 		if($conn) {
-			$ultimoCargado = ($this->ultimoViajeSegunID($conn)) - ( 20 * $pagina);
+			$ultimoCargado = ($this->ultimoViajeConcretoSegunID($conn)) - ( 20 * $pagina);
 			$ultimoACargar = $ultimoCargado - 20;
-			$result = $conn->query("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE (vi.idviaje <= " . $ultimoCargado . ") AND (vi.idviaje > " . $ultimoACargar . ") ORDER BY vi.idviaje DESC");
+			$result = $conn->query("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE (vc.idviajeConcreto <= " . $ultimoCargado . ") AND (vc.idviajeConcreto > " . $ultimoACargar . ") ORDER BY vc.idviajeConcreto DESC");
 			return $result;
 		}
 	}
@@ -320,6 +326,18 @@ class conexion {
     $conn = $this->establecerConexion();
     if($conn) {
       $sql = "UPDATE participacion SET estado = '$estado' WHERE (participacion.idparticipacion = '$idparticipacion')";
+      if (mysqli_query($conn, $sql)) {
+				echo "Record update successfully";
+      } else {
+				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      }
+    }
+  }
+  
+  function updateDatosDeUsuario($iduser) {
+    $conn = $this->establecerConexion();
+    if($conn) {
+      $sql = "UPDATE usuario SET nombre =". $_POST["nombre"] .", apellido =". $_POST["apellido"] .", fecha_nacimiento = STR_TO_DATE(". $_POST["fecha_nacimiento"] . ", '%d-%m-%Y'), descripcion = ". $_POST["descripcion"] " WHERE usuario.id = $iduser";
       if (mysqli_query($conn, $sql)) {
 				echo "Record update successfully";
       } else {
