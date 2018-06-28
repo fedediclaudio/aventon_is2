@@ -19,7 +19,13 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body class="body-general">
-
+  <?php
+    include 'conexionClass.php';
+    $idUser = $_SESSION["id"];
+    $c = new conexion();
+    $tieneVehiculos = $c->tieneVehiculos($idUser);
+		//id="boton-crearViaje; widght:100%; height: 100%"
+  ?>
 	<!-- Navbar -->
 	<?php
 		include "vistas/navbar.html";
@@ -28,7 +34,7 @@
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">
         <div class="col col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
-            <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="#crearViajeModal" id="boton-crearViaje; widght:100%; height: 100%">
+            <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="<?php if($tieneVehiculos) { echo "#crearViajeModal"; } else { echo "#modalErrorAlCrearViaje"; }  ?>"  >
                     <div style="background-color: #FAFAFA;" >
                         <div style="  ">
                             <h1 class="display-3"><img src="img/boton_mas.png"></h1>
@@ -41,7 +47,8 @@
 
 	<!-- Modal crear viaje -->
 	<?php
-		include "vistas/modalCrearViaje.php"
+		include "vistas/modalCrearViaje.php";
+		include "vistas/modalErrorAlCrearViaje.php";
 	?>
 
 </body>

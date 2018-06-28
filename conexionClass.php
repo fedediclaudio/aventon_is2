@@ -345,6 +345,20 @@ class conexion {
       }
     }
   }
+	
+	// Devuelve si un usuario tiene o no vehiculos, para mostrar el modal de cracion de viaje
+	function tieneVehiculos($idUser) {
+		$conn = $this->establecerConexion();
+		if($conn){
+			$sql = "SELECT * FROM aventon.vehiculo WHERE idusuario = $idUser";
+			$result = $conn->query($sql);
+			$conn->close();
+			if(mysqli_num_rows($result) == 0) {
+				return false;
+			}
+			else { return true; }
+		}
+	}
 
 }
 ?>

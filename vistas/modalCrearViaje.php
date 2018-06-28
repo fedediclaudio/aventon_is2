@@ -41,7 +41,7 @@
 									<span class="input-group-text" >Vehiculo</span>
 							</div>
 							<select class="form-control required" id="inputVehiculo" name="vehiculo" required>
-                <?php
+               	<?php
 	                  include 'cargarOpcionesVehiculos.php';
                 ?>
 							</select>
