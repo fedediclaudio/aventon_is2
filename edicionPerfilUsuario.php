@@ -40,7 +40,7 @@
                       <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                         <h6 class="card-subtitle mb-2 text-muted">Nombre</h6>
-                        <input type="text" class="form-control" name="nombre" value=<?php echo $user['nombre']?> required>
+                        <input type="text" class="form-control" name="nombre" value="<?php echo $user['nombre']?>" required>
                         </div>
                       </div>
                       </div>
@@ -48,7 +48,7 @@
                       <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                         <h6 class="card-subtitle mb-2 text-muted">Apellido</h6>
-                        <input type="text" class="form-control" name="apellido" value=<?php echo $user['apellido']?> required>
+                        <input type="text" class="form-control" name="apellido" value="<?php echo $user['apellido']?>" required>
                       </div>
                       </div>
                       </div>
@@ -62,7 +62,7 @@
                         </div>
 
                         <script type="text/javascript">
-                            
+
                             document.getElementById("fecha_nacimiento").defaultValue = "<?php echo $user['fecha_nacimiento']?>"
 
                         </script>
@@ -74,7 +74,7 @@
                       <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                         <h6 class="card-subtitle mb-2 text-muted">Nacionalidad</h6>
-                        <input type="text" class="form-control" name="nacionalidad" placeholder="Ingrese nacionalidad" value=<?php echo $user['nacionalidad']?> required>
+                        <input type="text" class="form-control" name="nacionalidad" placeholder="Ingrese nacionalidad" value="<?php echo $user['nacionalidad']?>" required>
                       </div>
                       </div>
                       </div>
@@ -89,8 +89,8 @@
                       <input type ="submit" class="btn btn-light" style="float:right; margin:10px" value="Guardar Cambios">
                     </form>
             </div>
-        </div> 
-      
+        </div>
+
     </div>
 </body>
 </html>
