@@ -13,7 +13,7 @@
 					</p>
 					<hr>
 					<div class="row">
-						<button class="btn btn-light" style="float:center; margin: auto; display: block;" onclick="location='cargarPerfilUsuarioActual.php'">Ir mi perfil</button>
+						<button class="btn btn-light" style="float:center; margin: auto; display: block;" onclick="location='cargarPerfilUsuarioActual.php'">Ir a mi perfil</button>
 					</div>
 				</div>
 			</div>
