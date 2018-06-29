@@ -17,6 +17,11 @@ $( "#formCrearViaje" ).submit(function( event ) {
 });
 
 function fechasValidas(){
+  var alMenosUno = document.getElementById("lunes").checked || document.getElementById("martes").checked || document.getElementById("miercoles").checked || document.getElementById("jueves").checked || document.getElementById("viernes").checked || document.getElementById("sabado").checked || document.getElementById("domingo").checked;
+  if(!alMenosUno){
+    estadoDeFechas(true, 'Debe elegir al menos un día de la semana!')
+    return false;
+  }
   if(validarFechas()){
     var parametros = {
       "arrayInicio" : JSON.stringify(arrayInicio()),

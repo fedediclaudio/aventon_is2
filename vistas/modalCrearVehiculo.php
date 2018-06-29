@@ -31,9 +31,9 @@
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
-									<span class="input-group-text" id="inputDestino">Cantidad de asientos</span>
+									<span class="input-group-text" id="inputDestino">Asientos disponibles</span>
 							</div>
-							<input type="number" class="form-control" name="cantidadAsientos" placeholder="Ingrese la cantidad de asientos" maxlength=45 required>
+							<input type="number" min="1" class="form-control" name="cantidadAsientos" placeholder="Ingrese la cantidad de asientos" maxlength=45 required>
 						</div>
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">

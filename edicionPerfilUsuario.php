@@ -86,7 +86,8 @@
                       </div>
                       </div>
                       </div>
-                      <input type ="submit" class="btn btn-light" style="float:right; margin:10px" value="Guardar Cambios">
+                      <input type ="button" onClick="location='cargarPerfilUsuarioActual.php'" class="btn btn-light" style="float:right; margin:10px" value="Cancelar">
+                      <input type ="submit" id="editarButton" class="btn btn-light" style="float:right; margin:10px" value="Guardar Cambios">
                     </form>
             </div>
         </div>

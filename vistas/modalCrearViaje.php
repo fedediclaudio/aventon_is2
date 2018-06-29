@@ -89,7 +89,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">Duración en semanas</span>
 								</div>
-								<input type="number" min="0" class="form-control required" name="duracionFrecuencia" id="duracionFrecuencia" placeholder="Ingrese cantidad de semanas">
+								<input type="number" min="1" class="form-control required" name="duracionFrecuencia" id="duracionFrecuencia" placeholder="Ingrese cantidad de semanas">
 							</div>
 							<div id="daysContainer">
 								<div class="form-check-inline">
