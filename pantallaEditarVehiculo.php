@@ -54,7 +54,7 @@
                       <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                         <div class="card-body" style="margin: -1%">
                         <h6 class="card-subtitle mb-2 text-muted">Cantidad de asientos</h6>
-                        <input type="number" class="form-control" name="cantidadAsientos" value="<?php echo $vehiculo['cantidadAsientos']?>" required>
+                        <input type="number" min="1" class="form-control" name="cantidadAsientos" value="<?php echo $vehiculo['cantidadAsientos']?>" required>
                       </div>
                       </div>
                       </div>
