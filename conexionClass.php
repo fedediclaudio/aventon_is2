@@ -1,3 +1,4 @@
+                    
 <?php
 
 class conexion {
@@ -239,7 +240,7 @@ class conexion {
 		if($conn) {
 			$sql = "SELECT * FROM vehiculo WHERE idvehiculo = '$id'";
 			$result=$conn->query($sql);
-			var_dump($result);
+			//var_dump($result);
 			return $result;
 		}
 		else {return nil;}
@@ -358,6 +359,32 @@ class conexion {
 			}
 			else { return true; }
 		}
+	}
+
+	function editarVehiculo($id, $marca, $modelo, $cantidadAsientos){
+		$conn = $this->establecerConexion();
+		$sql = "UPDATE vehiculo SET marca = '$marca', modelo = '$modelo', cantidadAsientos = '$cantidadAsientos' WHERE(vehiculo.idvehiculo = '$id')";
+		$conn->query($sql);
+		$conn->close();
+	}
+
+	function sePuedeBorrarVehiculo($id){
+		$conn = $this->establecerConexion();
+		$sql = "SELECT * FROM vehiculo ve INNER JOIN viaje vi ON (ve.idvehiculo = vi.idVehiculo) WHERE ve.idvehiculo = '$id'";
+		$result = $conn->query($sql);
+		if(mysqli_num_rows($result) == 0){
+			return true;
+		}else{
+			return false;
+		}
+		$conn->close();
+	}
+
+	function borrarVehiculo($id){
+		$conn = $this->establecerConexion();
+		$sql = "DELETE FROM vehiculo WHERE idvehiculo = '$id'";
+		$conn->query($sql);
+		$conn->close();
 	}
 
 }

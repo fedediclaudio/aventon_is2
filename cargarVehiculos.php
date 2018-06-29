@@ -20,7 +20,7 @@ if (mysqli_num_rows($result) > 0) {
     echo '</div>'; 
     echo '</div>';
     echo '<div class="col col-3"> ';
-    echo '<button type="button" class="btn btn-light" style="float:right">Editar/Borrar</button>';
+    echo '<button type="button" onClick=editar(' . (int)$row['idvehiculo'] . ') class="btn btn-light" style="float:right">Editar/Borrar</button>';
     echo '</div>';
     echo '</div>';
       
@@ -29,3 +29,9 @@ if (mysqli_num_rows($result) > 0) {
   }
 }
 ?>
+
+<script>
+    function editar(row){
+        window.location.replace("pantallaEditarVehiculo.php?id=" + row);
+    }
+</script>
