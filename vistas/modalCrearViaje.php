@@ -58,7 +58,7 @@
 							</div>
 							<div class="row">
 								<div class="col">
-									<input type="number" min="0" max="23" class="form-control required" placeholder="hh" id="duracionHoras" required>
+									<input type="number" min="0" class="form-control required" placeholder="hh" id="duracionHoras" required>
 								</div>
 								<div class="col">
 									<input type="number" min="0" max="59" class="form-control required" placeholder="mm" id="duracionMinutos" required>
