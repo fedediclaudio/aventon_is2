@@ -67,10 +67,10 @@
                   
                 </div>
             </div>
-        </div>
+        
 				<?php
                   if($_SESSION['id']==$viaje["id"]){
-                    echo '<div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)">
+                    echo '<div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)"	>
                       <h4 class="h4">Postulaciones pendientes</h4>';
                       $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'pendiente');
                       if (mysqli_num_rows($result) == 0) {
@@ -162,6 +162,7 @@
                     }
                   }
                   ?>
+					</div>
         <div class="row mb-6">
             <div class="col-md-6">
                 <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoConductor">

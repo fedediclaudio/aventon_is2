@@ -58,7 +58,7 @@
                       </div>
                       </div>
                       </div>
-                      <input type ="button" id="idBorrarVehiculo" onClick="borrarVehiculo()" class="btn btn-danger" style="float:right; margin:10px" value="Borrar vehículo">
+                      <input type ="button" id="idBorrarVehiculo" onClick="borrarVehiculo()" class="btn btn-outline-danger" style="float:right; margin:10px; color:black; border-color:#BDBDBD;" value="Borrar vehículo">
                       <input type ="button" onClick="location='cargarPerfilUsuarioActual.php'" class="btn btn-light" style="float:right; margin:10px" value="Cancelar">
                       <input type ="submit" class="btn btn-light" style="float:right; margin:10px" value="Guardar Cambios">
                     </form>

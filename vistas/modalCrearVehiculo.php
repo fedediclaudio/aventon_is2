@@ -26,7 +26,7 @@
 							<div class="input-group-prepend">
 									<span class="input-group-text" id="inputDestino">Patente</span>
 							</div>
-							<input type="text" class="form-control" name="patente" id="patenteInput" placeholder="Ingrese patente" maxlength=45 oninput="validarPatenteExistente()" required>
+							<input type="text" class="form-control" name="patente" id="patenteInput" placeholder="Ingrese patente en mayusculas y sin guiones" maxlength=45 oninput="validarPatenteExistente()" required>
               <div id="invalidFeedbackPatente" class="invalid-feedback"></div>
 						</div>
 						<div class="input-group mb-3">

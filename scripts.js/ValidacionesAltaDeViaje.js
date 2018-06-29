@@ -33,11 +33,12 @@ $( "#formCrearViaje" ).submit(function( event ) {
 
 function fechasValidas(){
   var alMenosUno = document.getElementById("lunes").checked || document.getElementById("martes").checked || document.getElementById("miercoles").checked || document.getElementById("jueves").checked || document.getElementById("viernes").checked || document.getElementById("sabado").checked || document.getElementById("domingo").checked;
-  if(!alMenosUno){
+  if(!alMenosUno && $('#frecuente').is(':checked')){
     estadoDeFechas(true, 'Debe elegir al menos un día de la semana!')
     return false;
   }
   if(validarFechas()){
+		console.log(validarFechasRecurrentes())
     if(validarFechasRecurrentes()){
       var parametros = {
       "arrayInicio" : JSON.stringify(arrayInicio()),
@@ -48,7 +49,6 @@ function fechasValidas(){
         url: 'validarFechasCreacionViaje.php',
         type: 'post',
         success: function(resultado){
-          console.log(resultado);
           resultado = JSON.parse(resultado)
           if(!resultado['existe']){
             estadoDeFechas(true, 'Esta fecha se superpone con uno de tus viajes!');
