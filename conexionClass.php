@@ -1,4 +1,4 @@
-                    
+
 <?php
 
 class conexion {
@@ -150,8 +150,8 @@ class conexion {
 			$conn = $this->establecerConexion();
 			if($conn) {
 				if($this->validarMailUnico($conn)){
-					$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, tarjeta, email, nacionalidad, fecha_nacimiento)
-					VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]). "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" .")";
+					$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, tarjeta, email, nacionalidad, fecha_nacimiento, descripcion)
+					VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]). "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" . "', '" . $_POST["descripcion"] . ")";
 					if (mysqli_query($conn, $sql)) {
 						echo "New record created successfully";
 					} else {
@@ -346,7 +346,7 @@ class conexion {
       }
     }
   }
-	
+
 	// Devuelve si un usuario tiene o no vehiculos, para mostrar el modal de cracion de viaje
 	function tieneVehiculos($idUser) {
 		$conn = $this->establecerConexion();
