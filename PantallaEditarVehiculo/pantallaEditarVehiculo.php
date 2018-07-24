@@ -1,6 +1,6 @@
 <?php
-  include "chequeoSesion.php";
-  include "conexionClass.php";
+  include "../chequeoSesion.php";
+  include "../conexionClass.php";
   $conn = new conexion();
   $result = $conn->getVehiculo($_GET['id']);
   $vehiculo = mysqli_fetch_assoc($result);
@@ -8,21 +8,20 @@
 
 <html>
 <head>
-    <title>Vehículo (Edición)</title>
+    <title>Editar Vehículo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script src="bootstrap/jquery.min.js"></script>
-  <script src="bootstrap/popper.min.js"></script>
-  <script src="bootstrap/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-  <script src="scripts.js/validarEdicionPerfil.js"></script>
+    <script src="../bootstrap/jquery.min.js"></script>
+    <script src="../bootstrap/popper.min.js"></script>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <script type="text/javascript" src="../jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <!-- Navbar -->
     <?php
-        include "vistas/navbar.html";
+        include "../vistas/navbar.html";
     ?>
     <div  style="margin:5%">
         <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
@@ -31,7 +30,7 @@
                     <div>
                         <h1 class="display-4 text-center"><?php echo $vehiculo['marca'] . ' ' . $vehiculo['modelo'];?></h1>
                     </div>
-                    
+
                 </div>
                     <form action="<?php echo "editarVehiculo.php?id=" . $vehiculo["idvehiculo"]; ?>"  class="col col-12 col-lg-8 px-0" id="formularioEditarVehiculo" method="post">
                       <div class="form-group">
@@ -59,7 +58,7 @@
                       </div>
                       </div>
                       <input type ="button" id="idBorrarVehiculo" onClick="borrarVehiculo()" class="btn btn-outline-danger" style="float:right; margin:10px; color:black; border-color:#BDBDBD;" value="Borrar vehículo">
-                      <input type ="button" onClick="location='cargarPerfilUsuarioActual.php'" class="btn btn-light" style="float:right; margin:10px" value="Cancelar">
+                      <input type ="button" onClick="location='../cargarPerfilUsuarioActual.php'" class="btn btn-light" style="float:right; margin:10px" value="Cancelar">
                       <input type ="submit" class="btn btn-light" style="float:right; margin:10px" value="Guardar Cambios">
                     </form>
             </div>

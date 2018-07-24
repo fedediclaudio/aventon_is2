@@ -9,7 +9,7 @@
 			</div>
 			<div class="modal-body" style="background-color:#FAFAFA">
 				<div class="container-fluid">
-					<form action="crearVehiculo.php" method="post">
+					<form action="CrearVehiculo/crearVehiculo.php" method="post">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 									<span class="input-group-text">Marca</span>

@@ -1,6 +1,6 @@
 <?php
-	include "conexionClass.php";
+	include "../conexionClass.php";
 	$conn = new conexion();
 	$conn->borrarVehiculo($_GET['id']);
-	header('location:cargarPerfilUsuarioActual.php');
+	header('location:../cargarPerfilUsuarioActual.php');
 ?>
