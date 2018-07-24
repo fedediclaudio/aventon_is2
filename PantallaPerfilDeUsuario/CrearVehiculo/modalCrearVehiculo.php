@@ -41,7 +41,7 @@
 							</div>
 							<select class="form-control" name="tipo" required>
                 <?php
-	                  include 'cargarTiposVehiculos.php';
+	                  include '/CrearVehiculo/cargarTiposVehiculos.php';
                 ?>
 							</select>
 						</div>

@@ -28,7 +28,7 @@ function validarPatenteExistente(){
       //Peticion AJAX
       $.ajax({
         data: parametros,
-        url: 'validarPatenteBD.php',
+        url: '../validarPatenteBD.php',
         type: 'post',
         success: function(resultado){
           resultado = JSON.parse(resultado)

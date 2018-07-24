@@ -1,22 +1,22 @@
 <?php
-  include "chequeoSesion.php"
+  include "../chequeoSesion.php"
 ?>
 <html>
 <head>
     <title>Mi Perfil</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script src="bootstrap/jquery.min.js"></script>
-  <script src="bootstrap/popper.min.js"></script>
-  <script src="bootstrap/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-  <script src="scripts.js/validacionesAltaDeVehiculo.js"></script>
+    <script src="../bootstrap/jquery.min.js"></script>
+    <script src="../bootstrap/popper.min.js"></script>
+    <script src="../bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+    <script type="text/javascript" src="../jquery-3.3.1.min.js"></script>
+    <script src="CrearVehiculo/validacionesAltaDeVehiculo.js"></script>
 </head>
 <body>
     <?php
-        include 'conexionClass.php';
+        include '../conexionClass.php';
         $username = $_GET["id"];
         $conn = new conexion();
         $userTable =  $conn->getUsuarioPorId($username);
@@ -24,14 +24,14 @@
     ?>
     <!-- Navbar -->
     <?php
-        include "vistas/navbar.html"
+        include "../vistas/navbar.html"
     ?>
     <div  style="margin:5%">
         <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje">
             <div class="row">
                 <div class="col col-12 col-lg-4 px-0">
                     <div>
-                        <p class="text-center"><img src="img/profile-pic.png"></p>
+                        <p class="text-center"><img src="../img/perfilPorDefecto.png"></p>
                         <h1 class="display-4 text-center"><?php echo $user['nombre'] . ' ' . $user['apellido']; ?></h1>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                             <p class="card-text">' . $user['descripcion'] . '</p>
                         </div>
                     </div>';} ?>
-                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='edicionPerfilUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
+                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='../PantallaEditarPerfil/edicionPerfilUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
                 </div>
             </div>
         </div>
@@ -73,17 +73,14 @@
             <div class="col col-4">
               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo" style="float:right">Crear vehículo</button>
             </div>
-            
           </div>
-          
           <?php
         		include "cargarVehiculos.php"
         	?>
         </div>
-      
     </div>
     <?php
-  		include "vistas/modalCrearVehiculo.php";
+  		include "/CrearVehiculo/modalCrearVehiculo.php";
   	?>
 </body>
 </html>

@@ -1,5 +1,4 @@
-
-//Validación igual a la de validacionesRegistro quitandole algunas cosas
+//Misma funcion que usa en validacionesRegistro.js, refactorizar
 function validarNuevaFechaNacimiento(){
   var fecha = (document.getElementById('fecha_nacimiento').value).split("-")
   if(isDate18orMoreYearsOld(parseInt(fecha[2]),parseInt(fecha[1]),parseInt(fecha[0]))){
@@ -16,4 +15,4 @@ function validarNuevaFechaNacimiento(){
 
 function isDate18orMoreYearsOld(day, month, year){
   return new Date(year+18, month-1, day) <= new Date()
-} 
+}
