@@ -5,10 +5,7 @@
   class ConexionPantallaPrincipal extends Conexion{
 
   	function tieneVehiculos($idUser) {
-			if(mysqli_num_rows($this->consulta("SELECT * FROM aventon.vehiculo WHERE idusuario = $idUser")) == 0) {
-				return false;
-			}
-			return true;
+			return (mysqli_num_rows($this->consulta("SELECT * FROM aventon.vehiculo WHERE idusuario = $idUser")) != 0);
   	}
 
     function ultimosViajes($pagina) {
