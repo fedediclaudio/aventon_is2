@@ -150,54 +150,15 @@ class Conexion {
 		}
 	}
 
-	function crearUsuario() {
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			$conn = $this->establecerConexion();
-			if($conn) {
-				if($this->validarMailUnico($conn)){
-					$sql = "INSERT INTO aventon.usuario (nombre, apellido, password, tarjeta, email, nacionalidad, fecha_nacimiento, descripcion)
-					VALUES ( '" . $_POST["nombre"] . "', '" . $_POST["apellido"] ."', '" . sha1($_POST["passwd"]). "', '" . "" . "', '" . $_POST["mail"] . "', '" . $_POST["nacionalidad"] . "', STR_TO_DATE('" . $_POST["fecha_nacimiento"] . "','%Y-%m-%d')" . "', '" . $_POST["descripcion"] . ")";
-					if (mysqli_query($conn, $sql)) {
-						echo "New record created successfully";
-					} else {
-						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-					}
-					$conn->close();
-					return True;
-				} else {
-					$conn->close();
-					return False;
-				}
-			}
-			else {
-				echo "Error de conexion";
-			}
-		}
-	}
-
-	function validarMailUnico($conn){
-		$sql = "SELECT * FROM usuario WHERE email = '" . $_POST["mail"] . "'";
-		$result=$conn->query($sql);
-		if (mysqli_num_rows($result) == 0) {
-   		return true;
-		} else {
-				return False;
-		}
-	}
 
 	//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar.
   //SI SEGURO QUE LO VAMOS A HACER... (repondio alguien)
-	function existeMail($mail){
-		$sql = "SELECT * FROM usuario WHERE email = '$mail'";
-		$conn = $this->establecerConexion();
-		$result = $conn->query($sql);
-		$conn->close();
-		if (mysqli_num_rows($result) == 0) {
-   		return false;
-		} else {
-				return true;
-		}
-	}
+	/*
+	hecho
+					\(•_•)
+					 ) )z
+				 	/ \
+	*/
 
 	function getUsuarioLogin($mail, $password){
 		$conn = $this->establecerConexion();

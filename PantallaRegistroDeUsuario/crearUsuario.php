@@ -1,7 +1,6 @@
 <?php
-include '../conexionClass.php';
-$c = new conexion();
-if($c->crearUsuario()){
+  include 'conexionRegistroDeUsuario.php';
+  $conexion = new ConexionRegistroDeUsuario();
+  $conexion->crearUsuario();
   header("location:../index.php");
-}
 ?>

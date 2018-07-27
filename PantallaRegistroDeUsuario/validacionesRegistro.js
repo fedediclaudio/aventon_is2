@@ -29,11 +29,9 @@ function validarMailExist(){
     var parametros = {
         "mailIngresado" : document.getElementById('mailInput').value
       };
-
-
       $.ajax({
         data: parametros,
-        url: '../validarMailBD.php',
+        url: 'validarMailBD.php',
         type: 'post',
         success: function(resultado){
           resultado = JSON.parse(resultado)
@@ -50,8 +48,6 @@ function validarMailExist(){
       });
   }
 }
-
-
 
 function validarFechaNacimiento(){
   var fecha = (document.getElementById('fechaInput').value).split("-")
