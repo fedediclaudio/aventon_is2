@@ -1,7 +1,7 @@
 <?php
-  include '../conexionClass.php';
-  $c = new conexion();
-  $iduser = $_GET["idusuario"];
-  $c->updateDatosDeUsuario($iduser);
-  header("location:../PantallaPerfilDeUsuario/perfilUsuario.php?id=$iduser");
+  include 'conexionEditarPerfil.php';
+  $c = new ConexionEditarPerfil();
+  $idUser = $_GET["idusuario"];
+  $c->updateDatosDeUsuario($idUser);
+  header("location:../PantallaPerfilDeUsuario/perfilUsuario.php?id=$idUser");
 ?>

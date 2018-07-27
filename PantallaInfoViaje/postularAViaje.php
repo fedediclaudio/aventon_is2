@@ -1,8 +1,8 @@
 <?php
-  include '../conexionClass.php';
-  $c = new conexion();
+  include 'conexionInfoViaje.php';
+  $conexion = new ConexionInfoViaje();
   session_start();
-  $c->postularAViaje($_SESSION["id"], $_GET["idviajeConcreto"]);
+  $conexion->postularAViaje($_SESSION["id"], $_GET["idviajeConcreto"]);
   $idViaje = $_GET["idviajeConcreto"];
   header("location:informacionViaje.php?id=$idViaje");
 ?>

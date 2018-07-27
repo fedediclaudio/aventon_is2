@@ -1,7 +1,12 @@
 
 <?php
 
-class conexion {
+class Conexion {
+	public $connection = null;
+
+	function __construct(){
+		$this->connection = $this->establecerConexion();
+	}
 
 	function establecerConexion() {
 		$conn = new mysqli("localhost", "root", "", "aventon");
@@ -9,9 +14,22 @@ class conexion {
 			die("Connection failed: " . $conn->connect_error);
 			return null;
 		}
-		else { return $conn; }
+		return $conn;
 	}
 
+	function getUsuarioPorId($idUsuario){
+		if($this->connection) {
+			$result = $this->connection->query("SELECT * FROM usuario WHERE id = '$idUsuario'");
+			return $result;
+		}
+	}
+
+	function getVehiculosPorIdUsuario($idUsuario) {
+    if($this->connection) {
+      $result = $this->connection->query("SELECT * FROM vehiculo v INNER JOIN tipoVehiculo t ON (v.idtipoVehiculo = t.idtipoVehiculo) WHERE v.idusuario = " . $idUsuario);
+      return $result;
+    }
+  }
 
 	function crearViajes() {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -102,19 +120,6 @@ class conexion {
 		}
 	}
 
-  function crearVehiculo() {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		  $conn = $this->establecerConexion();
-      $sql = "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["patente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario() ."', '" . $_POST["tipo"] . "' )";
-      if (mysqli_query($conn, $sql)) {
-				echo "New record created successfully";
-		  } else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		  }
-		  $conn->close();
-    }
-  }
-
   function getIdUsuario() {
     session_start();
     $username = $_SESSION['mail'];
@@ -194,18 +199,6 @@ class conexion {
 		}
 	}
 
-  //Valida si la patente existe
-  function existePatente($patente) {
-    $sql = "SELECT * FROM aventon.vehiculo WHERE patente = '$patente'";
-    $conn = $this->establecerConexion();
-    $result = $conn->query($sql);
-    $conn->close();
-    if(mysqli_num_rows($result) == 0) {
-      return false;
-    }
-    else { return true; }
-  }
-
 	function getUsuarioLogin($mail, $password){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -217,14 +210,6 @@ class conexion {
 		else {return nil;}
 	}
 
-	function getVehiculos($idUsuario) {
-    $conn = $this->establecerConexion();
-    if($conn) {
-      $result = $conn->query("SELECT * FROM vehiculo v INNER JOIN tipoVehiculo t ON (v.idtipoVehiculo = t.idtipoVehiculo) WHERE v.idusuario = " . $idUsuario);
-      return $result;
-    }
-  }
-
 	function getUsuario($mail){
 		$conn = $this->establecerConexion();
 		if($conn) {
@@ -234,118 +219,6 @@ class conexion {
 		}
 		else {return nil;}
 	}
-
-	function getVehiculo($id){
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$sql = "SELECT * FROM vehiculo WHERE idvehiculo = '$id'";
-			$result=$conn->query($sql);
-			//var_dump($result);
-			return $result;
-		}
-		else {return nil;}
-	}
-
-	function getUsuarioPorId($id){
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$sql = "SELECT * FROM usuario WHERE id = '$id'";
-			$result=$conn->query($sql);
-			return $result;
-		}
-		else {return nil;}
-	}
-
-	function fullInfoDeViaje($id) {
-        $conn = $this->establecerConexion();
-        if($conn) {
-            $result = $conn->query("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON (ve.idusuario = u.id) INNER JOIN tipoVehiculo tV ON (ve.idtipoVehiculo = tV.idtipoVehiculo) WHERE vc.idviajeConcreto = '$id'" );
-            return $result;
-        }
-        else {
-            return null;
-        }
-  }
-
-  function getTiposVehiculos() {
-    $conn = $this->establecerConexion();
-    if($conn) {
-      $result = $conn->query("SELECT * FROM aventon.tipoVehiculo");
-      return $result;
-    }
-    else {
-      return null;
-    }
-  }
-
-	function participacionesEnViaje($idViaje){
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje");
-			return $result;
-		} else {
-			return null;
-		}
-	}
-
-	function participacionesEnViajeDeUsuario($idViaje,$idUsuario){
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario");
-			return $result;
-		} else {
-			return null;
-		}
-	}
-
-	function participacionesEnViajeConEstado($idViaje, $estado){
-		$conn = $this->establecerConexion();
-		if($conn) {
-			$result = $conn->query("SELECT * FROM participacion p WHERE p.idviajeConcreto = '$idViaje' AND p.estado = '$estado'");
-			return $result;
-		} else {
-			return null;
-		}
-	}
-
-
-  /* Postulaciones a viajes *****/
-
-  function postularAViaje($iduser, $viaje) {
-		$conn = $this->establecerConexion();
-		if($conn) {
-      $sql = "INSERT INTO aventon.participacion (idviajeConcreto, idusuario) VALUES ('$viaje', '$iduser')";
-      if (mysqli_query($conn, $sql)) {
-			echo "New record created successfully";
-      } else {
-			echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-      }
-    }
-  }
-
-  function cambiarEstadoParticipacionEnViaje($idparticipacion, $estado) {
-    $conn = $this->establecerConexion();
-    if($conn) {
-      $sql = "UPDATE participacion SET estado = '$estado' WHERE (participacion.idparticipacion = '$idparticipacion')";
-      if (mysqli_query($conn, $sql)) {
-				echo "Record update successfully";
-      } else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-      }
-    }
-  }
-
-  function updateDatosDeUsuario($iduser) {
-    $conn = $this->establecerConexion();
-    if($conn) {
-      $sql = "UPDATE usuario SET nombre ='". $_POST["nombre"] ."', apellido ='". $_POST["apellido"] ."', nacionalidad = '" . $_POST["nacionalidad"] . "', fecha_nacimiento = STR_TO_DATE('". $_POST["fecha_nacimiento"] . "', '%Y-%m-%d'), descripcion = '". $_POST["descripcion"] . "' WHERE usuario.id = $iduser";
-			if (mysqli_query($conn, $sql)) {
-				echo "Record update successfully";
-      } else {
-				echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-      }
-    }
-  }
 
 	// Devuelve si un usuario tiene o no vehiculos, para mostrar el modal de cracion de viaje
 	function tieneVehiculos($idUser) {
@@ -359,32 +232,6 @@ class conexion {
 			}
 			else { return true; }
 		}
-	}
-
-	function editarVehiculo($id, $marca, $modelo, $cantidadAsientos){
-		$conn = $this->establecerConexion();
-		$sql = "UPDATE vehiculo SET marca = '$marca', modelo = '$modelo', cantidadAsientos = '$cantidadAsientos' WHERE(vehiculo.idvehiculo = '$id')";
-		$conn->query($sql);
-		$conn->close();
-	}
-
-	function sePuedeBorrarVehiculo($id){
-		$conn = $this->establecerConexion();
-		$sql = "SELECT * FROM vehiculo ve INNER JOIN viaje vi ON (ve.idvehiculo = vi.idVehiculo) WHERE ve.idvehiculo = '$id'";
-		$result = $conn->query($sql);
-		if(mysqli_num_rows($result) == 0){
-			return true;
-		}else{
-			return false;
-		}
-		$conn->close();
-	}
-
-	function borrarVehiculo($id){
-		$conn = $this->establecerConexion();
-		$sql = "DELETE FROM vehiculo WHERE idvehiculo = '$id'";
-		$conn->query($sql);
-		$conn->close();
 	}
 
 }

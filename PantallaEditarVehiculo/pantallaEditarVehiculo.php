@@ -1,8 +1,8 @@
 <?php
   include "../chequeoSesion.php";
-  include "../conexionClass.php";
-  $conn = new conexion();
-  $result = $conn->getVehiculo($_GET['id']);
+  include "conexionEditarVehiculo.php";
+  $conexion = new ConexionEditarVehiculo();
+  $result = $conexion->getVehiculo($_GET['id']);
   $vehiculo = mysqli_fetch_assoc($result);
 ?>
 
@@ -73,7 +73,7 @@
 
 <script type="text/javascript">
 
-  <?php $sePuedeBorrar = $conn->sePuedeBorrarVehiculo($_GET['id']); ?>
+  <?php $sePuedeBorrar = $conexion->sePuedeBorrarVehiculo($_GET['id']); ?>
 
   if("<?php echo $sePuedeBorrar; ?>"){
     $("#mensajeDeBorrado").hide();

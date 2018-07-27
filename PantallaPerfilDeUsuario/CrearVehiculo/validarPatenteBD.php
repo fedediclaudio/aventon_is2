@@ -1,6 +1,6 @@
 <?php
-	include "../../conexionClass.php";
-	$c = new conexion();
-	$existe = $c->existePatente($_POST['patenteIngresada']);
+	include "conexionCrearVehiculo.php";
+	$conexion = new ConexionCrearVehiculo();
+	$existe = $conexion->existePatente($_POST['patenteIngresada']);
 	echo json_encode(array('existe' => $existe));
 ?>

@@ -1,3 +1,6 @@
+<?php
+	include 'conexionCrearVehiculo.php';
+?>
 <div class="modal fade" id="crearVehiculoModal" tabindex="-1" role="dialog" aria-labelledby="crearVehiculoModal" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
@@ -41,7 +44,8 @@
 							</div>
 							<select class="form-control" name="tipo" required>
                 <?php
-	                  include '/CrearVehiculo/cargarTiposVehiculos.php';
+									$conexion = new ConexionCrearVehiculo();
+									$conexion->cargarTiposVehiculos();
                 ?>
 							</select>
 						</div>

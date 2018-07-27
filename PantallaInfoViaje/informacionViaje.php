@@ -15,9 +15,9 @@
 </head>
 <body class="body-general">
     <?php
-        include '../conexionClass.php';
-        $conn = new Conexion();
-        $result = $conn->fullInfoDeViaje($_GET["id"]);
+        include 'conexionInfoViaje.php';
+        $conexion = new ConexionInfoViaje();
+        $result = $conexion->fullInfoDeViaje($_GET["id"]);
         $viaje = mysqli_fetch_assoc($result);
         $fechaInicio = new DateTime($viaje["fechaInicio"]);
         $fechaFin = new DateTime($viaje["fechaFin"]);
@@ -71,13 +71,13 @@
               if($_SESSION['id']==$viaje["id"]){
                 echo '<div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)"	>
                   <h4 class="h4">Postulaciones pendientes</h4>';
-                  $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'pendiente');
+                  $result = $conexion->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'pendiente');
                   if (mysqli_num_rows($result) == 0) {
            		       echo '<p class="lead">No hay postulaciones pendientes en este viaje</p>';
         		      } else {
 										echo '<div class="row">';
                     while ($row = mysqli_fetch_assoc($result)) {
-                      $user = mysqli_fetch_assoc($conn->getUsuarioPorId($row["idusuario"]));
+                      $user = mysqli_fetch_assoc($conexion->getUsuarioPorId($row["idusuario"]));
                       echo '
 														<div class="col col-12 col-lg-6" style="padding-left:10px; padding-right:10px">
 															<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
@@ -86,7 +86,7 @@
 																		<div class="col col-7" style="display: flex; align-items: center ">
                       								<p class="card-text">' . $user["nombre"] . " " . $user["apellido"] . '</p>';
 																		echo '</div>';
-																			if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) >= $viaje["cantidadAsientos"]){
+																			if(mysqli_num_rows($conexion->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) >= $viaje["cantidadAsientos"]){
                           						echo '<div class="alert alert-warning" role="alert">
 																							El viaje esta completo, no puedes aceptar mas postulaciones
 																						</div>';
@@ -109,12 +109,12 @@
 										echo '</div>';
                   }
 
-                  $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
+                  $result = $conexion->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
                   if (!(mysqli_num_rows($result) == 0)) {
                     echo '<br><h4 class="h4">Postulaciones aceptadas</h4>
 													<div class="row">';
                     while ($row = mysqli_fetch_assoc($result)) {
-                      $user = mysqli_fetch_assoc($conn->getUsuarioPorId($row["idusuario"]));
+                      $user = mysqli_fetch_assoc($conexion->getUsuarioPorId($row["idusuario"]));
                       echo ' <div class="col col-12 col-lg-6">
 															<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                       				<div class="card-body" style="margin: -1%">
@@ -126,12 +126,12 @@
                     }
 										echo '</div>';
                   }
-                  $result = $conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'rechazado');
+                  $result = $conexion->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'rechazado');
                   if (!(mysqli_num_rows($result) == 0)) {
                     echo '<br><h4 class="h4">Postulaciones rechazadas</h4>
 													<div class="row ">';
                     while ($row = mysqli_fetch_assoc($result)) {
-                      $user = mysqli_fetch_assoc($conn->getUsuarioPorId($row["idusuario"]));
+                      $user = mysqli_fetch_assoc($conexion->getUsuarioPorId($row["idusuario"]));
                       echo '<div class="col col-12 col-lg-6">
 															<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                       				<div class="card-body" style="margin: -1%">
@@ -145,13 +145,13 @@
                   }
                 echo '</div>';
               } else {
-                $result = $conn->participacionesEnViajeDeUsuario($viaje["idviajeConcreto"],$_SESSION["id"]);
+                $result = $conexion->participacionesEnViajeDeUsuario($viaje["idviajeConcreto"],$_SESSION["id"]);
                 if(mysqli_num_rows($result) > 0){
                   $postulacion = mysqli_fetch_assoc($result);
                   echo "<div class=\"alert alert-info\" role=\"alert\">
                   Tu postulación para este viaje se encuentra " . $postulacion["estado"] . "</div>";
                 } else {
-                  if(mysqli_num_rows($conn->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
+                  if(mysqli_num_rows($conexion->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]){
                     echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
                   } else {
                     echo '<div class="alert alert-warning" role="alert">

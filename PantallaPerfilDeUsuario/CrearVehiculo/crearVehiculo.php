@@ -1,6 +1,6 @@
 <?php
-  include '../../conexionClass.php';
-	$c = new conexion();
-	$c->crearVehiculo();
+  include 'conexionCrearVehiculo.php';
+	$conexion = new ConexionCrearVehiculo();
+	$conexion->crearVehiculo();
 	header("location:../../cargarPerfilUsuarioActual");
 ?>

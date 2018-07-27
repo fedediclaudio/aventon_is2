@@ -16,10 +16,10 @@
 </head>
 <body>
     <?php
-        include '../conexionClass.php';
+        include 'conexionPerfilDeUsuario.php';
         $username = $_GET["id"];
-        $conn = new conexion();
-        $userTable =  $conn->getUsuarioPorId($username);
+        $conexion = new ConexionPerfilDeUsuario();
+        $userTable =  $conexion->getUsuarioPorId($username);
         $user = mysqli_fetch_assoc($userTable);
     ?>
     <!-- Navbar -->
@@ -75,8 +75,13 @@
             </div>
           </div>
           <?php
-        		include "cargarVehiculos.php"
+            $conexion->cargarVehiculos();
         	?>
+          <script>
+              function editar(row){
+                  window.location.replace("../PantallaEditarVehiculo/pantallaEditarVehiculo.php?id=" + row);
+              }
+          </script>
         </div>
     </div>
     <?php

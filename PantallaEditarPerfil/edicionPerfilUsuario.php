@@ -16,10 +16,10 @@
 </head>
 <body>
     <?php
-        include '../conexionClass.php';
+        include 'conexionEditarPerfil.php';
         $username = $_GET["id"];
-        $conn = new conexion();
-        $userTable =  $conn->getUsuarioPorId($username);
+        $conexion = new ConexionEditarPerfil();
+        $userTable =  $conexion->getUsuarioPorId($username);
         $user = mysqli_fetch_assoc($userTable);
     ?>
     <!-- Navbar -->
