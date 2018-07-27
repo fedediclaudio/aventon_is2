@@ -11,21 +11,21 @@
   <script src="../bootstrap/popper.min.js"></script>
   <script src="../bootstrap/bootstrap.min.js"></script>
   <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
-  <script src="scripts.js/validacionesAltaDeViaje.js"></script>
-  <script src="scripts.js/generadorDeArrays.js"></script>
-  <script src="scripts.js/moment.js"></script>
+  <script src="CrearViaje/scripts/validacionesAltaDeViaje.js"></script>
+  <script src="CrearViaje/scripts/generadorDeArrays.js"></script>
+  <script src="CrearViaje/scripts/moment.js"></script>
   <script type="text/javascript" src="../jquery-3.3.1.min.js"></script>
-  <script src="scripts.js/cargadeviajes.js"></script>
+  <script src="cargadeviajes.js"></script>
   <link rel="stylesheet" type="text/css" href="../styles.css">
 </head>
 <body class="body-general">
   <?php
-    include '../conexionClass.php';
+    include 'conexionPantallaPrincipal.php';
+    $conexion = new ConexionPantallaPrincipal();
     $idUser = $_SESSION["id"];
-    $c = new conexion();
-    $tieneVehiculos = $c->tieneVehiculos($idUser);
-		//id="boton-crearViaje; widght:100%; height: 100%"
+    $tieneVehiculos = $conexion->tieneVehiculos($idUser);
   ?>
+
 	<!-- Navbar -->
 	<?php
 		include "../vistas/navbar.html";
@@ -47,8 +47,8 @@
 
 	<!-- Modal de creacion de viaje -->
 	<?php
-		include "modalCrearViaje.php";
-		include "modalErrorAlCrearViaje.php";
+		include "CrearViaje/modalCrearViaje.php";
+		include "CrearViaje/modalErrorAlCrearViaje.php";
 	?>
 
 </body>

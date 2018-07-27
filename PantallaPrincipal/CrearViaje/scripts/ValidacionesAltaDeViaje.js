@@ -1,3 +1,8 @@
+//Script para evitar que submitee sin las validaciones del ajax
+$( "#formCrearViaje" ).submit(function( event ) {
+  event.preventDefault();
+});
+
 function validarFechas(){
   var elemento
   if(!($('#frecuente').is(':checked'))){
@@ -26,11 +31,6 @@ function validarFechasRecurrentes(){
   return true
 }
 
-//Script para evitar que submitee sin las validaciones del ajax
-$( "#formCrearViaje" ).submit(function( event ) {
-  event.preventDefault();
-});
-
 function fechasValidas(){
   var alMenosUno = document.getElementById("lunes").checked || document.getElementById("martes").checked || document.getElementById("miercoles").checked || document.getElementById("jueves").checked || document.getElementById("viernes").checked || document.getElementById("sabado").checked || document.getElementById("domingo").checked;
   if(!alMenosUno && $('#frecuente').is(':checked')){
@@ -38,7 +38,6 @@ function fechasValidas(){
     return false;
   }
   if(validarFechas()){
-		console.log(validarFechasRecurrentes())
     if(validarFechasRecurrentes()){
       var parametros = {
       "arrayInicio" : JSON.stringify(arrayInicio()),
@@ -46,7 +45,7 @@ function fechasValidas(){
       };
       $.ajax({
         data: parametros,
-        url: 'validarFechasCreacionViaje.php',
+        url: 'CrearViaje/validarFechasCreacionViaje.php',
         type: 'post',
         success: function(resultado){
           resultado = JSON.parse(resultado)
@@ -57,7 +56,7 @@ function fechasValidas(){
             postArrays();
             $.ajax({
                type: "POST",
-               url: 'crearviaje.php',
+               url: 'CrearViaje/crearviaje.php',
                data: $("#formCrearViaje").serialize(),
                success: function(data)
                {

@@ -1,3 +1,6 @@
+<?php
+	include 'CrearViaje/conexionCrearViaje.php';
+?>
 <script type="text/javascript">
 	function vistaRecurrente(){
 		$('.required').prop('required', function(){
@@ -42,7 +45,8 @@
 							</div>
 							<select class="form-control required" id="inputVehiculo" name="vehiculo" required>
                	<?php
-	                  include 'cargarOpcionesVehiculos.php';
+	                  $conexion = new ConexionCrearViaje();
+										$conexion->cargarOpcionesVehiculos();
                 ?>
 							</select>
 						</div>
