@@ -32,6 +32,14 @@
       }
     }
 
+    function getIdUsuario() {
+  		session_start();
+  		$username = $_SESSION['mail'];
+  		$user =  $this->getUsuario($username);
+  		$row = mysqli_fetch_assoc($user);
+  		return $row["id"];
+  	}
+
     function existePatente($patente) {
       $result = $this->connection->query("SELECT * FROM aventon.vehiculo WHERE patente = '$patente'");
       if(mysqli_num_rows($result) == 0) {
