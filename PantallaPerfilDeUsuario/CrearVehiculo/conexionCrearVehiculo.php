@@ -11,10 +11,7 @@
   class ConexionCrearVehiculo extends Conexion{
 
     function getTiposVehiculos() {
-      if($this->connection) {
-        $result = $this->connection->query("SELECT * FROM aventon.tipoVehiculo");
-        return $result;
-      }
+      return $this->consulta("SELECT * FROM aventon.tipoVehiculo");
     }
 
     function cargarTiposVehiculos() {
@@ -26,26 +23,20 @@
 
     function crearVehiculo() {
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (mysqli_query($this->connection, "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["patente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario() ."', '" . $_POST["tipo"] . "' )")) {
-  				echo "New record created successfully";
-  		  }
+        mysqli_query($this->connection, "INSERT INTO aventon.vehiculo (marca, modelo, patente, cantidadAsientos, idusuario, idtipoVehiculo) VALUES ('" . $_POST["marca"] . "', '" . $_POST["modelo"] . "', '" . $_POST["patente"] . "', '" . $_POST["cantidadAsientos"] . "', '" . $this->getIdUsuario() ."', '" . $_POST["tipo"] . "' )");
       }
     }
 
     function getIdUsuario() {
   		session_start();
   		$username = $_SESSION['mail'];
-  		$user =  $this->getUsuario($username);
+  		$user =  $this->getUsuarioPorMail($username);
   		$row = mysqli_fetch_assoc($user);
   		return $row["id"];
   	}
 
     function existePatente($patente) {
-      $result = $this->connection->query("SELECT * FROM aventon.vehiculo WHERE patente = '$patente'");
-      if(mysqli_num_rows($result) == 0) {
-        return false;
-      }
-      return true;
+      return (mysqli_num_rows($this->consulta("SELECT * FROM aventon.vehiculo WHERE patente = '$patente'")) != 0);
     }
 
   }

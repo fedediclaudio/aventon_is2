@@ -16,35 +16,28 @@
 			return $conn;
 		}
 
-		function getUsuarioPorId($idUsuario){
+		function consulta($sql){
 			if($this->connection) {
-				$result = $this->connection->query("SELECT * FROM usuario WHERE id = '$idUsuario'");
-				return $result;
+				return $this->connection->query($sql);
 			}
+			return null;
+		}
+
+		function getUsuarioPorId($idUsuario){
+			return $this->consulta("SELECT * FROM usuario WHERE id = '$idUsuario'");
 		}
 
 		function getVehiculosPorIdUsuario($idUsuario) {
-	    if($this->connection) {
-	      $result = $this->connection->query("SELECT * FROM vehiculo v INNER JOIN tipoVehiculo t ON (v.idtipoVehiculo = t.idtipoVehiculo) WHERE v.idusuario = " . $idUsuario);
-	      return $result;
-	    }
+			return $this->consulta("SELECT * FROM vehiculo v INNER JOIN tipoVehiculo t ON (v.idtipoVehiculo = t.idtipoVehiculo) WHERE v.idusuario = " . $idUsuario);
 	  }
 
-		function getUsuario($mail){
-			if($this->connection) {
-				$result = $conn->query("SELECT * FROM usuario WHERE email = '" . $mail . "'");
-				return $result;
-			}
-			return null;
+		function getUsuarioPorMail($mail){
+			return $this->consulta("SELECT * FROM usuario WHERE email = '" . $mail . "'");
 		}
 
 		function getUsuarioLogin($mail, $password){
-			if($this->connection) {
-				$sha1_pass = sha1($password);
-				$result = $this->connection->query("SELECT * FROM usuario WHERE email = '$mail' AND password = '$sha1_pass'");
-				return $result;
-			}
-			return null;
+			$sha1_pass = sha1($password);
+			return $this->consulta("SELECT * FROM usuario WHERE email = '$mail' AND password = '$sha1_pass'");
 		}
 
 		//mismo método de arriba pero necesitaba que el mail llegue como variable y no por post. se podría refactorizar.
@@ -57,4 +50,5 @@
 		*/
 
 	}
+
 ?>
