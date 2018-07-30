@@ -30,6 +30,32 @@
 	<?php
 		include "../vistas/navbar.html";
 	?>
+	
+	<!-- Pantalla de busqueda  -->
+	<div class="row" style="background-color:#EEEEEE	">
+		<div class="col col-0 col-md-2 col-lg-3">
+		</div>
+		<div class="col col-12 col-md-8 col-lg-6">
+			<div style="margin:10px;">
+				<h4 class="display-4" style="text-align:center"><img src="resources/baseline_search_black_18dp.png"> Busca tu proximo viaje</h4>
+			</div>
+			<br>
+			<form action="buscarviajes.php" method="get">
+				<div class="form-row">
+    			<div class="form-group col-md-6">
+      			<input type="text" class="form-control" id="inputEmail4" placeholder="Origen" required>
+					</div>
+					<div class="form-group col-md-6">
+						<input type="text" class="form-control" id="inputPassword4" placeholder="Destino" required>
+					</div>
+					<div class="col" style="justify-content:center; display: flex; margin:10px">
+						<button type="submit" class="btn btn-light" >Buscar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col col-0 col-md-2 col-lg-3"> </div>
+	</div>
 
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">

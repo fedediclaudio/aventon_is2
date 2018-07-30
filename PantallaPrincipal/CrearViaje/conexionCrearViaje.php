@@ -71,7 +71,7 @@
         for ($i = 0; $i < count($fechasInicio); $i++) {
           $fechaI = explode('T', $fechasInicio[$i]);
           $fechaF = explode('T', $fechasFin[$i]);
-          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario) WHERE ( u.email = '$mail' ) AND ( ( STR_TO_DATE( '$fechaF[0]' ,'%Y-%m-%d') >= vc.fechaInicio ) AND ( ( STR_TO_DATE('$fechaI[0]' ,'%Y-%m-%d') <= vc.fechaFin ) ) )";
+          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario) WHERE ( u.email = '$mail' ) AND ( ( STR_TO_DATE( '$fechaF[0]' ,'%Y-%m-%d') >= vc.fechaInicio ) AND ( ( STR_TO_DATE('$fechaI[0]' ,'%Y-%m-%d') <= vc.fechaFin ) AND ( (STR_TO_DATE('$hora', '%H:%i') ) <= vi.horaFin ) AND ( STR_TO_DATE('$horaF', '%H:%i') >= vi.horaInicio ) ) )";
           if (mysqli_num_rows($this->consulta($sql)) > 0) {
             return false;
           }
