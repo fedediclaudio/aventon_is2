@@ -65,23 +65,36 @@
                 </div>
             </div>
         </div>
-        <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviajee col col-lg-6">
-          <div class="row">
-            <div class="col col-8">
-              <h2 >Vehiculos</h2>
+        <div class="row">
+          <div class="jumbotron p-3 p-md-5 col-lg-5" style="margin:auto; margin-top:0">
+            <div class="row">
+              <div class="col col-8">
+                <h2 >Viajes</h2>
+              </div>
             </div>
-            <div class="col col-4">
-              <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo" style="float:right">Crear vehículo</button>
-            </div>
+            <?php
+            $conexion->cargarViajes();
+            ?>
           </div>
-          <?php
+          <div class="jumbotron p-3 p-md-5 col-lg-5" style="margin:auto; margin-top:0">
+            <div class="row">
+              <div class="col col-8">
+                <h2 >Vehiculos</h2>
+              </div>
+              <div class="col col-4">
+                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo" style="float:right">Crear vehículo</button>
+              </div>
+            </div>
+            <?php
             $conexion->cargarVehiculos();
-        	?>
-          <script>
-              function editar(row){
-                  window.location.replace("../PantallaEditarVehiculo/pantallaEditarVehiculo.php?id=" + row);
-              }
-          </script>
+            ?>
+            <!-- Script que se llama cuando se presiona editar vehiculo (boton cargado en la funcion cargarVehiculos de arriba) -->
+            <script>
+            function editar(row){
+              window.location.replace("../PantallaEditarVehiculo/pantallaEditarVehiculo.php?id=" + row);
+            }
+            </script>
+          </div>
         </div>
     </div>
     <?php

@@ -33,6 +33,49 @@
       }
     }
 
+    function getViajesDeUsuario($idUsuario) {
+      return $this->consulta("SELECT * FROM viaje v INNER JOIN vehiculo ve ON (v.idvehiculo = ve.idvehiculo) INNER JOIN usuario u ON (ve.idusuario = u.id) WHERE u.id = $idUsuario");
+    }
+
+    function cargarViajes(){
+      $viajes = $this->getViajesDeUsuario($_SESSION['id']);
+      if (mysqli_num_rows($viajes) > 0) {
+        while($row = mysqli_fetch_assoc($viajes)) {
+          echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
+            echo '<div class="card-body" style="margin: -1%">';
+              echo '<div class="row">';
+                echo '<div class="col col-9"> ';
+                  echo '<div>';
+                    echo '<h5 class="card-subtitle mb-2">Desde: '. $row["origen"] . ' a: ' .	$row["destino"] . '</h5>';
+                  echo '</div>';
+                  echo '<div class="row">';
+                    echo '<div class="col col-12"> ';
+                      echo '<p class="card-text">Precio: ' . $row["precio"] . '</p>';
+                    echo '</div>';
+                    echo '<div class="col col-12"> ';
+                      echo "Disponible en fechas: ";
+                      echo "<ul style='list-style-type: none'>";
+                      $viajesConcretos = $this->getViajesConcretos($row["idviaje"]);
+                      while ($viajeConcreto = mysqli_fetch_assoc($viajesConcretos)) {
+                        echo "<li>";
+                        echo "<a href='../PantallaInfoViaje/informacionViaje.php?id=$viajeConcreto[idviajeConcreto]'>" . $viajeConcreto["fechaInicio"] . "</a>";
+                        echo "</li>";
+                      }
+                      echo "</ul>";
+                    echo '</div>';
+                  echo '</div>';
+                echo '</div>';
+              echo '</div>';
+            echo '</div>';
+          echo '</div>';
+        }
+      }
+    }
+
+    function getViajesConcretos ($idViaje) {
+      return $this->consulta("SELECT * FROM viajeconcreto vc WHERE vc.idviaje = $idViaje");
+    }
+
   }
-  
+
 ?>
