@@ -136,6 +136,35 @@
       $this->consulta("DELETE FROM participacion WHERE idviajeConcreto = '$viaje' AND idusuario = '$user'");
     }
 
+    function eliminarViajeConcreto($idViajeConcreto) {
+      $this->eliminarTodasLasPostulaciones($idViajeConcreto);
+      $viaje = mysqli_fetch_assoc($this->fullInfoDeViaje($idViajeConcreto));
+      $this->consulta("DELETE FROM viajeconcreto WHERE idviajeConcreto = '$idViajeConcreto'");
+      $this->limpiarViajeAbstracto($viaje["idviaje"]);
+    }
+
+    function eliminarTodasLasPostulaciones($idViajeConcreto) {
+      $this->consulta("DELETE FROM participacion WHERE idviajeConcreto = '$idViajeConcreto'");
+    }
+
+    function limpiarViajeAbstracto($idViaje) {
+      if (!(mysqli_fetch_assoc($this->consulta("SELECT * FROM viajeconcreto v WHERE v.idviaje = $idViaje")))) {
+        $this->eliminarViajeAbstracto($idViaje);
+      }
+    }
+
+    function eliminarViajeAbstracto($idViaje) {
+      $this->eliminarViajesConcretosDe($idViaje);
+      $this->consulta("DELETE FROM viaje WHERE idviaje = '$idViaje'");
+    }
+
+    function eliminarViajesConcretosDe($idViaje) {
+      $viajesConcretos = $this->consulta("SELECT * FROM viajeconcreto WHERE idviaje = $idViaje");
+      while($viajeConcreto = mysqli_fetch_assoc($viajesConcretos)) {
+        $this->eliminarViajeConcreto($viajeConcreto['idviajeConcreto']);
+      }
+    }
+
   }
 
 ?>
