@@ -45,7 +45,11 @@
       } else {
         if($this->usuarioActualEstaPostulado($viaje)){
           $postulacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($viaje["idviajeConcreto"],$_SESSION["id"]));
-          echo "<div class=\"alert alert-info\" role=\"alert\"> Tu postulación para este viaje se encuentra " . $postulacion["estado"] . "</div>";
+          echo "<div class=\"alert alert-info\" role=\"alert\"> Tu postulación para este viaje se encuentra " . $postulacion["estado"];
+          if($postulacion["estado"] != 'rechazado') {
+            echo "<a href='eliminarPostulacion.php?idviajeConcreto=$viaje[idviajeConcreto]' style='float:right'>Cancelar</a>";
+          }
+          echo "</div>";
         } else {
           if($this->hayAsientosLibres($viaje)){
             echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
@@ -126,6 +130,10 @@
         }
         echo '</div>';
       }
+    }
+
+    function eliminarPostulacion($user, $viaje) {
+      $this->consulta("DELETE FROM participacion WHERE idviajeConcreto = '$viaje' AND idusuario = '$user'");
     }
 
   }
