@@ -127,10 +127,14 @@
           $user = mysqli_fetch_assoc($this->getUsuarioPorId($row["idusuario"]));
           echo ' <div class="col col-12 col-lg-6">
                   <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
-                  <div class="card-body" style="margin: -1%">
-                    <h6 class="card-subtitle mb-2 text-muted">Usuario</h6>
-                    <p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button></p>
-                  </div>
+                  <div class="card-body row" style="margin: -1%">
+										<div class="col col-10" style="display: flex; align-items: left ">
+                    	<p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button></p>
+										</div>
+										<div class="col col-2"> 
+											<button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=pendiente\'" class="btn btn-outline-danger" style="color: black; border-color:#BDBDBD; margin: auto; display: block; ">Quitar</button>
+										</div>
+									</div>
                   </div>
                 </div>';
         }
