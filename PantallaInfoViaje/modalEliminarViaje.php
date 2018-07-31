@@ -11,8 +11,13 @@
         <h5 style="text-align:center">Realmente desea eliminar este viaje?</h5>
         <h6 style="text-align:center">En caso de tener posutulaciones aceptadas, afectara su reputación</h6>
         <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="eliminarViajeAbstracto" onclick="toggleEliminacion()">
-          <label class="form-check-label" for="eliminarViajeAbstracto">Eliminar todas las repeticiones del viaje</label>
+          <?php
+            if($conexion->viajeSeRepite($viaje["idviaje"])){
+              echo '<input type="checkbox" class="form-check-input" id="eliminarViajeAbstracto" onclick="toggleEliminacion()">';
+              echo '<label class="form-check-label" for="eliminarViajeAbstracto">Eliminar todas las repeticiones del viaje</label>';
+            }
+              //echo $conexion->viajeSeRepite($viaje["idviaje"]);
+          ?>
         </div>
       </div>
       <div class="modal-footer">

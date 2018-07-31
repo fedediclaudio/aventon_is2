@@ -170,6 +170,17 @@
       return $viaje["idviaje"];
     }
 
+    function viajeSeRepite($idViaje){
+     $sql = "SELECT * FROM viajeconcreto WHERE idviaje = $idViaje";
+     //return $sql;
+     $result = $this->consulta($sql);
+     if(mysqli_num_rows($result) > 1){
+      return true;
+     }else{
+      return false;
+     }
+    }
+
   }
 
 ?>
