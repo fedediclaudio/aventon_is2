@@ -138,9 +138,9 @@
 
     function eliminarViajeConcreto($idViajeConcreto) {
       $this->eliminarTodasLasPostulaciones($idViajeConcreto);
-      $viaje = mysqli_fetch_assoc($this->fullInfoDeViaje($idViajeConcreto));
+      $idViaje = $this->getIdViajeAbstracto($idViajeConcreto);
       $this->consulta("DELETE FROM viajeconcreto WHERE idviajeConcreto = '$idViajeConcreto'");
-      $this->limpiarViajeAbstracto($viaje["idviaje"]);
+      $this->limpiarViajeAbstracto($idViaje);
     }
 
     function eliminarTodasLasPostulaciones($idViajeConcreto) {
@@ -163,6 +163,11 @@
       while($viajeConcreto = mysqli_fetch_assoc($viajesConcretos)) {
         $this->eliminarViajeConcreto($viajeConcreto['idviajeConcreto']);
       }
+    }
+
+    function getIdViajeAbstracto($idViajeConcreto) {
+      $viaje = mysqli_fetch_assoc($this->fullInfoDeViaje($idViajeConcreto));
+      return $viaje["idviaje"];
     }
 
   }
