@@ -76,6 +76,16 @@
       return $this->consulta("SELECT * FROM viajeconcreto vc WHERE vc.idviaje = $idViaje");
     }
 
+    function getLikes ($idUser){
+      //acá iría código cuando tengamos reputación en BD
+      return 13;
+    }
+
+    function getDislikes ($idUser){
+      //acá iría código cuando tengamos reputación en BD
+      return 4;
+    }
+
   }
 
 ?>

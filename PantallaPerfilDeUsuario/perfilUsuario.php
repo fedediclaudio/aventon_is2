@@ -33,6 +33,27 @@
                     <div>
                         <p class="text-center"><img src="../img/perfilPorDefecto.png"></p>
                         <h1 class="display-4 text-center"><?php echo $user['nombre'] . ' ' . $user['apellido']; ?></h1>
+                        <div style="margin: auto; max-width: 150px">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="text-success text-center">
+                                        <?php
+                                           echo $conexion->getLikes($_GET["id"]);
+                                        ?>
+                                    </p>
+                                    <p class="text-center"><img src="./img/like.png"></p>
+                                </div>
+                                <div class="col">
+                                    <p class="text-danger text-center">
+                                        <?php
+                                           echo $conexion->getDislikes($_GET["id"]);
+                                        ?>
+                                    </p>
+                                    <p class="text-center"><img src="./img/dislike.png"></p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col col-12 col-lg-8 px-0"  >
