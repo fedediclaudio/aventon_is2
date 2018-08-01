@@ -41,7 +41,7 @@
                                            echo $conexion->getLikes($_GET["id"]);
                                         ?>
                                     </p>
-                                    <p class="text-center"><img src="./img/like.png"></p>
+                                    <p class="text-center"><img src="../img/like.png"></p>
                                 </div>
                                 <div class="col">
                                     <p class="text-danger text-center">
@@ -49,7 +49,7 @@
                                            echo $conexion->getDislikes($_GET["id"]);
                                         ?>
                                     </p>
-                                    <p class="text-center"><img src="./img/dislike.png"></p>
+                                    <p class="text-center"><img src="../img/dislike.png"></p>
                                 </div>
                             </div>
                         </div>

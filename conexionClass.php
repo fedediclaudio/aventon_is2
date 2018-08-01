@@ -49,6 +49,16 @@
 					 	 / \
 		*/
 
+    	function getLikes($idUser){
+    		//acá iría la consulta cuando tengamos reputación en la BD
+    		return 14;
+    	}
+    	function getDislikes($idUser){
+    		//acá iría la consulta cuando tengamos reputación en la BD
+    		return 3;
+    	}
+
+
 	}
 
 ?>

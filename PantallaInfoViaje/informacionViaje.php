@@ -79,6 +79,35 @@
             			<h6 class="card-subtitle mb-2 text-muted">Nombre y apellido</h6>
                   <p class="card-text"><?php echo $viaje["nombre"] . ' ' . $viaje["apellido"]; ?></p>
                 </div>
+              </div>
+              <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
+                <div class="card-body" style="margin: -1%">
+                  <h6 class="card-subtitle mb-2 text-muted">Reputación</h6>
+
+                    <div class="row" style="margin: -1%">
+                      <div class="col-md-1.5">
+                        <p class="text-success">
+                          <?php
+                            echo $conexion->getLikes($_GET["id"]);
+                          ?>
+                        </p>
+                      </div>
+                      <div class="col-md-2">
+                        <p><img src="../img/like.png"></p>
+                      </div>
+                      <div class="col-md-1.5">
+                        <p class="text-danger">
+                          <?php
+                            echo $conexion->getDislikes($_GET["id"]);
+                          ?>
+                        </p>
+                      </div>
+                      <div class="col-md-2">
+                        <p><img src="../img/dislike.png"></p>
+                      </div>
+                    </div>
+
+                </div>
   						</div>
   						<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                 <div class="card-body" style="margin: -1%">
