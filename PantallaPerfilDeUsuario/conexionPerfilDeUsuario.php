@@ -4,7 +4,7 @@
   class ConexionPerfilDeUsuario extends Conexion{
 
     function cargarVehiculos(){
-      $result = $this->getVehiculosPorIdUsuario($_SESSION['id']);
+      $result = $this->getVehiculosPorIdUsuario($_GET['id']);
       if (mysqli_num_rows($result) > 0) {
         while($row = mysqli_fetch_assoc($result)) {
           echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
@@ -38,7 +38,7 @@
     }
 
     function cargarViajes(){
-      $viajes = $this->getViajesDeUsuario($_SESSION['id']);
+      $viajes = $this->getViajesDeUsuario($_GET['id']);
       if (mysqli_num_rows($viajes) > 0) {
         while($row = mysqli_fetch_assoc($viajes)) {
           echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
