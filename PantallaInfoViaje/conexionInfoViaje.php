@@ -300,6 +300,48 @@
 
     }
 
+    function imprimirSeccionPreguntas($viaje){
+      echo '<h3 class="display-4">Preguntas</h3>';
+      if($_SESSION['id'] != $this->getIDUsuarioDeVehiculo($viaje['idvehiculo'])){
+        $this->imprimirHazNuevaPregunta($viaje);                      
+      }
+      $this->imprimirPreguntasYRespuestas($viaje);
+    }
+
+    function imprimirSeccionResenias($viaje){
+
+     echo '<h3 class="display-4">Reseñas</h3>';
+     echo '</div>'; //cierra de html
+
+     include "./formEscribirResenia.html";
+
+     $result = $this->participacionesEnViajeConEstado($viaje['idviajeConcreto'], 'aceptado');
+     while($rows = mysqli_fetch_assoc($result)){
+       if($rows['comentario']){
+
+        echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
+        echo '<div class="card-body" style="margin: -1%">';
+        echo '<h6 class="card-subtitle mb-2 text-muted">Comentario de un usuario</h6>';
+        echo '<div class="row">';
+        echo '<p class="card-text col-10">'. $rows['comentario'] .'</p>';
+        if($rows['calificacion']){
+          echo '<div class="col-md-2">';
+          echo '<p><img src="../img/like.png"></p>';          
+          echo '</div>';
+        }else{
+          echo '<div class="col-md-2">';
+          echo '<p><img src="../img/dislike.png"></p>';
+          echo '</div>';
+        }
+        echo '</div>';
+        echo '</div>';
+
+       }
+       echo '</div>'; //cierra de html 
+     }
+     echo '</div>'; //cierra de html
+    }
+
   }
 
 ?>
