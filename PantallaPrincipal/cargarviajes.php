@@ -42,7 +42,13 @@
 				echo '</div>';
 	    }
 	} else {
-		echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes para tu busqueda</h1></div>';
+		if(isset($_GET["origen"])){		
+			echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes para tu busqueda</h1></div>';
+		} else {
+			if(isset($_GET["viajes"])) {
+				echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes en esta seccion</h1></div>';
+			}	
+		}
 	}
 
 ?>

@@ -33,9 +33,7 @@
 	
 	<!-- Pantalla de busqueda  -->
 	<?php
-		if(!isset($_GET["viajes"])) {
 			include 'pantallaDeBusqueda.php';
-		}
 	?>
 	
 	<!--input oculto -->
