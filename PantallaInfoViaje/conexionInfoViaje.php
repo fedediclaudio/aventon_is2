@@ -302,7 +302,7 @@
     }
 
     function precioDeViajePorUsuario($viaje) {
-      return ($viaje["precio"]*1.10/$this->cantidadAsientosOcupados($viaje));
+      return ($viaje["precio"]*1.10/($this->cantidadAsientosOcupados($viaje)+1));
     }
 
     function pagarViaje($idUsuario,$idViajeConcreto) {
