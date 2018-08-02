@@ -9,8 +9,8 @@
   	}
 
     function ultimosViajes($pagina) {
-			$hoy = date("Y-m-d");
 			date_default_timezone_set('America/Buenos_Aires');
+			$hoy = date("Y-m-d");
 			$hora = date("H:i");
       $ultimoCargado = ($this->ultimoViajeConcretoSegunID()) - ( 20 * $pagina);
       $ultimoACargar = $ultimoCargado - 20;
@@ -21,7 +21,7 @@
 				(
 					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
 					AND
-					(vi.horaInicio < (str_to_date('$hora','%H:%i')))
+					(vi.horaInicio > (str_to_date('$hora','%H:%i')))
 				)
 				)) ORDER BY vc.idviajeConcreto DESC");
   	}
@@ -42,7 +42,7 @@
 				(
 					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
 					AND
-					(vi.horaInicio < (str_to_date('$hora','%H:%i')))
+					(vi.horaInicio > (str_to_date('$hora','%H:%i')))
 				)
 				)) ORDER BY vc.idviajeConcreto DESC");
 		}
@@ -58,7 +58,7 @@
 				(
 					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
 					AND
-					(vi.horaInicio < (str_to_date('$hora','%H:%i')))
+					(vi.horaInicio > (str_to_date('$hora','%H:%i')))
 				)
 				)) ORDER BY vc.idviajeConcreto DESC");
 		}
