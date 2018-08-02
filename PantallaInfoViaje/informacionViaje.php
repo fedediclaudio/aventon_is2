@@ -1,5 +1,5 @@
 <?php
-  include "../chequeoSesion.php"
+  include "../chequeoSesion.php";
 ?>
 <html>
 <head>
@@ -23,8 +23,8 @@
         $fechaFin = new DateTime($viaje["fechaFin"]);
         $horaInicio = new DateTime ($viaje["horaInicio"]);
         $horaFin = new DateTime ($viaje["horaFin"]);
-        $IDUsuarioConductor = $conexion->getIDUsuarioDeVehiculo($viaje['idvehiculo']);
         include 'modalEliminarViaje.php';
+        include 'modalPago.php';
     ?>
     <!-- Navbar -->
     <?php
@@ -166,17 +166,16 @@
         <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoVehiculo">
           <div class="col col-12 px-0">
               <div style="margin: 5px">
-              		<h3 class="display-4">Preguntas</h3>
                 	<?php 
-                		if($_SESSION['id'] != $IDUsuarioConductor){
-	                		$conexion->imprimirHazNuevaPregunta($viaje);                			
-                		} 
-                		$conexion->imprimirPreguntasYRespuestas($viaje); 
+                		if($conexion->viajeTermino($viaje['idviajeConcreto'])){
+                			$conexion->imprimirSeccionResenias($viaje);
+                		}else{
+                			$conexion->imprimirSeccionPreguntas($viaje);
+                		}
                 	?>
-                </div>
-              </div>
+        </div>
 
-              </div>
+       </div>
             </div>
         </div>
       </div>

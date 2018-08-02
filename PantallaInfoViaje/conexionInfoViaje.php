@@ -88,6 +88,11 @@
 			return ($viaje["cantidadAsientos"] - $cantidadOcupados["SUM(cantidad)"]);
 		}
 
+    function cantidadAsientosOcupados($viaje) {
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			return ($cantidadOcupados["SUM(cantidad)"]);
+		}
+
     function viajeEsDeUsuarioActual($viaje) {
       return ($_SESSION['id']==$viaje["id"]);
     }
@@ -139,10 +144,7 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
-
-
               ';
         }
         echo '</div>';
@@ -293,7 +295,62 @@
       $result = $this->consulta($sql);
       $rows = mysqli_fetch_assoc($result);
       return $rows['idusuario'];
+    }
 
+    function precioDeViajePorUsuario($viaje) {
+      return ($viaje["precio"]*1.10/$this->cantidadAsientosOcupados($viaje));
+    }
+
+    function pagarViaje($idUsuario,$idViajeConcreto) {
+      $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
+      $this->consulta("UPDATE 'participacion' SET 'pago' = '1' WHERE 'idparticipacion' = $participacion[idparticipacion];");
+    }
+
+    function estaPago($idUsuario,$idViajeConcreto) {
+      $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
+      return $participacion["pago"];
+    }
+
+    function imprimirSeccionPreguntas($viaje){
+      echo '<h3 class="display-4">Preguntas</h3>';
+      if($_SESSION['id'] != $this->getIDUsuarioDeVehiculo($viaje['idvehiculo'])){
+        $this->imprimirHazNuevaPregunta($viaje);                      
+      }
+      $this->imprimirPreguntasYRespuestas($viaje);
+    }
+
+    function imprimirSeccionResenias($viaje){
+
+     echo '<h3 class="display-4">Reseñas</h3>';
+     echo '</div>'; //cierra de html
+
+     include "./formEscribirResenia.html";
+
+     $result = $this->participacionesEnViajeConEstado($viaje['idviajeConcreto'], 'aceptado');
+     while($rows = mysqli_fetch_assoc($result)){
+       if($rows['comentario']){
+
+        echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
+        echo '<div class="card-body" style="margin: -1%">';
+        echo '<h6 class="card-subtitle mb-2 text-muted">Comentario de un usuario</h6>';
+        echo '<div class="row">';
+        echo '<p class="card-text col-10">'. $rows['comentario'] .'</p>';
+        if($rows['calificacion']){
+          echo '<div class="col-md-2">';
+          echo '<p><img src="../img/like.png"></p>';          
+          echo '</div>';
+        }else{
+          echo '<div class="col-md-2">';
+          echo '<p><img src="../img/dislike.png"></p>';
+          echo '</div>';
+        }
+        echo '</div>';
+        echo '</div>';
+
+       }
+       echo '</div>'; //cierra de html 
+     }
+     echo '</div>'; //cierra de html
     }
 		
 		function verificarSuperposicionAlPostularse($idUser, $viaje){
