@@ -19,8 +19,8 @@
       return $row["MAX(idviajeConcreto)"];
     }
 		
-		function buscarViajes($origen,$destino) {
-			return (mysqli_fetch_assoc($this->consulta("SELECT * FROM aventon.viaje v INNER JOIN aventon.viajeconcreto vc ON (v.idviaje = vc.idviaje) WHERE v.origen = $origen AND v.destino = $destino")));
+		function ultimosViajesBusqueda($pagina, $origen ,$destino) {
+			return $this->consulta("SELECT * FROM aventon.viaje v INNER JOIN aventon.viajeconcreto vc ON (v.idviaje = vc.idviaje) WHERE (v.origen = '$origen') AND (v.destino = '$destino') ORDER BY vc.idviajeConcreto DESC");
 		}
 
   }

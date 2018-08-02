@@ -4,7 +4,11 @@
 	$pagina = $_GET['pagina'];
 	// Cargar 20 viajes segun la pagina
 	$conexion = new ConexionPantallaPrincipal();
-	$result = $conexion->ultimosViajes($pagina);
+	if(!isset($_GET["origen"])) {
+		$result = $conexion->ultimosViajes($pagina);
+	} else {
+		$result = $conexion->ultimosViajesBusqueda($pagina, $_GET["origen"], $_GET["destino"]);
+	}
 	// Mostrar los cargados
 	if (mysqli_num_rows($result) > 0) {
     	// output data of each row
@@ -23,6 +27,8 @@
 					echo '</button>';
 				echo '</div>';
 	    }
+	} else {
+		echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes para tu busqueda</h1></div>';
 	}
 
 ?>

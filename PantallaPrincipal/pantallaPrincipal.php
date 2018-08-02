@@ -24,7 +24,7 @@
     $conexion = new ConexionPantallaPrincipal();
     $idUser = $_SESSION["id"];
     $tieneVehiculos = $conexion->tieneVehiculos($idUser);
-  ?>
+	?>
 
 	<!-- Navbar -->
 	<?php
@@ -43,10 +43,10 @@
 			<form action="buscarviajes.php" method="get">
 				<div class="form-row">
     			<div class="form-group col-md-6">
-      			<input type="text" class="form-control" id="inputEmail4" placeholder="Origen" required>
+      			<input type="text" name="origen" class="form-control" id="origenInput" placeholder="Origen" value="<?php if((isset($_GET["origen"])) && (isset($_GET["destino"])))  { echo $_GET["origen"];} ?>" required>
 					</div>
 					<div class="form-group col-md-6">
-						<input type="text" class="form-control" id="inputPassword4" placeholder="Destino" required>
+						<input type="text" name="destino" class="form-control" id="destinoInput" placeholder="Destino" value="<?php if((isset($_GET["origen"])) && (isset($_GET["destino"])))  { echo $_GET["destino"];} ?>" required>
 					</div>
 					<div class="col" style="justify-content:center; display: flex; margin:10px">
 						<button type="submit" class="btn btn-light" >Buscar</button>
@@ -59,15 +59,18 @@
 
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">
+				<?php if(!isset($_GET["origen"])) { if($tieneVehiculos) { $modal= "#crearViajeModal"; } else { $modal = "#modalErrorAlCrearViaje"; } 
+																					 echo '
         <div class="col col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
-            <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="<?php if($tieneVehiculos) { echo "#crearViajeModal"; } else { echo "#modalErrorAlCrearViaje"; }  ?>"  >
+            <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="' . $modal .'"  >
                     <div style="background-color: #FAFAFA;" >
                         <div style="  ">
                             <h1 class="display-3"><img src="../img/boton_mas.png"></h1>
                         </div>
                     </div>
             </button>
-        </div>
+        </div>';}
+				?>
 		<!-- Aca se cargan las cartas-->
 	</div>
 
