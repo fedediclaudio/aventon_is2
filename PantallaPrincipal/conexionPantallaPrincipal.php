@@ -19,8 +19,18 @@
       return $row["MAX(idviajeConcreto)"];
     }
 		
-		function ultimosViajesBusqueda($pagina, $origen ,$destino) {
+		function ultimosViajesBusqueda($origen ,$destino) {
 			return $this->consulta("SELECT * FROM aventon.viaje v INNER JOIN aventon.viajeconcreto vc ON (v.idviaje = vc.idviaje) WHERE (v.origen = '$origen') AND (v.destino = '$destino') ORDER BY vc.idviajeConcreto DESC");
+		}
+		
+		function misViajesActuales($iduser) {
+			$hoy = date("Y-m-d");
+			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN participacion p ON(p.idviajeconcreto = vc.idviajeconcreto)  WHERE ((p.idusuario = '$iduser') AND (vc.fechaInicio >= (str_to_date('$hoy', '%Y-%m-%d')))) ORDER BY vc.idviajeConcreto DESC");
+		}
+		
+		function misViajesPasados($iduser) {
+			$hoy = date("Y-m-d");
+			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN participacion p ON(p.idviajeconcreto = vc.idviajeconcreto)  WHERE ((p.idusuario = '$iduser') AND (vc.fechaInicio < (str_to_date('$hoy', '%Y-%m-%d')))) ORDER BY vc.idviajeConcreto DESC");
 		}
 
   }

@@ -32,44 +32,34 @@
 	?>
 	
 	<!-- Pantalla de busqueda  -->
-	<div class="row" style="background-color:#EEEEEE	">
-		<div class="col col-0 col-md-2 col-lg-3">
-		</div>
-		<div class="col col-12 col-md-8 col-lg-6">
-			<div style="margin:10px;">
-				<h4 class="display-4" style="text-align:center"><img src="resources/baseline_search_black_18dp.png"> Busca tu proximo viaje</h4>
-			</div>
-			<br>
-			<form action="buscarviajes.php" method="get">
-				<div class="form-row">
-    			<div class="form-group col-md-6">
-      			<input type="text" name="origen" class="form-control" id="origenInput" placeholder="Origen" value="<?php if((isset($_GET["origen"])) && (isset($_GET["destino"])))  { echo $_GET["origen"];} ?>" required>
-					</div>
-					<div class="form-group col-md-6">
-						<input type="text" name="destino" class="form-control" id="destinoInput" placeholder="Destino" value="<?php if((isset($_GET["origen"])) && (isset($_GET["destino"])))  { echo $_GET["destino"];} ?>" required>
-					</div>
-					<div class="col" style="justify-content:center; display: flex; margin:10px">
-						<button type="submit" class="btn btn-light" >Buscar</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		<div class="col col-0 col-md-2 col-lg-3"> </div>
-	</div>
+	<?php
+		if(!isset($_GET["viajes"])) {
+			include 'pantallaDeBusqueda.php';
+		}
+	?>
+	
+	<!--input oculto -->
+	<input type="hidden" value="<?php if(isset($_GET["viajes"])) { echo $_GET["viajes"]; } else { echo "";} ?>" id="viajesSelector"> 
+	
+	<!-- Nav -->
+	<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link" href="pantallaPrincipal.php">Ultimos viajes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="pantallaPrincipal.php?viajes=misviajes">Mis viajes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="pantallaPrincipal.php?viajes=viajespasados">Viajes Pasados</a>
+  </li>
+</ul>
 
 	<!-- Cartas de viajes -->
 	<div id="viajes" class="row">
-				<?php if(!isset($_GET["origen"])) { if($tieneVehiculos) { $modal= "#crearViajeModal"; } else { $modal = "#modalErrorAlCrearViaje"; } 
-																					 echo '
-        <div class="col col-12 col-md-6 col-lg-4 col-xl-3" style="justify-content:center; display: flex;" >
-            <button type="button" class="btn btn-light " id="botonCartaViaje" data-toggle="modal" data-target="' . $modal .'"  >
-                    <div style="background-color: #FAFAFA;" >
-                        <div style="  ">
-                            <h1 class="display-3"><img src="../img/boton_mas.png"></h1>
-                        </div>
-                    </div>
-            </button>
-        </div>';}
+				<?php
+					if(!isset($_GET["viajes"])) {
+						include 'cartaCrearViaje.php';
+					}
 				?>
 		<!-- Aca se cargan las cartas-->
 	</div>
