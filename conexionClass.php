@@ -20,7 +20,7 @@
 			if($this->connection) {
 				return $this->connection->query($sql);
 			}
-			return null;
+			return false;
 		}
 
 		function getUsuarioPorId($idUsuario){

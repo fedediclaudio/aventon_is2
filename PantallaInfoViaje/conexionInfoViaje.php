@@ -34,9 +34,27 @@
       }
     }
 
+    function viajeTermino(){
+      return false;
+    }
+
+    function imprimirParticipacionesOAviso($viaje){
+      if (!$this->viajeTermino()){
+        $this->imprimirParticipaciones($viaje);
+      }else{
+        $this->imprimirAvisoDeViajeRealizado($viaje);
+      }
+    }
+
+    function imprimirAvisoDeViajeRealizado($viaje){
+      if(!$this->viajeEsDeUsuarioActual($viaje)){
+          echo '<div class="alert alert-warning"> <strong>Aviso:</strong> Este recorrido ya fue realizado </div>';
+        }
+    }
+
     function imprimirParticipaciones($viaje) {
       if($this->viajeEsDeUsuarioActual($viaje)){
-        echo '<div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)"	>
+        echo '<div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)" >
           <h4 class="h4">Postulaciones pendientes</h4>';
           $this->imprimirPostulacionesPendientes($viaje);
           $this->imprimirPostulacionesConEstado($viaje,'aceptado');
@@ -59,6 +77,7 @@
         }
       }
     }
+    
 
     function viajeEsDeUsuarioActual($viaje) {
       return ($_SESSION['id']==$viaje["id"]);
@@ -189,6 +208,80 @@
      }else{
       return false;
      }
+    }
+
+    function imprimirPreguntasYRespuestas($viaje){
+      echo '<h3>Últimas preguntas</h3>';
+      $result = $this->getPreguntasYRespuestas($viaje['idviajeConcreto']);
+      while($pregYRta = mysqli_fetch_assoc($result)){
+          if($pregYRta['respuesta']){
+            echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
+            echo  '<div class="card-body" style="margin: -1%">';
+            echo   '<h6 class="card-subtitle mb-2 text-muted">Pregunta</h6>';
+            echo   '<p class="card-text">' . $pregYRta['pregunta'] . '</p>';
+            echo   '<h6 class="card-subtitle mb-2 text-muted">Respuesta</h6>';
+            echo   '<p class="card-text">' . $pregYRta['respuesta'] . '</p>';
+            echo  '</div>';  
+            echo '</div>';
+          }else {
+            if($_SESSION['id'] != $viaje['idusuario']){
+              echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
+              echo  '<div class="card-body" style="margin: -1%">';
+              echo   '<h6 class="card-subtitle mb-2 text-muted">Pregunta</h6>';
+              echo   '<p class="card-text">' . $pregYRta['pregunta'] . '</p>';
+              echo   '<h6 class="card-subtitle mb-2 text-muted">Respuesta</h6>';
+              echo '<p class="card-text"> <small><em> Aún sin responder </em></small> </p>';
+              echo  '</div>';  
+              echo '</div>';
+            }else{
+
+              echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
+              echo  '<div class="card-body" style="margin: -1%">';
+              echo   '<h6 class="card-subtitle mb-2 text-muted">Pregunta</h6>';
+              echo   '<p class="card-text">' . $pregYRta['pregunta'] . '</p>';
+              echo   '<h6 class="card-subtitle mb-2 text-muted">Respuesta</h6>';
+              echo '<form action="./enviarRespuesta.php">';
+              echo '<div class="form-group">';
+              echo  '<input type="hidden" name="idviajeConcreto" value="' . $viaje['idviajeConcreto'] . '">';
+              echo  '<input type="hidden" name="idpregunta" value="'. $pregYRta['idpregunta'] .'">';
+              echo  '<textarea class="form-control" rows="2" name="respuesta" placeholder="Escriba una respuesta..."> </textarea>';
+              echo '</div>';
+              echo '<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right">Responder</button>';
+              echo '</form>';
+              echo  '</div>';  
+              echo '</div>';
+            }
+          }
+        }
+
+      }
+
+    function getPreguntasYRespuestas($idViaje){
+      $sql = "SELECT * FROM pregunta p WHERE p.idviajeConcreto = $idViaje ORDER BY p.idpregunta DESC";
+      return $this->consulta($sql);
+    }
+
+    function imprimirHazNuevaPregunta($viaje){
+      echo '<br>';
+      echo  '<div class="container">';
+      echo    '<h3>Hazle una pregunta al conductor</h3>';
+      echo    '<form action="./hacerPregunta.php" method="get">';
+      echo      '<div class="form-group">';
+      echo        '<input type="hidden" name="idviajeConcreto" value= "' . $viaje['idviajeConcreto'] . '">';
+      echo        '<textarea class="form-control" rows="3" name="pregunta" id="comment"></textarea>';
+      echo      '</div>';
+      echo      '<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right">Preguntar</button>';
+      echo    '</form>';
+      echo  '</div>';
+      echo  '<br>';
+    }
+
+    function getIDUsuarioDeVehiculo($idvehiculo){
+      $sql = "SELECT * FROM vehiculo WHERE idvehiculo = $idvehiculo";
+      $result = $this->consulta($sql);
+      $rows = mysqli_fetch_assoc($result);
+      return $rows['idusuario'];
+
     }
 
   }
