@@ -88,6 +88,11 @@
 			return ($viaje["cantidadAsientos"] - $cantidadOcupados["SUM(cantidad)"]);
 		}
 
+    function cantidadAsientosOcupados($viaje) {
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			return ($cantidadOcupados["SUM(cantidad)"]);
+		}
+
     function viajeEsDeUsuarioActual($viaje) {
       return ($_SESSION['id']==$viaje["id"]);
     }
@@ -139,10 +144,7 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
-
-
               ';
         }
         echo '</div>';
@@ -293,7 +295,20 @@
       $result = $this->consulta($sql);
       $rows = mysqli_fetch_assoc($result);
       return $rows['idusuario'];
+    }
 
+    function precioDeViajePorUsuario($viaje) {
+      return ($viaje["precio"]*1.10/$this->cantidadAsientosOcupados($viaje));
+    }
+
+    function pagarViaje($idUsuario,$idViajeConcreto) {
+      $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
+      $this->consulta("UPDATE 'participacion' SET 'pago' = '1' WHERE 'idparticipacion' = $participacion[idparticipacion];");
+    }
+
+    function estaPago($idUsuario,$idViajeConcreto) {
+      $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
+      return $participacion["pago"];
     }
 
   }
