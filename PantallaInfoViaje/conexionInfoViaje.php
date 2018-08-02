@@ -15,8 +15,8 @@
   		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario");
   	}
 
-    function postularAViaje($iduser, $viaje) {
-      mysqli_query($this->connection, "INSERT INTO aventon.participacion (idviajeConcreto, idusuario) VALUES ('$viaje', '$iduser')");
+    function postularAViaje($iduser, $viaje, $cantidad) {
+      mysqli_query($this->connection, "INSERT INTO aventon.participacion (idviajeConcreto, idusuario, cantidad) VALUES ('$viaje', '$iduser', '$cantidad')");
     }
 
     function cambiarEstadoParticipacionEnViaje($idparticipacion, $estado) {
@@ -70,7 +70,16 @@
           echo "</div>";
         } else {
           if($this->hayAsientosLibres($viaje)){
-            echo "<button type=\"button\"onclick=\"location='postularAViaje.php?idviajeConcreto=".$viaje["idviajeConcreto"]."'\"class=\"btn\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>";
+						$cantidadDeAsientosLibres = $this->cantidadAsientosLibres($viaje);
+						echo " <form action=\"postularAViaje.php\" method=\"get\"> <div class=\"row\"> <div class=\"col col-0 col-sm-6 col-lg-8\"> <input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> </div> <div class=\" col col-6 col-sm-3 col-lg-2 form-group\"> 
+    								<label for=\"exampleFormControlSelect1\">Cantidad</label>
+										<select class=\"form-control\" name=\"cantidad\">";
+											for($i=1; $i <= $cantidadDeAsientosLibres; $i++){
+												echo "<option>$i</option>";
+											}
+						echo "	</select> 
+									</div>";
+            echo "<div class=\"col col-6 col-sm-3 col-lg-2 form-group\"><button class=\"btn btn-light\" type=\"submit\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button></div> </div></form>";
           } else {
             echo '<div class="alert alert-warning" role="alert"> El viaje esta completo </div>';
           }
@@ -78,6 +87,10 @@
       }
     }
     
+		function cantidadAsientosLibres($viaje) {
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			return ($viaje["cantidadAsientos"] - $cantidadOcupados["SUM(cantidad)"]);
+		}
 
     function viajeEsDeUsuarioActual($viaje) {
       return ($_SESSION['id']==$viaje["id"]);
@@ -88,7 +101,8 @@
     }
 
     function hayAsientosLibres($viaje) {
-      return (mysqli_num_rows($this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) < $viaje["cantidadAsientos"]);
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+      return ($cantidadOcupados["SUM(cantidad)"] < $viaje["cantidadAsientos"]);
     }
 
     function imprimirPostulacionesPendientes($viaje) {
@@ -107,12 +121,14 @@
                     <div class="card-body" style="margin: -1%">
                       <div class="row">
                         <div class="col col-7" style="display: flex; align-items: center ">
-                          <p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button></p>';
+                          <p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button> ('. $row["cantidad"] .')</p>';
                         echo '
 												</div>';
-                          if(mysqli_num_rows($this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado')) >= $viaje["cantidadAsientos"]){
+                          if(($this->cantidadAsientosLibres($viaje)) < $row["cantidad"]){
+														
+														
                           echo '<div class="alert alert-warning" role="alert">
-                                  El viaje esta completo, no puedes aceptar mas postulaciones
+                                  No hay suficiente espacio para aceptar esta postulacion
                                 </div>';
                           } else {
 
