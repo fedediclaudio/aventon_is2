@@ -48,8 +48,27 @@
 
     function imprimirAvisoDeViajeRealizado($viaje){
       if(!$this->viajeEsDeUsuarioActual($viaje)){
+        if ($this->usuarioParticipo($_SESSION["id"],$viaje["idviajeConcreto"])) {
+          if ($this->estaPago($_SESSION["id"],$viaje["idviajeConcreto"])) {
+            echo '<div class="alert alert-success"> El viaje ya se encuentra pago, esperamos que lo hayas disfrutado! </div>';
+          } else {
+            echo '<div class="alert alert-danger"> Todavía adeudas este viaje! Presiona pagar para saldarlo </div>';
+          }
+        } else {
           echo '<div class="alert alert-warning"> <strong>Aviso:</strong> El viaje ya comenzó </div>';
         }
+      } else {
+        echo '<div class="alert alert-success"> Esperamos que disfrutes tu viaje ';
+        $result = $this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
+        if (!(mysqli_num_rows($result) == 0)) {
+          echo "junto a ";
+          while ($row = mysqli_fetch_assoc($result)) {
+            $user = mysqli_fetch_assoc($this->getUsuarioPorId($row["idusuario"]));
+            echo "$user[nombre] $user[apellido]";
+          }
+        }
+        echo "</div>";
+      }
     }
 
     function imprimirParticipaciones($viaje) {
