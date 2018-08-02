@@ -15,6 +15,10 @@
   		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario");
   	}
 
+    function participacionesAceptadasEnViajeDeUsuario($idViaje,$idUsuario){
+  		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario AND p.estado = 'aceptado'");
+  	}
+
     function postularAViaje($iduser, $viaje, $cantidad) {
       mysqli_query($this->connection, "INSERT INTO aventon.participacion (idviajeConcreto, idusuario, cantidad) VALUES ('$viaje', '$iduser', '$cantidad')");
     }
@@ -303,12 +307,21 @@
 
     function pagarViaje($idUsuario,$idViajeConcreto) {
       $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
-      $this->consulta("UPDATE 'participacion' SET 'pago' = '1' WHERE 'idparticipacion' = $participacion[idparticipacion];");
+      $this->consulta("UPDATE participacion SET pago = '1' WHERE participacion.idparticipacion = '$participacion[idparticipacion]'");
     }
 
     function estaPago($idUsuario,$idViajeConcreto) {
       $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
       return $participacion["pago"];
+    }
+
+    function usuarioParticipo ($idUsuario,$idViajeConcreto) {
+      if($this->viajeFinalizado($idViajeConcreto)){
+        if (mysqli_num_rows($this->participacionesAceptadasEnViajeDeUsuario($idViajeConcreto,$idUsuario)) != 0) {
+          return true;
+        }
+      }
+      return false;
     }
 
   }

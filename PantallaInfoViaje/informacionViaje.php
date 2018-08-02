@@ -64,9 +64,13 @@
         </div>
 				<?php $conexion->imprimirParticipacionesOAviso($viaje); ?>
 
-        <?php if ($conexion->viajeEsDeUsuarioActual($viaje)) {
-          echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalEliminarViaje'> Eliminar viaje</button>";
-        } ?>
+        <?php
+          if ($conexion->viajeEsDeUsuarioActual($viaje)) {
+            echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalEliminarViaje'> Eliminar viaje</button>";
+          } elseif ($conexion->usuarioParticipo($_SESSION["id"],$viaje["idviajeConcreto"]) && !$conexion->estaPago($_SESSION["id"],$viaje["idviajeConcreto"])) {
+            echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalPago'> Pagar</button>";
+          }
+        ?>
 			</div>
       <div class="row mb-6">
         <div class="col-md-6">
