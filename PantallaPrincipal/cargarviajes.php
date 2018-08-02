@@ -4,10 +4,24 @@
 	$pagina = $_GET['pagina'];
 	// Cargar 20 viajes segun la pagina
 	$conexion = new ConexionPantallaPrincipal();
-	if(!isset($_GET["origen"])) {
-		$result = $conexion->ultimosViajes($pagina);
+	if(!isset($_GET["viajes"])) {
+		if(!isset($_GET["origen"])) {
+			$result = $conexion->ultimosViajes($pagina);
+		} else {
+			$result = $conexion->ultimosViajesBusqueda($_GET["origen"], $_GET["destino"]);
+		}
 	} else {
-		$result = $conexion->ultimosViajesBusqueda($pagina, $_GET["origen"], $_GET["destino"]);
+		if($_GET["viajes"] == "misviajes") {
+			session_start();
+			$result = $conexion->misViajesActuales($_SESSION["id"]);
+		} else {
+			if($_GET["viajes"] == "viajespasados") {
+				session_start();
+				$result = $conexion->misViajesPasados($_SESSION["id"]);
+			} else {
+				$result = $conexion->ultimosViajes($pagina);
+			}
+		}
 	}
 	// Mostrar los cargados
 	if (mysqli_num_rows($result) > 0) {
@@ -28,7 +42,13 @@
 				echo '</div>';
 	    }
 	} else {
-		echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes para tu busqueda</h1></div>';
+		if(isset($_GET["origen"])){		
+			echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes para tu busqueda</h1></div>';
+		} else {
+			if(isset($_GET["viajes"])) {
+				echo '<div class="col-12"><h1 align="center" class="h4">No se encontraron viajes en esta seccion</h1></div>';
+			}	
+		}
 	}
 
 ?>

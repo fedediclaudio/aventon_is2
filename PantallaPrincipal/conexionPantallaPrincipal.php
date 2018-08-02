@@ -9,9 +9,21 @@
   	}
 
     function ultimosViajes($pagina) {
+			$hoy = date("Y-m-d");
+			date_default_timezone_set('America/Buenos_Aires');
+			$hora = date("H:i");
       $ultimoCargado = ($this->ultimoViajeConcretoSegunID()) - ( 20 * $pagina);
       $ultimoACargar = $ultimoCargado - 20;
-      return $this->consulta("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE (vc.idviajeConcreto <= " . $ultimoCargado . ") AND (vc.idviajeConcreto > " . $ultimoACargar . ") ORDER BY vc.idviajeConcreto DESC");
+      return $this->consulta("SELECT * FROM viaje vi INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE ((vc.idviajeConcreto <= " . $ultimoCargado . ") AND (vc.idviajeConcreto > " . $ultimoACargar . ") AND 
+			(
+				(vc.fechaInicio > (str_to_date('$hoy', '%Y-%m-%d')))
+				OR
+				(
+					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
+					AND
+					(vi.horaInicio < (str_to_date('$hora','%H:%i')))
+				)
+				)) ORDER BY vc.idviajeConcreto DESC");
   	}
 
     function ultimoViajeConcretoSegunID(){
@@ -19,8 +31,52 @@
       return $row["MAX(idviajeConcreto)"];
     }
 		
-		function ultimosViajesBusqueda($pagina, $origen ,$destino) {
-			return $this->consulta("SELECT * FROM aventon.viaje v INNER JOIN aventon.viajeconcreto vc ON (v.idviaje = vc.idviaje) WHERE (v.origen = '$origen') AND (v.destino = '$destino') ORDER BY vc.idviajeConcreto DESC");
+		function ultimosViajesBusqueda($origen ,$destino) {
+			$hoy = date("Y-m-d");
+			date_default_timezone_set('America/Buenos_Aires');
+			$hora = date("H:i");
+			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) WHERE ((vi.origen = '$origen') AND (vi.destino = '$destino') AND 
+			(
+				(vc.fechaInicio > (str_to_date('$hoy', '%Y-%m-%d')))
+				OR
+				(
+					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
+					AND
+					(vi.horaInicio < (str_to_date('$hora','%H:%i')))
+				)
+				)) ORDER BY vc.idviajeConcreto DESC");
+		}
+		
+		function misViajesActuales($iduser) {
+			$hoy = date("Y-m-d");
+			date_default_timezone_set('America/Buenos_Aires');
+			$hora = date("H:i");
+			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN participacion p ON(p.idviajeconcreto = vc.idviajeconcreto)  WHERE ((p.idusuario = '$iduser') AND 
+			(
+				(vc.fechaInicio > (str_to_date('$hoy', '%Y-%m-%d')))
+				OR
+				(
+					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
+					AND
+					(vi.horaInicio < (str_to_date('$hora','%H:%i')))
+				)
+				)) ORDER BY vc.idviajeConcreto DESC");
+		}
+		
+		function misViajesPasados($iduser) {
+			$hoy = date("Y-m-d");
+			date_default_timezone_set('America/Buenos_Aires');
+			$hora = date("H:i");
+			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN participacion p ON(p.idviajeconcreto = vc.idviajeconcreto)  WHERE ((p.idusuario = '$iduser') AND 
+			( 
+				(vc.fechaInicio < (str_to_date('$hoy', '%Y-%m-%d'))) 
+				OR 
+				(
+					(vc.fechaInicio = (str_to_date('$hoy', '%Y-%m-%d')))
+					AND
+					(vi.horaInicio < (str_to_date('$hora','%H:%i'))) 
+				)
+			)) ORDER BY vc.idviajeConcreto DESC");
 		}
 
   }

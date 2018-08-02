@@ -59,12 +59,14 @@
   		return 3;
   	}
 
-		function finalizado($idViajeConcreto) {
-			$fechaHora = mysqli_fetch_assoc($this->consulta("SELECT fechaFin, horaFin FROM viajeconcreto vc INNER JOIN viaje v ON (vc.idviaje = v.idviaje) WHERE idviajeConcreto = $idViaje"));
-			$fecha = new DateTime($fechaHora["fechaFin"]);
-			if($fecha->format('Y-m-d') < date('Y-m-d')) {
-			    //it's today, let's make ginger snaps
+		function viajeFinalizado($idViajeConcreto) {
+			$fechaHora = mysqli_fetch_assoc($this->consulta("SELECT fechaInicio, horaInicio FROM viajeconcreto vc INNER JOIN viaje v ON (vc.idviaje = v.idviaje) WHERE idviajeConcreto = $idViajeConcreto"));
+			$fecha = new DateTime($fechaHora["fechaInicio"].$fechaHora["horaInicio"]);
+			date_add($fecha, date_interval_create_from_date_string('3 hours'));
+			if($fecha < new DateTime()) {
+			    return true;
 			}
+			return false;
 		}
 
 	}

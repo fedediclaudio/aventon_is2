@@ -1,5 +1,5 @@
 <?php
-  include "../chequeoSesion.php"
+  include "../chequeoSesion.php";
 ?>
 <html>
 <head>
@@ -24,6 +24,7 @@
         $horaInicio = new DateTime ($viaje["horaInicio"]);
         $horaFin = new DateTime ($viaje["horaFin"]);
         include 'modalEliminarViaje.php';
+        include 'modalPago.php';
     ?>
     <!-- Navbar -->
     <?php
