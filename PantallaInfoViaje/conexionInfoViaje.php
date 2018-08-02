@@ -35,7 +35,7 @@
     }
 
     function viajeTermino(){
-      return false;
+      return true;
     }
 
     function imprimirParticipacionesOAviso($viaje){
@@ -71,13 +71,13 @@
         } else {
           if($this->hayAsientosLibres($viaje)){
 						$cantidadDeAsientosLibres = $this->cantidadAsientosLibres($viaje);
-						echo " <form action=\"postularAViaje.php\" method=\"get\"> <div class=\"row\"> <div class=\"col col-0 col-sm-6 col-lg-8\"> <input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> </div> <div class=\" col col-6 col-sm-3 col-lg-2 form-group\"> 
+						echo " <form action=\"postularAViaje.php\" method=\"get\"> <div class=\"row\"> <div class=\"col col-0 col-sm-6 col-lg-8\"> <input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> </div> <div class=\" col col-6 col-sm-3 col-lg-2 form-group\">
     								<label for=\"exampleFormControlSelect1\">Cantidad</label>
 										<select class=\"form-control\" name=\"cantidad\">";
 											for($i=1; $i <= $cantidadDeAsientosLibres; $i++){
 												echo "<option>$i</option>";
 											}
-						echo "	</select> 
+						echo "	</select>
 									</div>";
             echo "<div class=\"col col-6 col-sm-3 col-lg-2 form-group\"><button class=\"btn btn-light\" type=\"submit\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button></div> </div></form>";
           } else {
@@ -86,7 +86,7 @@
         }
       }
     }
-    
+
 		function cantidadAsientosLibres($viaje) {
 			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
 			return ($viaje["cantidadAsientos"] - $cantidadOcupados["SUM(cantidad)"]);
@@ -114,9 +114,9 @@
         while ($row = mysqli_fetch_assoc($result)) {
           $user = mysqli_fetch_assoc($this->getUsuarioPorId($row["idusuario"]));
           echo '
-                
+
 								<div class="col col-12 col-lg-6" style="padding-left:10px; padding-right:10px">
-									
+
                   <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                     <div class="card-body" style="margin: -1%">
                       <div class="row">
@@ -125,8 +125,8 @@
                         echo '
 												</div>';
                           if(($this->cantidadAsientosLibres($viaje)) < $row["cantidad"]){
-														
-														
+
+
                           echo '<div class="alert alert-warning" role="alert">
                                   No hay suficiente espacio para aceptar esta postulacion
                                 </div>';
@@ -143,10 +143,10 @@
                       </div>
                     </div>
                   </div>
-									
+
                 </div>
-								
-								
+
+
               ';
         }
         echo '</div>';
@@ -166,7 +166,7 @@
 										<div class="col col-10" style="display: flex; align-items: left ">
                     	<p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button></p>
 										</div>
-										<div class="col col-2"> 
+										<div class="col col-2">
 											<button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=pendiente\'" class="btn btn-outline-danger" style="color: black; border-color:#BDBDBD; margin: auto; display: block; ">Quitar</button>
 										</div>
 									</div>
@@ -237,7 +237,7 @@
             echo   '<p class="card-text">' . $pregYRta['pregunta'] . '</p>';
             echo   '<h6 class="card-subtitle mb-2 text-muted">Respuesta</h6>';
             echo   '<p class="card-text">' . $pregYRta['respuesta'] . '</p>';
-            echo  '</div>';  
+            echo  '</div>';
             echo '</div>';
           }else {
             if($_SESSION['id'] != $viaje['idusuario']){
@@ -247,7 +247,7 @@
               echo   '<p class="card-text">' . $pregYRta['pregunta'] . '</p>';
               echo   '<h6 class="card-subtitle mb-2 text-muted">Respuesta</h6>';
               echo '<p class="card-text"> <small><em> Aún sin responder </em></small> </p>';
-              echo  '</div>';  
+              echo  '</div>';
               echo '</div>';
             }else{
 
@@ -264,7 +264,7 @@
               echo '</div>';
               echo '<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right">Responder</button>';
               echo '</form>';
-              echo  '</div>';  
+              echo  '</div>';
               echo '</div>';
             }
           }

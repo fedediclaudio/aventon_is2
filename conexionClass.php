@@ -49,15 +49,23 @@
 					 	 / \
 		*/
 
-    	function getLikes($idUser){
-    		//acá iría la consulta cuando tengamos reputación en la BD
-    		return 14;
-    	}
-    	function getDislikes($idUser){
-    		//acá iría la consulta cuando tengamos reputación en la BD
-    		return 3;
-    	}
+  	function getLikes($idUser){
+  		//acá iría la consulta cuando tengamos reputación en la BD
+  		return 14;
+  	}
 
+  	function getDislikes($idUser){
+  		//acá iría la consulta cuando tengamos reputación en la BD
+  		return 3;
+  	}
+
+		function finalizado($idViajeConcreto) {
+			$fechaHora = mysqli_fetch_assoc($this->consulta("SELECT fechaFin, horaFin FROM viajeconcreto vc INNER JOIN viaje v ON (vc.idviaje = v.idviaje) WHERE idviajeConcreto = $idViaje"));
+			$fecha = new DateTime($fechaHora["fechaFin"]);
+			if($fecha->format('Y-m-d') < date('Y-m-d')) {
+			    //it's today, let's make ginger snaps
+			}
+		}
 
 	}
 
