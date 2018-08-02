@@ -34,12 +34,8 @@
       }
     }
 
-    function viajeTermino(){
-      return true;
-    }
-
     function imprimirParticipacionesOAviso($viaje){
-      if (!$this->viajeTermino()){
+      if (!$this->viajeFinalizado($viaje["idviajeConcreto"])){
         $this->imprimirParticipaciones($viaje);
       }else{
         $this->imprimirAvisoDeViajeRealizado($viaje);
@@ -48,7 +44,7 @@
 
     function imprimirAvisoDeViajeRealizado($viaje){
       if(!$this->viajeEsDeUsuarioActual($viaje)){
-          echo '<div class="alert alert-warning"> <strong>Aviso:</strong> Este recorrido ya fue realizado </div>';
+          echo '<div class="alert alert-warning"> <strong>Aviso:</strong> El viaje ya comenzó </div>';
         }
     }
 
