@@ -67,7 +67,7 @@
 			date_default_timezone_set('America/Buenos_Aires');
 			$hoy = date("Y-m-d");
 			$hora = date("H:i");
-			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN participacion p ON(p.idviajeconcreto = vc.idviajeconcreto)  WHERE ((p.idusuario = '$iduser') AND 
+			return $this->consulta("SELECT * FROM aventon.viaje vi INNER JOIN aventon.viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN participacion p ON(p.idviajeconcreto = vc.idviajeconcreto)  WHERE ((p.idusuario = '$iduser') AND (p.estado = 'aceptada') AND 
 			( 
 				(vc.fechaInicio < (str_to_date('$hoy', '%Y-%m-%d'))) 
 				OR 
