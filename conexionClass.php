@@ -54,8 +54,10 @@
 	function getReputacion($idUsuario){
 
       $sql = "SELECT * FROM usuario u inner join vehiculo v on (u.id = v.idusuario) inner join viaje vi on (vi.idvehiculo = v.idvehiculo) inner join viajeconcreto vic on (vic.idviaje = vi.idviaje) inner join participacion p on (p.idviajeConcreto = vic.idViajeConcreto) where u.id = '$idUsuario' and p.calificacion is not null";
-      	//echo $sql;
       	  $result = $this->consulta($sql);
+      	  $sql = $this->consulta("SELECT * FROM usuario where id = '$idUsuario'");
+      	  $row = mysqli_fetch_assoc($sql);
+      	  $negativos = $row['negativosExtra'];
       	  $reputacion;
       	  $reputacion['likes'] = 0;
       	  $reputacion['dislikes'] = 0;
@@ -68,6 +70,7 @@
       	  		}
       	  	}
       	  }
+      	  $reputacion['dislikes']+=$negativos;
       	  return $reputacion;
 
     }
