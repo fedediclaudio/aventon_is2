@@ -91,16 +91,16 @@
 					if(!($this->verificarSuperposicionAlPostularse($_SESSION["id"], $viaje))) {
 						if($this->hayAsientosLibres($viaje)){
 						$cantidadDeAsientosLibres = $this->cantidadAsientosLibres($viaje);
-						echo " <form action=\"postularAViaje.php\" method=\"get\"> 
-											<div class=\"row\"> 
-											<div class=\"col col-0 col-sm-4 col-lg-6\"> 
-												<input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> 
-											</div> 
+						echo " <form action=\"postularAViaje.php\" method=\"get\">
+											<div class=\"row\">
+											<div class=\"col col-0 col-sm-4 col-lg-6\">
+												<input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input>
+											</div>
 											<div class=\"col col-2 col-sm-2 col-lg-2\">
 												<label style=\"float:right; vertical-align:center\">Cantidad:</label>
 											</div>
 											<div class=\" col col-5 col-sm-3 col-lg-2 form-group\">
-    										
+
 												<select class=\"form-control\" name=\"cantidad\" style=\"margin-right:0px;\">";
 												for($i=1; $i <= $cantidadDeAsientosLibres; $i++){
 													echo "<option>$i</option>";
@@ -109,7 +109,7 @@
 											</div>";
             echo "		<div class=\"col col-5 col-sm-3 col-lg-2 form-group\" style=\"float:right\">
 												<button class=\"btn btn-light\" type=\"submit\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>
-											</div> 
+											</div>
 										</div>
 									</form>";
           } else {
@@ -215,22 +215,22 @@
     }
 
     function eliminarViajeConcreto($idViajeConcreto) {
-      $this->restarPuntosPorPostulaciones($idViajeConcreto);
-      $this->eliminarTodasLasPostulaciones($idViajeConcreto);
-      $idViaje = $this->getIdViajeAbstracto($idViajeConcreto);
-      $this->consulta("DELETE FROM viajeconcreto WHERE idviajeConcreto = '$idViajeConcreto'");
-      $this->limpiarViajeAbstracto($idViaje);
+      if (!$this->viajeFinalizado($idViajeConcreto)) {
+        $this->restarPuntosPorPostulaciones($idViajeConcreto);
+        $this->eliminarTodasLasPostulaciones($idViajeConcreto);
+        $idViaje = $this->getIdViajeAbstracto($idViajeConcreto);
+        $this->consulta("DELETE FROM viajeconcreto WHERE idviajeConcreto = '$idViajeConcreto'");
+        $this->limpiarViajeAbstracto($idViaje);
+      }
     }
 
     function restarPuntosPorPostulaciones($idViajeConcreto) {
       $puntosARestar = $this->cantidadDePostulaciones($idViajeConcreto);
-      var_dump($puntosARestar);
       $this->consulta("UPDATE usuario SET negativosExtra = negativosExtra + '$puntosARestar' WHERE id = '$_SESSION[id]'");
     }
 
     function cantidadDePostulaciones($idViajeConcreto) {
-      $participaciones = mysqli_fetch_assoc($this->consulta("SELECT COUNT(idparticipacion) AS total FROM participacion p INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) WHERE p.idviajeConcreto = $idViajeConcreto"));
-      var_dump($participaciones);
+      $participaciones = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) AS total FROM participacion p INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) WHERE p.idviajeConcreto = $idViajeConcreto AND p.estado='aceptada'"));
       return $participaciones["total"];
     }
 
@@ -273,7 +273,7 @@
     }
 
     function imprimirPreguntasYRespuestas($viaje){
-      
+
       $result = $this->getPreguntasYRespuestas($viaje['idviajeConcreto']);
 			if(mysqli_num_rows($result) >= 0 ) {
 				echo '<div class="col-12 col-md-6"> <h5 class="h5">Últimas preguntas</h5>';

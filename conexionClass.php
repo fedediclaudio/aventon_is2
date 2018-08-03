@@ -110,12 +110,18 @@
 		}
 
 		function cantidadAsientosOcupados($viaje) {
-			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptada') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
 			return ($cantidadOcupados["SUM(cantidad)"]);
 		}
 
+		function cantidadDeAsientosReservadosPorUsuario($idviajeConcreto, $idUsuario){
+			$sql= "SELECT * FROM viajeconcreto vc inner join participacion p on (vc.idviajeConcreto = p.idviajeConcreto) WHERE p.idviajeConcreto = '$idviajeConcreto'";
+			$participacion = mysqli_fetch_assoc($this->consulta($sql));
+			return $participacion["cantidad"];
+		}
+
     function precioDeViajePorUsuario($viaje) {
-      return ($viaje["precio"]*1.10/($this->cantidadAsientosOcupados($viaje)+1));
+      return (($viaje["precio"]*1.10/($this->cantidadAsientosOcupados($viaje)+1))*$this->cantidadDeAsientosReservadosPorUsuario($viaje["idviajeConcreto"],$_SESSION["id"]));
     }
 
 	}
