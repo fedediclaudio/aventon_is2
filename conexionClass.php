@@ -85,7 +85,7 @@
 
 		function getDeudas() {
 			date_default_timezone_set('America/Buenos_Aires');
-			$result = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) WHERE id = '$_SESSION[id]' AND pago = '0'");
+			$result = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) INNER JOIN viaje vi ON (v.idviaje = vi.idviaje) WHERE id = '$_SESSION[id]' AND pago = '0'");
 			$deudas = array();
 			while ($each = mysqli_fetch_assoc($result)) {
 				if($each["fechaInicio"] < date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")))){
@@ -96,7 +96,7 @@
 		}
 
 		function esDeudor() {
-			if (session_status() == PHP_SESSION_NONE) {
+			if (!isset($_SESSION["id"])) {
 				    session_start();
 				}
 			$deudas = $this->getDeudas();
@@ -105,6 +105,15 @@
 			}
 			return false;
 		}
+
+		function cantidadAsientosOcupados($viaje) {
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			return ($cantidadOcupados["SUM(cantidad)"]);
+		}
+
+    function precioDeViajePorUsuario($viaje) {
+      return ($viaje["precio"]*1.10/($this->cantidadAsientosOcupados($viaje)+1));
+    }
 
 	}
 
