@@ -49,15 +49,28 @@
 					 	 / \
 		*/
 
-  	function getLikes($idUser){
-  		//acá iría la consulta cuando tengamos reputación en la BD
-  		return 14;
-  	}
 
-  	function getDislikes($idUser){
-  		//acá iría la consulta cuando tengamos reputación en la BD
-  		return 3;
-  	}
+
+	function getReputacion($idUsuario){
+
+      $sql = "SELECT * FROM usuario u inner join vehiculo v on (u.id = v.idusuario) inner join viaje vi on (vi.idvehiculo = v.idvehiculo) inner join viajeconcreto vic on (vic.idviaje = vi.idviaje) inner join participacion p on (p.idviajeConcreto = vic.idViajeConcreto) where u.id = '$idUsuario' and p.calificacion is not null";
+      	//echo $sql;
+      	  $result = $this->consulta($sql);
+      	  $reputacion;
+      	  $reputacion['likes'] = 0;
+      	  $reputacion['dislikes'] = 0;
+      	  while($row = mysqli_fetch_assoc($result)){
+      	  	if($row['calificacion'] != null){
+      	  		if($row['calificacion'] == 1){
+      	  			$reputacion['likes']++;
+      	  		}elseif($row['calificacion'] == 0){
+      	  			$reputacion['dislikes']++;
+      	  		}
+      	  	}
+      	  }
+      	  return $reputacion;
+
+    }
 
 		function viajeFinalizado($idViajeConcreto) {
 			$fechaHora = mysqli_fetch_assoc($this->consulta("SELECT fechaInicio, horaInicio FROM viajeconcreto vc INNER JOIN viaje v ON (vc.idviaje = v.idviaje) WHERE idviajeConcreto = $idViajeConcreto"));

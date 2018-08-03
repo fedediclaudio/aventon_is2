@@ -22,6 +22,7 @@
         $conexion = new ConexionPerfilDeUsuario();
         $userTable =  $conexion->getUsuarioPorId($username);
         $user = mysqli_fetch_assoc($userTable);
+        $reputacion = $conexion->getReputacion($user['id']);
     ?>
     <!-- Navbar -->
     <?php
@@ -39,7 +40,7 @@
                                 <div class="col">
                                     <p class="text-success text-center">
                                         <?php
-                                           echo $conexion->getLikes($_GET["id"]);
+                                           echo $reputacion['likes'];
                                         ?>
                                     </p>
                                     <p class="text-center"><img src="../img/like.png"></p>
@@ -47,7 +48,7 @@
                                 <div class="col">
                                     <p class="text-danger text-center">
                                         <?php
-                                           echo $conexion->getDislikes($_GET["id"]);
+                                           echo $reputacion['dislikes'];
                                         ?>
                                     </p>
                                     <p class="text-center"><img src="../img/dislike.png"></p>
