@@ -22,6 +22,7 @@
         $conexion = new ConexionPerfilDeUsuario();
         $userTable =  $conexion->getUsuarioPorId($username);
         $user = mysqli_fetch_assoc($userTable);
+        $reputacion = $conexion->getReputacion($user['id']);
     ?>
     <!-- Navbar -->
     <?php
@@ -39,7 +40,7 @@
                                 <div class="col">
                                     <p class="text-success text-center">
                                         <?php
-                                           echo $conexion->getLikes($_GET["id"]);
+                                           echo $reputacion['likes'];
                                         ?>
                                     </p>
                                     <p class="text-center"><img src="../img/like.png"></p>
@@ -47,7 +48,7 @@
                                 <div class="col">
                                     <p class="text-danger text-center">
                                         <?php
-                                           echo $conexion->getDislikes($_GET["id"]);
+                                           echo $reputacion['dislikes'];
                                         ?>
                                     </p>
                                     <p class="text-center"><img src="../img/dislike.png"></p>
@@ -83,7 +84,7 @@
                             <p class="card-text">' . $user['descripcion'] . '</p>
                         </div>
                     </div>';} ?>
-                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='../PantallaEditarPerfil/edicionPerfilUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
+                  <?php if($conexion->esUsuarioActual()){ echo "<button class=\"btn btn-light\" style=\"float:right; margin:10px\" onclick=\"location='../PantallaEditarPerfil/edicionPerfilUsuario.php?id=$user[id]'\">Editar</button>";} ?>
                 </div>
             </div>
         </div>
@@ -107,7 +108,11 @@
                 <h2 >Vehiculos</h2>
               </div>
               <div class="col col-4">
-                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo" style="float:right">Crear vehículo</button>
+                <?php
+                  if ($conexion->esUsuarioActual()) {
+                    echo "<button type=\"button\" class=\"btn btn-light\" data-toggle=\"modal\" data-target=\"#crearVehiculoModal\" id=\"botonCrearVehiculo\" style=\"float:right\">Crear vehículo</button>";
+                  }
+                ?>                
               </div>
             </div>
             <?php

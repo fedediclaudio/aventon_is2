@@ -26,6 +26,8 @@
         $fechaFin = new DateTime($viaje["fechaFin"]);
         $horaInicio = new DateTime ($viaje["horaInicio"]);
         $horaFin = new DateTime ($viaje["horaFin"]);
+        $idConductor = $conexion->getIdConductor($viaje['idvehiculo']);
+        $reputacion  = $conexion->getReputacion($idConductor);
         include 'modalEliminarViaje.php';
         include 'modalPago.php';
     ?>
@@ -114,7 +116,7 @@
                       <div class="col-md-1.5">
                         <p class="text-success">
                           <?php
-                            echo $conexion->getLikes($_GET["id"]);
+                            echo $reputacion['likes'];
                           ?>
                         </p>
                       </div>
@@ -124,7 +126,7 @@
                       <div class="col-md-1.5">
                         <p class="text-danger">
                           <?php
-                            echo $conexion->getDislikes($_GET["id"]);
+                            echo $reputacion['dislikes'];
                           ?>
                         </p>
                       </div>

@@ -24,7 +24,7 @@
                   echo '</div>';
                 echo '</div>';
                 echo '<div class="col col-3"> ';
-                  echo '<button type="button" onClick=editar(' . (int)$row['idvehiculo'] . ') class="btn btn-light" style="float:right">Editar/Borrar</button>';
+                  if ($this->esUsuarioActual()) { echo '<button type="button" onClick=editar(' . (int)$row['idvehiculo'] . ') class="btn btn-light" style="float:right">Editar/Borrar</button>';}
                 echo '</div>';
               echo '</div>';
             echo '</div>';
@@ -74,6 +74,10 @@
 
     function getViajesConcretos ($idViaje) {
       return $this->consulta("SELECT * FROM viajeconcreto vc WHERE vc.idviaje = $idViaje");
+    }
+
+    function esUsuarioActual() {
+      return ($_GET["id"] == $_SESSION["id"]);
     }
 
   }

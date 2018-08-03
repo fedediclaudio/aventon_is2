@@ -215,10 +215,23 @@
     }
 
     function eliminarViajeConcreto($idViajeConcreto) {
+      $this->restarPuntosPorPostulaciones($idViajeConcreto);
       $this->eliminarTodasLasPostulaciones($idViajeConcreto);
       $idViaje = $this->getIdViajeAbstracto($idViajeConcreto);
       $this->consulta("DELETE FROM viajeconcreto WHERE idviajeConcreto = '$idViajeConcreto'");
       $this->limpiarViajeAbstracto($idViaje);
+    }
+
+    function restarPuntosPorPostulaciones($idViajeConcreto) {
+      $puntosARestar = $this->cantidadDePostulaciones($idViajeConcreto);
+      var_dump($puntosARestar);
+      $this->consulta("UPDATE usuario SET negativosExtra = negativosExtra + '$puntosARestar' WHERE id = '$_SESSION[id]'");
+    }
+
+    function cantidadDePostulaciones($idViajeConcreto) {
+      $participaciones = mysqli_fetch_assoc($this->consulta("SELECT COUNT(idparticipacion) AS total FROM participacion p INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) WHERE p.idviajeConcreto = $idViajeConcreto"));
+      var_dump($participaciones);
+      return $participaciones["total"];
     }
 
     function eliminarTodasLasPostulaciones($idViajeConcreto) {
@@ -295,7 +308,7 @@
               echo '<div class="form-group">';
               echo  '<input type="hidden" name="idviajeConcreto" value="' . $viaje['idviajeConcreto'] . '">';
               echo  '<input type="hidden" name="idpregunta" value="'. $pregYRta['idpregunta'] .'">';
-              echo  '<textarea class="form-control" rows="2" name="respuesta" placeholder="Escriba una respuesta..."> </textarea>';
+              echo  '<textarea class="form-control" rows="2" name="respuesta" placeholder="Escriba una respuesta..."></textarea>';
               echo '</div>';
               echo '<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right">Responder</button>';
               echo '</form>';
@@ -476,6 +489,13 @@
 				return false;
 			}
 		}
+
+    function getIdConductor($idVehiculo){
+      $sql = "SELECT * from vehiculo where idvehiculo = '$idVehiculo'";
+      $result = $this->consulta($sql);
+      $row = mysqli_fetch_assoc($result);
+      return $row['idusuario'];
+    }
 
   }
 
