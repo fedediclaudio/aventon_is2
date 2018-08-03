@@ -91,15 +91,27 @@
 					if(!($this->verificarSuperposicionAlPostularse($_SESSION["id"], $viaje))) {
 						if($this->hayAsientosLibres($viaje)){
 						$cantidadDeAsientosLibres = $this->cantidadAsientosLibres($viaje);
-						echo " <form action=\"postularAViaje.php\" method=\"get\"> <div class=\"row\"> <div class=\"col col-0 col-sm-6 col-lg-8\"> <input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> </div> <div class=\" col col-6 col-sm-3 col-lg-2 form-group\">
-    								<label for=\"exampleFormControlSelect1\">Cantidad</label>
-										<select class=\"form-control\" name=\"cantidad\">";
-											for($i=1; $i <= $cantidadDeAsientosLibres; $i++){
-												echo "<option>$i</option>";
-											}
-						echo "	</select>
-									</div>";
-            echo "<div class=\"col col-6 col-sm-3 col-lg-2 form-group\"><button class=\"btn btn-light\" type=\"submit\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button></div> </div></form>";
+						echo " <form action=\"postularAViaje.php\" method=\"get\"> 
+											<div class=\"row\"> 
+											<div class=\"col col-0 col-sm-4 col-lg-6\"> 
+												<input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> 
+											</div> 
+											<div class=\"col col-2 col-sm-2 col-lg-2\">
+												<label style=\"float:right; vertical-align:center\">Cantidad:</label>
+											</div>
+											<div class=\" col col-5 col-sm-3 col-lg-2 form-group\">
+    										
+												<select class=\"form-control\" name=\"cantidad\" style=\"margin-right:0px;\">";
+												for($i=1; $i <= $cantidadDeAsientosLibres; $i++){
+													echo "<option>$i</option>";
+												}
+						echo "			</select>
+											</div>";
+            echo "		<div class=\"col col-5 col-sm-3 col-lg-2 form-group\" style=\"float:right\">
+												<button class=\"btn btn-light\" type=\"submit\" style=\"border-color:rgb(13, 71, 161); float:right\">Postularse</button>
+											</div> 
+										</div>
+									</form>";
           } else {
             echo '<div class="alert alert-warning" role="alert"> El viaje esta completo </div>';
           }
@@ -144,7 +156,8 @@
                     <div class="card-body" style="margin: -1%">
                       <div class="row">
                         <div class="col col-7" style="display: flex; align-items: center ">
-                          <p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button> ('. $row["cantidad"] .')</p>';
+                          <p class="card-text">
+													<button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button>(Solicito '. $row["cantidad"] .' lugar)</p>';
                         echo '
 												</div>';
                           if(($this->cantidadAsientosLibres($viaje)) < $row["cantidad"]){
@@ -184,7 +197,7 @@
                   <div class="card card-infoviaje" style="width:100%; margin-top: 4px;">
                   <div class="card-body row" style="margin: -1%">
 										<div class="col col-10" style="display: flex; align-items: left ">
-                    	<p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button></p>
+                    	<p class="card-text"><button class="btn btn-link" style="color:black" onclick="location=\'../PantallaPerfilDeUsuario/perfilUsuario?id=' . $row["idusuario"] . '\'">' . $user["nombre"] . " " . $user["apellido"] . '</button>(Solicito '. $row["cantidad"] .' lugar)</p>
 										</div>
 										<div class="col col-2">
 											<button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=pendiente\'" class="btn btn-outline-danger" style="color: black; border-color:#BDBDBD; margin: auto; display: block; ">Quitar</button>
@@ -260,8 +273,10 @@
     }
 
     function imprimirPreguntasYRespuestas($viaje){
-      echo '<h3>Últimas preguntas</h3>';
+      
       $result = $this->getPreguntasYRespuestas($viaje['idviajeConcreto']);
+			if(mysqli_num_rows($result) >= 0 ) {
+				echo '<div class="col-12 col-md-6"> <h5 class="h5">Últimas preguntas</h5>';
       while($pregYRta = mysqli_fetch_assoc($result)){
           if($pregYRta['respuesta']){
             echo '<div class="card card-infoviaje" style="width:100%; margin-top: 4px;">';
@@ -302,7 +317,8 @@
             }
           }
         }
-
+				 echo '</div>';
+		}
       }
 
     function getPreguntasYRespuestas($idViaje){
@@ -312,8 +328,8 @@
 
     function imprimirHazNuevaPregunta($viaje){
       echo '<br>';
-      echo  '<div class="container">';
-      echo    '<h3>Hazle una pregunta al conductor</h3>';
+      echo  '<div class="col col-12 col-sm-6">';
+      echo    '<h5>Hazle una pregunta al conductor</h5>';
       echo    '<form action="./hacerPregunta.php" method="get">';
       echo      '<div class="form-group">';
       echo        '<input type="hidden" name="idviajeConcreto" value= "' . $viaje['idviajeConcreto'] . '">';
@@ -352,11 +368,12 @@
     }
 
     function imprimirSeccionPreguntas($viaje){
-      echo '<h3 class="display-4">Preguntas</h3>';
+      echo '<h3 class="display-4">Preguntas</h3><dic class="row">';
       if($_SESSION['id'] != $this->getIDUsuarioDeVehiculo($viaje['idvehiculo'])){
         $this->imprimirHazNuevaPregunta($viaje);
       }
       $this->imprimirPreguntasYRespuestas($viaje);
+			echo "</div>";
     }
 
     function userParticipo($viajeConcreto, $idUser){
@@ -445,8 +462,6 @@
 						(str_to_date('" . $viaje["horaFin"] . "', '%H:%i:%s') >= vi.horaInicio)
 					)
 			) ");
-
-			echo $viaje["fechaFin"] . $viaje["fechaInicio"] . $viaje["horaFin"] . $viaje["horaInicio"];
 
 			$result2 = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje)
 			WHERE (u.id = '$idUser')

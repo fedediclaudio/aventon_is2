@@ -41,7 +41,8 @@
 	<input type="hidden" value="<?php if(isset($_GET["viajes"])) { echo $_GET["viajes"]; } else { echo "";} ?>" id="viajesSelector">
 
 	<!-- Nav -->
-	<ul class="nav justify-content-center">
+	
+	<ul class="nav justify-content-center " style="background-color:#E0E0E0	">
   <li class="nav-item">
     <a class="nav-link" href="pantallaPrincipal.php">Ultimos viajes</a>
   </li>
@@ -49,7 +50,7 @@
     <a class="nav-link" href="pantallaPrincipal.php?viajes=misviajes">Mis viajes</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="pantallaPrincipal.php?viajes=viajespasados">Viajes Pasados</a>
+    <a class="nav-link " href="pantallaPrincipal.php?viajes=viajespasados">Viajes Pasados</a>
   </li>
 </ul>
 
