@@ -70,6 +70,29 @@
 			return false;
 		}
 
+		function getDeudas() {
+			date_default_timezone_set('America/Buenos_Aires');
+			$result = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) WHERE id = '$_SESSION[id]' AND pago = '0'");
+			$deudas = array();
+			while ($each = mysqli_fetch_assoc($result)) {
+				if($each["fechaInicio"] < date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")))){
+					array_push($deudas,$each);
+				}
+			}
+			return $deudas;
+		}
+
+		function esDeudor() {
+			if (session_status() == PHP_SESSION_NONE) {
+				    session_start();
+				}
+			$deudas = $this->getDeudas();
+			if (sizeof($deudas)> 0) {
+				return true;
+			}
+			return false;
+		}
+
 	}
 
 ?>

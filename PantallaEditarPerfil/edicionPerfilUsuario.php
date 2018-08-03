@@ -1,5 +1,6 @@
 <?php
-    include "../chequeoSesion.php"
+    include "../chequeoSesion.php";
+    include "../chequeoDePago.php";
 ?>
 <html>
 <head>

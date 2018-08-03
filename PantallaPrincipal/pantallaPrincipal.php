@@ -1,5 +1,6 @@
 <?php
-  include "../chequeoSesion.php"
+  include "../chequeoSesion.php";
+  include "../chequeoDePago.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,15 +31,15 @@
 	<?php
 		include "../vistas/navbar.html";
 	?>
-	
+
 	<!-- Pantalla de busqueda  -->
 	<?php
 			include 'pantallaDeBusqueda.php';
 	?>
-	
+
 	<!--input oculto -->
-	<input type="hidden" value="<?php if(isset($_GET["viajes"])) { echo $_GET["viajes"]; } else { echo "";} ?>" id="viajesSelector"> 
-	
+	<input type="hidden" value="<?php if(isset($_GET["viajes"])) { echo $_GET["viajes"]; } else { echo "";} ?>" id="viajesSelector">
+
 	<!-- Nav -->
 	<ul class="nav justify-content-center">
   <li class="nav-item">
