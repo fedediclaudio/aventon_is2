@@ -15,6 +15,10 @@
   		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario");
   	}
 
+    function participacionesAceptadasEnViajeDeUsuario($idViaje,$idUsuario){
+  		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario AND p.estado = 'aceptado'");
+  	}
+
     function postularAViaje($iduser, $viaje, $cantidad) {
       mysqli_query($this->connection, "INSERT INTO aventon.participacion (idviajeConcreto, idusuario, cantidad) VALUES ('$viaje', '$iduser', '$cantidad')");
     }
@@ -44,8 +48,27 @@
 
     function imprimirAvisoDeViajeRealizado($viaje){
       if(!$this->viajeEsDeUsuarioActual($viaje)){
+        if ($this->usuarioParticipo($_SESSION["id"],$viaje["idviajeConcreto"])) {
+          if ($this->estaPago($_SESSION["id"],$viaje["idviajeConcreto"])) {
+            echo '<div class="alert alert-success"> El viaje ya se encuentra pago, esperamos que lo hayas disfrutado! </div>';
+          } else {
+            echo '<div class="alert alert-danger"> Todavía adeudas este viaje! Presiona pagar para saldarlo </div>';
+          }
+        } else {
           echo '<div class="alert alert-warning"> <strong>Aviso:</strong> El viaje ya comenzó </div>';
         }
+      } else {
+        echo '<div class="alert alert-success"> Esperamos que disfrutes tu viaje ';
+        $result = $this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
+        if (!(mysqli_num_rows($result) == 0)) {
+          echo "junto a ";
+          while ($row = mysqli_fetch_assoc($result)) {
+            $user = mysqli_fetch_assoc($this->getUsuarioPorId($row["idusuario"]));
+            echo "$user[nombre] $user[apellido]";
+          }
+        }
+        echo "</div>";
+      }
     }
 
     function imprimirParticipaciones($viaje) {
@@ -298,12 +321,12 @@
     }
 
     function precioDeViajePorUsuario($viaje) {
-      return ($viaje["precio"]*1.10/$this->cantidadAsientosOcupados($viaje));
+      return ($viaje["precio"]*1.10/($this->cantidadAsientosOcupados($viaje)+1));
     }
 
     function pagarViaje($idUsuario,$idViajeConcreto) {
       $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
-      $this->consulta("UPDATE 'participacion' SET 'pago' = '1' WHERE 'idparticipacion' = $participacion[idparticipacion];");
+      $this->consulta("UPDATE participacion SET pago = '1' WHERE participacion.idparticipacion = '$participacion[idparticipacion]'");
     }
 
     function estaPago($idUsuario,$idViajeConcreto) {
@@ -311,10 +334,19 @@
       return $participacion["pago"];
     }
 
+    function usuarioParticipo ($idUsuario,$idViajeConcreto) {
+      if($this->viajeFinalizado($idViajeConcreto)){
+        if (mysqli_num_rows($this->participacionesAceptadasEnViajeDeUsuario($idViajeConcreto,$idUsuario)) != 0) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     function imprimirSeccionPreguntas($viaje){
       echo '<h3 class="display-4">Preguntas</h3>';
       if($_SESSION['id'] != $this->getIDUsuarioDeVehiculo($viaje['idvehiculo'])){
-        $this->imprimirHazNuevaPregunta($viaje);                      
+        $this->imprimirHazNuevaPregunta($viaje);
       }
       $this->imprimirPreguntasYRespuestas($viaje);
     }
@@ -368,7 +400,7 @@
         echo '<p class="card-text col-10">'. $rows['comentario'] .'</p>';
         if($rows['calificacion']){
           echo '<div class="col-md-2">';
-          echo '<p><img src="../img/like.png"></p>';          
+          echo '<p><img src="../img/like.png"></p>';
           echo '</div>';
         }else{
           echo '<div class="col-md-2">';
@@ -379,10 +411,20 @@
         echo '</div>';
 
        }
-       echo '</div>'; //cierra de html 
+       echo '</div>'; //cierra de html
      }
      echo '</div>'; //cierra de html
     }
+
+		function verificarSuperposicionAlPostularse($idUser, $viaje){
+			$result1 = $this->consulta("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario) WHERE ( u.id = '$idUser' ) AND ( ( STR_TO_DATE( '" .$viaje["fechaFin"] . "' ,'%Y-%m-%d') >= vc.fechaInicio ) AND ( ( STR_TO_DATE('". $viaje["fechaInicio"] . "' ,'%Y-%m-%d') <= vc.fechaFin ) AND ( (STR_TO_DATE('". $viaje["horaInicio"] . "', '%H:%i') ) <= vi.horaFin ) AND ( STR_TO_DATE('". $viaje["fechaFin"] ."', '%H:%i') >= vi.horaInicio ) ) )");
+			$result2 = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje) WHERE (u.id = '$idUser') AND ( ( str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') >= vc.fechaInicio) AND (str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <= vc.fechaFin) AND (str_to_date('" . $viaje["horaInicio"] . "', '%H:%i') <= vi.horaFin) AND (str_to_date('" . $viaje["fechaFin"] . "', '%H:%i') >= vi.horaInicio) )");
+			if ((mysqli_num_rows($result1) > 0) || (mysqli_num_rows($result2) > 0)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 
   }
 
