@@ -16,7 +16,7 @@
   	}
 
     function participacionesAceptadasEnViajeDeUsuario($idViaje,$idUsuario){
-  		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario AND p.estado = 'aceptado'");
+  		return $this->consulta("SELECT * FROM participacion p WHERE p.idviajeConcreto = $idViaje AND p.idusuario = $idUsuario AND p.estado = 'aceptada'");
   	}
 
     function postularAViaje($iduser, $viaje, $cantidad) {
@@ -59,7 +59,7 @@
         }
       } else {
         echo '<div class="alert alert-success"> Esperamos que disfrutes tu viaje ';
-        $result = $this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
+        $result = $this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptada');
         if (!(mysqli_num_rows($result) == 0)) {
           echo "junto a ";
           while ($row = mysqli_fetch_assoc($result)) {
@@ -76,14 +76,14 @@
         echo '<div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" style=" border:1px; border-style:solid; border-color:rgb(13, 71, 161)" >
           <h4 class="h4">Postulaciones pendientes</h4>';
           $this->imprimirPostulacionesPendientes($viaje);
-          $this->imprimirPostulacionesConEstado($viaje,'aceptado');
-          $this->imprimirPostulacionesConEstado($viaje,'rechazado');
+          $this->imprimirPostulacionesConEstado($viaje,'aceptada');
+          $this->imprimirPostulacionesConEstado($viaje,'rechazada');
         echo '</div>';
       } else {
         if($this->usuarioActualEstaPostulado($viaje)){
           $postulacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($viaje["idviajeConcreto"],$_SESSION["id"]));
           echo "<div class=\"alert alert-info\" role=\"alert\"> Tu postulación para este viaje se encuentra " . $postulacion["estado"];
-          if($postulacion["estado"] != 'rechazado') {
+          if($postulacion["estado"] != 'rechazada') {
             echo "<a href='eliminarPostulacion.php?idviajeConcreto=$viaje[idviajeConcreto]' style='float:right'>Cancelar</a>";
           }
           echo "</div>";
@@ -111,12 +111,12 @@
     }
 
 		function cantidadAsientosLibres($viaje) {
-			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptada') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
 			return ($viaje["cantidadAsientos"] - $cantidadOcupados["SUM(cantidad)"]);
 		}
 
     function cantidadAsientosOcupados($viaje) {
-			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptada') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
 			return ($cantidadOcupados["SUM(cantidad)"]);
 		}
 
@@ -129,7 +129,7 @@
     }
 
     function hayAsientosLibres($viaje) {
-			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptado') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
+			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptada') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
       return ($cantidadOcupados["SUM(cantidad)"] < $viaje["cantidadAsientos"]);
     }
 
@@ -161,10 +161,10 @@
                           } else {
 
                         echo '<div class="col col-2" style="padding:2px; padding-left:30px">
-                          <button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptado\'"class="btn btn-outline-success" style="color: black; border-color:#BDBDBD; margin: auto; display: block;">Aceptar</button>
+                          <button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=aceptada\'"class="btn btn-outline-success" style="color: black; border-color:#BDBDBD; margin: auto; display: block;">Aceptar</button>
                         	</div>
                         <div class="col col-2" style="padding:2px;padding-left:30px">
-                          <button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=rechazado\'" class="btn btn-outline-danger" style="color: black; border-color:#BDBDBD; margin: auto; display: block;">Rechazar</button>
+                          <button type="button" onclick="location=\'cambiarEstadoDePostulacion.php?idviaje='.$viaje["idviajeConcreto"].'&idpostulacion='.$row["idparticipacion"].'&estado=rechazada\'" class="btn btn-outline-danger" style="color: black; border-color:#BDBDBD; margin: auto; display: block;">Rechazar</button>
                         </div>';
                         }
                           echo 			'
@@ -393,7 +393,7 @@
      }
 
 
-     $result = $this->participacionesEnViajeConEstado($viaje['idviajeConcreto'], 'aceptado');
+     $result = $this->participacionesEnViajeConEstado($viaje['idviajeConcreto'], 'aceptada');
      while($rows = mysqli_fetch_assoc($result)){
        if($rows['comentario']){
 

@@ -83,7 +83,7 @@
 		}
 
 		function esDeudor() {
-			if (session_status() == PHP_SESSION_NONE) {
+			if (!isset($_SESSION["id"])) {
 				    session_start();
 				}
 			$deudas = $this->getDeudas();

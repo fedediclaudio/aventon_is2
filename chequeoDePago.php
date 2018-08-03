@@ -1,5 +1,5 @@
 <?php
-  if (session_status() == PHP_SESSION_NONE) {
+  if (!isset($_SESSION["id"])) {
     session_start();
   }
   include_once 'conexionClass.php';
