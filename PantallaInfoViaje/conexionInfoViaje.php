@@ -293,7 +293,7 @@
               echo '<div class="form-group">';
               echo  '<input type="hidden" name="idviajeConcreto" value="' . $viaje['idviajeConcreto'] . '">';
               echo  '<input type="hidden" name="idpregunta" value="'. $pregYRta['idpregunta'] .'">';
-              echo  '<textarea class="form-control" rows="2" name="respuesta" placeholder="Escriba una respuesta..."> </textarea>';
+              echo  '<textarea class="form-control" rows="2" name="respuesta" placeholder="Escriba una respuesta..."></textarea>';
               echo '</div>';
               echo '<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right">Responder</button>';
               echo '</form>';
@@ -474,6 +474,13 @@
 				return false;
 			}
 		}
+
+    function getIdConductor($idVehiculo){
+      $sql = "SELECT * from vehiculo where idvehiculo = '$idVehiculo'";
+      $result = $this->consulta($sql);
+      $row = mysqli_fetch_assoc($result);
+      return $row['idusuario'];
+    }
 
   }
 
