@@ -170,8 +170,9 @@
         <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoVehiculo">
           <div class="col col-12 px-0">
               <div style="margin: 5px">
+
                 	<?php
-                		if($conexion->viajeTermino($viaje['idviajeConcreto'])){
+                		if($conexion->viajeFinalizado($viaje['idviajeConcreto'])){
                 			$conexion->imprimirSeccionResenias($viaje);
                 		}else{
                 			$conexion->imprimirSeccionPreguntas($viaje);
