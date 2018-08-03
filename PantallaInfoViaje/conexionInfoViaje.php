@@ -48,8 +48,27 @@
 
     function imprimirAvisoDeViajeRealizado($viaje){
       if(!$this->viajeEsDeUsuarioActual($viaje)){
+        if ($this->usuarioParticipo($_SESSION["id"],$viaje["idviajeConcreto"])) {
+          if ($this->estaPago($_SESSION["id"],$viaje["idviajeConcreto"])) {
+            echo '<div class="alert alert-success"> El viaje ya se encuentra pago, esperamos que lo hayas disfrutado! </div>';
+          } else {
+            echo '<div class="alert alert-danger"> Todavía adeudas este viaje! Presiona pagar para saldarlo </div>';
+          }
+        } else {
           echo '<div class="alert alert-warning"> <strong>Aviso:</strong> El viaje ya comenzó </div>';
         }
+      } else {
+        echo '<div class="alert alert-success"> Esperamos que disfrutes tu viaje ';
+        $result = $this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptado');
+        if (!(mysqli_num_rows($result) == 0)) {
+          echo "junto a ";
+          while ($row = mysqli_fetch_assoc($result)) {
+            $user = mysqli_fetch_assoc($this->getUsuarioPorId($row["idusuario"]));
+            echo "$user[nombre] $user[apellido]";
+          }
+        }
+        echo "</div>";
+      }
     }
 
     function imprimirParticipaciones($viaje) {
@@ -336,12 +355,43 @@
       $this->imprimirPreguntasYRespuestas($viaje);
     }
 
+    function userParticipo($viajeConcreto, $idUser){
+
+       $result = $this->getParticipacion($idUser, $viajeConcreto);
+        return mysqli_num_rows($result) > 0;
+    }
+
+    function userResenio($viajeConcreto, $idUser){
+      $result = $this->getParticipacion($idUser, $viajeConcreto);
+      $row = mysqli_fetch_assoc($result);
+      if($row['comentario']){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    function getParticipacion($iduser, $idviajeConcreto){
+      $sql = "SELECT * FROM participacion p where p.idusuario = '$iduser' and p.idviajeConcreto = '$idviajeConcreto'";
+      //echo $sql;
+      return $this->consulta($sql);
+    }
+
     function imprimirSeccionResenias($viaje){
 
      echo '<h3 class="display-4">Reseñas</h3>';
-     echo '</div>'; //cierra de html
 
-     include "./formEscribirResenia.html";
+     $result = $this->getParticipacion($_SESSION['id'], $viaje['idviajeConcreto']);
+     $row = mysqli_fetch_assoc($result);
+     $idparticipacion = $row['idparticipacion'];
+
+     if($this->userParticipo($viaje['idviajeConcreto'], $_SESSION['id'])){
+        if($this->userResenio($viaje['idviajeConcreto'], $_SESSION['id'])){
+        }else{
+          include './formEscribirResenia.html';          
+        }
+     }
+
 
      $result = $this->participacionesEnViajeConEstado($viaje['idviajeConcreto'], 'aceptado');
      while($rows = mysqli_fetch_assoc($result)){

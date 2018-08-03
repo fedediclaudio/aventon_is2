@@ -62,9 +62,8 @@
           </div>
         </div>
 				<?php $conexion->imprimirParticipacionesOAviso($viaje); ?>
-
         <?php
-          if ($conexion->viajeEsDeUsuarioActual($viaje)) {
+          if ($conexion->viajeEsDeUsuarioActual($viaje) && !$conexion->viajeFinalizado($viaje["idviajeConcreto"])) {
             echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalEliminarViaje'> Eliminar viaje</button>";
           } elseif ($conexion->usuarioParticipo($_SESSION["id"],$viaje["idviajeConcreto"]) && !$conexion->estaPago($_SESSION["id"],$viaje["idviajeConcreto"])) {
             echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalPago'> Pagar</button>";
@@ -170,8 +169,9 @@
         <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoVehiculo">
           <div class="col col-12 px-0">
               <div style="margin: 5px">
-                	<?php 
-                		if($conexion->viajeTermino($viaje['idviajeConcreto'])){
+
+                	<?php
+                		if($conexion->viajeFinalizado($viaje['idviajeConcreto'])){
                 			$conexion->imprimirSeccionResenias($viaje);
                 		}else{
                 			$conexion->imprimirSeccionPreguntas($viaje);
