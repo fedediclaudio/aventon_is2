@@ -73,6 +73,24 @@
           }
         ?>
 			</div>
+			<div class="row">
+			<div class="col-12">
+        <div class="jumbotron text-black rounded " id="infoVehiculo">
+          <div class="col col-12">
+              <div style="">
+
+                	<?php
+                		if($conexion->viajeFinalizado($viaje['idviajeConcreto'])){
+                			$conexion->imprimirSeccionResenias($viaje);
+                		}else{
+                			$conexion->imprimirSeccionPreguntas($viaje);
+                		}
+                	?>
+        </div>
+
+       </div>
+            </div>
+        </div>
       <div class="row mb-6">
         <div class="col-md-6">
           <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoConductor">
@@ -168,23 +186,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="jumbotron p-3 p-md-5 text-black rounded jumbo-infoviaje" id="infoVehiculo">
-          <div class="col col-12 px-0">
-              <div style="margin: 5px">
-
-                	<?php
-                		if($conexion->viajeFinalizado($viaje['idviajeConcreto'])){
-                			$conexion->imprimirSeccionResenias($viaje);
-                		}else{
-                			$conexion->imprimirSeccionPreguntas($viaje);
-                		}
-                	?>
-        </div>
-
        </div>
-            </div>
-        </div>
       </div>
 	 </div>
 	</div>
