@@ -69,7 +69,7 @@
 				<?php $conexion->imprimirParticipacionesOAviso($viaje); ?>
         <?php
           if ($conexion->viajeEsDeUsuarioActual($viaje) && !$conexion->viajeFinalizado($viaje["idviajeConcreto"])) {
-            echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalEliminarViaje'> Eliminar viaje</button>";
+            echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalEliminarViaje'> Cancelar viaje</button>";
           } elseif ($conexion->usuarioParticipo($_SESSION["id"],$viaje["idviajeConcreto"]) && !$conexion->estaPago($_SESSION["id"],$viaje["idviajeConcreto"])) {
             echo "<button class='btn btn-outline-danger' style='float:right'data-toggle='modal' data-target='#modalPago'> Pagar</button>";
           }

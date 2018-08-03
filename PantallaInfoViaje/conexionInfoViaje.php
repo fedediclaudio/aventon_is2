@@ -58,7 +58,7 @@
           echo '<div class="alert alert-warning"> <strong>Aviso:</strong> El viaje ya comenzó </div>';
         }
       } else {
-        echo '<div class="alert alert-success"> Esperamos que disfrutes tu viaje ';
+        echo '<div class="alert alert-success"> Esperamos que hayas disfrutado tu viaje ';
         $result = $this->participacionesEnViajeConEstado($viaje["idviajeConcreto"],'aceptada');
         if (!(mysqli_num_rows($result) == 0)) {
           echo "junto a ";

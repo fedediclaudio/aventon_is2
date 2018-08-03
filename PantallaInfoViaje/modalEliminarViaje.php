@@ -14,16 +14,15 @@
           <?php
             if($conexion->viajeSeRepite($viaje["idviaje"])){
               echo '<input type="checkbox" class="form-check-input" id="eliminarViajeAbstracto" onclick="toggleEliminacion()">';
-              echo '<label class="form-check-label" for="eliminarViajeAbstracto">Eliminar todas las repeticiones del viaje</label>';
+              echo '<label class="form-check-label" for="eliminarViajeAbstracto">Cancelar todas las repeticiones del viaje</label>';
             }
               //echo $conexion->viajeSeRepite($viaje["idviaje"]);
           ?>
         </div>
       </div>
       <div class="modal-footer">
-        <button id="botonEliminarConcreto" type="button" class="btn btn-danger" onclick="location='eliminarViajeConcreto.php?idViajeConcreto=<?php echo $viaje["idviajeConcreto"] ?>'">Eliminar</button>
-        <button id="botonEliminarAbstracto" type="button" class="btn btn-danger" style="display: none" onclick="location='eliminarViajeAbstracto.php?idViaje=<?php echo $viaje["idviaje"] ?>'">Eliminar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="botonEliminarConcreto" type="button" class="btn btn-danger" onclick="location='eliminarViajeConcreto.php?idViajeConcreto=<?php echo $viaje["idviajeConcreto"] ?>'">Cancelar viaje</button>
+        <button id="botonEliminarAbstracto" type="button" class="btn btn-danger" style="display: none" onclick="location='eliminarViajeAbstracto.php?idViaje=<?php echo $viaje["idviaje"] ?>'">Cancelar viaje</button>
       </div>
     </div>
   </div>
