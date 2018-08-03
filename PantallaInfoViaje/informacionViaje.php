@@ -167,7 +167,7 @@
           <div class="col col-12 px-0">
               <div style="margin: 5px">
                 	<?php 
-                		if($conexion->viajeTermino($viaje['idviajeConcreto'])){
+                		if($conexion->viajeFinalizado($viaje["idviajeConcreto"])){
                 			$conexion->imprimirSeccionResenias($viaje);
                 		}else{
                 			$conexion->imprimirSeccionPreguntas($viaje);
