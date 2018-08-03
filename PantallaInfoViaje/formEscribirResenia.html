@@ -7,8 +7,20 @@
 			<input type="hidden" name="idparticipacion" value=<?php echo $idparticipacion; ?> >
 			<input type="hidden" name="user" value=<?php echo $_SESSION['id']; ?>>
 			<textarea class="form-control" rows="2" name="resenia"></textarea>
+			<div style="margin-top: 8px">
+					<label class="radio-inline col-md-2">
+						<input type="radio" name="calificacion" value=1 checked>
+						<img src="../img/like.png">
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="calificacion" value=0>
+					<img src="../img/dislike.png">
+					</label>
+				<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right ">Enviar reseña</button
+				>
+			<div>
 		</div>
-		<button type="submit" class="btn" style="border-color:rgb(13, 71, 161); float:right">Enviar reseña</button>
+		</div>
 	</form>
 </div>
 <br>
