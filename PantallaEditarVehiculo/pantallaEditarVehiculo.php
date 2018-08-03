@@ -1,5 +1,6 @@
 <?php
   include "../chequeoSesion.php";
+  include "../chequeoDePago.php";
   include "conexionEditarVehiculo.php";
   $conexion = new ConexionEditarVehiculo();
   $result = $conexion->getVehiculo($_GET['id']);

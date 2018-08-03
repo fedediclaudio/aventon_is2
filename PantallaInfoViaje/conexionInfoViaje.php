@@ -1,5 +1,5 @@
 <?php
-  include '../conexionClass.php';
+  include_once '../conexionClass.php';
 
   class ConexionInfoViaje extends Conexion{
 
