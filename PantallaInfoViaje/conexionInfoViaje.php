@@ -115,11 +115,6 @@
 			return ($viaje["cantidadAsientos"] - $cantidadOcupados["SUM(cantidad)"]);
 		}
 
-    function cantidadAsientosOcupados($viaje) {
-			$cantidadOcupados = mysqli_fetch_assoc($this->consulta("SELECT SUM(cantidad) FROM viajeconcreto vc INNER JOIN participacion p ON (vc.idviajeConcreto = p.idviajeConcreto) WHERE ((p.estado = 'aceptada') AND (vc.idviajeConcreto = '" . $viaje["idviajeConcreto"] . "'))"));
-			return ($cantidadOcupados["SUM(cantidad)"]);
-		}
-
     function viajeEsDeUsuarioActual($viaje) {
       return ($_SESSION['id']==$viaje["id"]);
     }
@@ -324,10 +319,6 @@
       return $rows['idusuario'];
     }
 
-    function precioDeViajePorUsuario($viaje) {
-      return ($viaje["precio"]*1.10/($this->cantidadAsientosOcupados($viaje)+1));
-    }
-
     function pagarViaje($idUsuario,$idViajeConcreto) {
       $participacion = mysqli_fetch_assoc($this->participacionesEnViajeDeUsuario($idViajeConcreto,$idUsuario));
       $this->consulta("UPDATE participacion SET pago = '1' WHERE participacion.idparticipacion = '$participacion[idparticipacion]'");
@@ -388,7 +379,7 @@
      if($this->userParticipo($viaje['idviajeConcreto'], $_SESSION['id'])){
         if($this->userResenio($viaje['idviajeConcreto'], $_SESSION['id'])){
         }else{
-          include './formEscribirResenia.html';          
+          include './formEscribirResenia.html';
         }
      }
 
@@ -421,16 +412,16 @@
     }
 
 		function verificarSuperposicionAlPostularse($idUser, $viaje){
-			
+
 			$result1 = $this->consulta("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON (u.id = ve.idusuario)
-			WHERE ( u.id = '$idUser' ) 
-			AND ( 
+			WHERE ( u.id = '$idUser' )
+			AND (
 					(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <= vc.fechaFin)
 				AND
 					(str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') >= vc.fechaInicio)
 				AND
 					(
-						(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <> vc.fechaFin) 
+						(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <> vc.fechaFin)
 					OR
 						(str_to_date('" . $viaje["horaInicio"] . "', '%H:%i:%s') <= vi.horaFin)
 					)
@@ -441,18 +432,18 @@
 						(str_to_date('" . $viaje["horaFin"] . "', '%H:%i:%s') >= vi.horaInicio)
 					)
 			) ");
-			
+
 			echo $viaje["fechaFin"] . $viaje["fechaInicio"] . $viaje["horaFin"] . $viaje["horaInicio"];
-			
-			$result2 = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje) 
-			WHERE (u.id = '$idUser') 
-			AND ( 
+
+			$result2 = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje)
+			WHERE (u.id = '$idUser')
+			AND (
 					(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <= vc.fechaFin)
 				AND
 					(str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') >= vc.fechaInicio)
 				AND
 					(
-						(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <> vc.fechaFin) 
+						(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <> vc.fechaFin)
 					OR
 						(str_to_date('" . $viaje["horaInicio"] . "', '%H:%i:%s') <= vi.horaFin)
 					)
@@ -463,7 +454,7 @@
 						(str_to_date('" . $viaje["horaFin"] . "', '%H:%i:%s') >= vi.horaInicio)
 					)
 			)");
-			
+
 			if ((mysqli_num_rows($result1) > 0) || (mysqli_num_rows($result2) > 0)) {
 				return true;
 			} else {

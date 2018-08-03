@@ -1,6 +1,8 @@
 <?php
   include "../chequeoSesion.php";
-  include "../chequeoDePago.php";
+  if(!isset($_GET["aPagar"])){
+    include "../chequeoDePago.php";
+  }
 ?>
 <html>
 <head>
