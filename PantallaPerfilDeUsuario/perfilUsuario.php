@@ -87,7 +87,8 @@
             </div>
         </div>
         <div class="row">
-          <div class="jumbotron p-3 p-md-5 col-lg-5" style="margin:auto; margin-top:0">
+					<div class="col-lg-6">
+          <div class="jumbotron" style="margin:auto; margin-top:0">
             <div class="row">
               <div class="col col-8">
                 <h2 >Viajes</h2>
@@ -97,7 +98,9 @@
             $conexion->cargarViajes();
             ?>
           </div>
-          <div class="jumbotron p-3 p-md-5 col-lg-5" style="margin:auto; margin-top:0">
+					</div>
+					<div class="col-lg-6">
+          <div class="jumbotron" style="margin:10px">
             <div class="row">
               <div class="col col-8">
                 <h2 >Vehiculos</h2>
@@ -117,6 +120,7 @@
             </script>
           </div>
         </div>
+			</div>
     </div>
     <?php
   		include "/CrearVehiculo/modalCrearVehiculo.php";
