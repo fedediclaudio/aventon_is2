@@ -84,7 +84,7 @@
                             <p class="card-text">' . $user['descripcion'] . '</p>
                         </div>
                     </div>';} ?>
-                  <button class="btn btn-light" style="float:right; margin:10px" onclick="location='../PantallaEditarPerfil/edicionPerfilUsuario.php?id=<?php echo $user['id']; ?>'">Editar</button>
+                  <?php if($conexion->esUsuarioActual()){ echo "<button class=\"btn btn-light\" style=\"float:right; margin:10px\" onclick=\"location='../PantallaEditarPerfil/edicionPerfilUsuario.php?id=$user[id]'\">Editar</button>";} ?>
                 </div>
             </div>
         </div>
@@ -108,7 +108,11 @@
                 <h2 >Vehiculos</h2>
               </div>
               <div class="col col-4">
-                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#crearVehiculoModal" id="botonCrearVehiculo" style="float:right">Crear vehículo</button>
+                <?php
+                  if ($conexion->esUsuarioActual()) {
+                    echo "<button type=\"button\" class=\"btn btn-light\" data-toggle=\"modal\" data-target=\"#crearVehiculoModal\" id=\"botonCrearVehiculo\" style=\"float:right\">Crear vehículo</button>";
+                  }
+                ?>                
               </div>
             </div>
             <?php

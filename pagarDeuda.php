@@ -32,7 +32,7 @@
 <?php
   function cargarViajeEnDeuda($deuda, $conexion){
     echo '<div class="card card-infoviaje" style="margin-top: 4px;">';
-      echo '<div class="card-body" style="background-color: darksalmon;">';
+      echo '<div class="card-body" style="background-color: #e9967a99;">';
         echo '<div class="row">';
           echo '<div class="col col-9"> ';
             echo '<div>';
@@ -48,7 +48,7 @@
             echo '</div>';
           echo '</div>';
           echo '<div class="col col-3"> ';
-            echo "<button type=\"button\" onClick=\"location='PantallaInfoViaje/informacionViaje.php?id=$deuda[idviajeConcreto]&aPagar=1'\" class=\"btn btn-light\" style=\"float:right\">Ver</button>";
+            echo "<button type=\"button\" onClick=\"location='PantallaInfoViaje/informacionViaje.php?id=$deuda[idviajeConcreto]&aPagar=1'\" class=\"btn btn-outline-danger\" style=\"float:right; margin:auto\">Ver</button>";
           echo '</div>';
         echo '</div>';
       echo '</div>';
