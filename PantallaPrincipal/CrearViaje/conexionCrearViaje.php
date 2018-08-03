@@ -67,12 +67,49 @@
         //Se Obtiene la hora fin
         $horaF = $this->obtenerHoraEnFormatoDesdeFecha($fechasFin[0]);
         session_start();
-        $mail = $_SESSION["mail"];
+        $idUser = $_SESSION["id"];
         for ($i = 0; $i < count($fechasInicio); $i++) {
           $fechaI = explode('T', $fechasInicio[$i]);
           $fechaF = explode('T', $fechasFin[$i]);
-          $sql = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario) WHERE ( u.email = '$mail' ) AND ( ( STR_TO_DATE( '$fechaF[0]' ,'%Y-%m-%d') >= vc.fechaInicio ) AND ( ( STR_TO_DATE('$fechaI[0]' ,'%Y-%m-%d') <= vc.fechaFin ) AND ( (STR_TO_DATE('$hora', '%H:%i') ) <= vi.horaFin ) AND ( STR_TO_DATE('$horaF', '%H:%i') >= vi.horaInicio ) ) )";
-          if (mysqli_num_rows($this->consulta($sql)) > 0) {
+          $sql1 = "SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON (u.id = ve.idusuario)
+			WHERE ( u.id = '$idUser' ) 
+			AND ( 
+					(str_to_date('" . $fechaI[0] . "', '%Y-%m-%d') <= vc.fechaFin)
+				AND
+					(str_to_date('" . $fechaF[0] . "','%Y-%m-%d') >= vc.fechaInicio)
+				AND
+					(
+						(str_to_date('" . $fechaI[0] . "', '%Y-%m-%d') <> vc.fechaFin) 
+					OR
+						(str_to_date('" . $hora . "', '%H:%i') <= vi.horaFin)
+					)
+				AND
+					(
+						(str_to_date('" . $fechaF[0] . "','%Y-%m-%d') <> vc.fechaFin)
+					OR
+						(str_to_date('" . $horaF . "', '%H:%i') >= vi.horaInicio)
+					)
+			) ";
+					$sql2 = "SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje) 
+			WHERE (u.id = '$idUser') 
+			AND ( 
+					(str_to_date('" . $fechaI[0] . "', '%Y-%m-%d') <= vc.fechaFin)
+				AND
+					(str_to_date('" . $fechaF[0] . "','%Y-%m-%d') >= vc.fechaInicio)
+				AND
+					(
+						(str_to_date('" . $fechaI[0] . "', '%Y-%m-%d') <> vc.fechaFin) 
+					OR
+						(str_to_date('" . $hora . "', '%H:%i') <= vi.horaFin)
+					)
+				AND
+					(
+						(str_to_date('" . $fechaF[0] . "','%Y-%m-%d') <> vc.fechaFin)
+					OR
+						(str_to_date('" . $horaF . "', '%H:%i') >= vi.horaInicio)
+					)
+			)";
+          if ((mysqli_num_rows($this->consulta($sql1)) > 0) || (mysqli_num_rows($this->consulta($sql2)) > 0)) {
             return false;
           }
         }

@@ -69,7 +69,8 @@
           }
           echo "</div>";
         } else {
-          if($this->hayAsientosLibres($viaje)){
+					if(!($this->verificarSuperposicionAlPostularse($_SESSION["id"], $viaje))) {
+						if($this->hayAsientosLibres($viaje)){
 						$cantidadDeAsientosLibres = $this->cantidadAsientosLibres($viaje);
 						echo " <form action=\"postularAViaje.php\" method=\"get\"> <div class=\"row\"> <div class=\"col col-0 col-sm-6 col-lg-8\"> <input type=\"hidden\" name=\"idviajeConcreto\" value=\"". $viaje["idviajeConcreto"] . "\"></input> </div> <div class=\" col col-6 col-sm-3 col-lg-2 form-group\">
     								<label for=\"exampleFormControlSelect1\">Cantidad</label>
@@ -83,6 +84,9 @@
           } else {
             echo '<div class="alert alert-warning" role="alert"> El viaje esta completo </div>';
           }
+					} else {
+						 echo '<div class="alert alert-warning" role="alert"> No puedes postularte a este viaje, se superpone con uno de tus viajes </div>';
+					}
         }
       }
     }
@@ -367,8 +371,49 @@
     }
 
 		function verificarSuperposicionAlPostularse($idUser, $viaje){
-			$result1 = $this->consulta("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON ( u.id = ve.idusuario) WHERE ( u.id = '$idUser' ) AND ( ( STR_TO_DATE( '" .$viaje["fechaFin"] . "' ,'%Y-%m-%d') >= vc.fechaInicio ) AND ( ( STR_TO_DATE('". $viaje["fechaInicio"] . "' ,'%Y-%m-%d') <= vc.fechaFin ) AND ( (STR_TO_DATE('". $viaje["horaInicio"] . "', '%H:%i') ) <= vi.horaFin ) AND ( STR_TO_DATE('". $viaje["fechaFin"] ."', '%H:%i') >= vi.horaInicio ) ) )");
-			$result2 = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje) WHERE (u.id = '$idUser') AND ( ( str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') >= vc.fechaInicio) AND (str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <= vc.fechaFin) AND (str_to_date('" . $viaje["horaInicio"] . "', '%H:%i') <= vi.horaFin) AND (str_to_date('" . $viaje["fechaFin"] . "', '%H:%i') >= vi.horaInicio) )");
+			
+			$result1 = $this->consulta("SELECT * FROM viaje vi INNER JOIN vehiculo ve ON (vi.idvehiculo = ve.idvehiculo) INNER JOIN viajeconcreto vc ON (vi.idviaje = vc.idviaje) INNER JOIN usuario u ON (u.id = ve.idusuario)
+			WHERE ( u.id = '$idUser' ) 
+			AND ( 
+					(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <= vc.fechaFin)
+				AND
+					(str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') >= vc.fechaInicio)
+				AND
+					(
+						(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <> vc.fechaFin) 
+					OR
+						(str_to_date('" . $viaje["horaInicio"] . "', '%H:%i:%s') <= vi.horaFin)
+					)
+				AND
+					(
+						(str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') <> vc.fechaFin)
+					OR
+						(str_to_date('" . $viaje["horaFin"] . "', '%H:%i:%s') >= vi.horaInicio)
+					)
+			) ");
+			
+			echo $viaje["fechaFin"] . $viaje["fechaInicio"] . $viaje["horaFin"] . $viaje["horaInicio"];
+			
+			$result2 = $this->consulta("SELECT * FROM usuario u INNER JOIN participacion p ON (u.id = p.idusuario) INNER JOIN viajeconcreto vc ON (p.idviajeConcreto = vc.idviajeConcreto) INNER JOIN viaje vi ON (vc.idviaje = vi.idviaje) 
+			WHERE (u.id = '$idUser') 
+			AND ( 
+					(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <= vc.fechaFin)
+				AND
+					(str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') >= vc.fechaInicio)
+				AND
+					(
+						(str_to_date('" . $viaje["fechaInicio"] . "', '%Y-%m-%d') <> vc.fechaFin) 
+					OR
+						(str_to_date('" . $viaje["horaInicio"] . "', '%H:%i:%s') <= vi.horaFin)
+					)
+				AND
+					(
+						(str_to_date('" . $viaje["fechaFin"] . "','%Y-%m-%d') <> vc.fechaFin)
+					OR
+						(str_to_date('" . $viaje["horaFin"] . "', '%H:%i:%s') >= vi.horaInicio)
+					)
+			)");
+			
 			if ((mysqli_num_rows($result1) > 0) || (mysqli_num_rows($result2) > 0)) {
 				return true;
 			} else {
