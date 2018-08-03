@@ -202,10 +202,23 @@
     }
 
     function eliminarViajeConcreto($idViajeConcreto) {
+      $this->restarPuntosPorPostulaciones($idViajeConcreto);
       $this->eliminarTodasLasPostulaciones($idViajeConcreto);
       $idViaje = $this->getIdViajeAbstracto($idViajeConcreto);
       $this->consulta("DELETE FROM viajeconcreto WHERE idviajeConcreto = '$idViajeConcreto'");
       $this->limpiarViajeAbstracto($idViaje);
+    }
+
+    function restarPuntosPorPostulaciones($idViajeConcreto) {
+      $puntosARestar = $this->cantidadDePostulaciones($idViajeConcreto);
+      var_dump($puntosARestar);
+      $this->consulta("UPDATE usuario SET negativosExtra = negativosExtra + '$puntosARestar' WHERE id = '$_SESSION[id]'");
+    }
+
+    function cantidadDePostulaciones($idViajeConcreto) {
+      $participaciones = mysqli_fetch_assoc($this->consulta("SELECT COUNT(idparticipacion) AS total FROM participacion p INNER JOIN viajeconcreto v ON (p.idviajeConcreto = v.idviajeConcreto) WHERE p.idviajeConcreto = $idViajeConcreto"));
+      var_dump($participaciones);
+      return $participaciones["total"];
     }
 
     function eliminarTodasLasPostulaciones($idViajeConcreto) {
